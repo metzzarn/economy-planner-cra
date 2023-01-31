@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectSalary, set } from "./salarySlice";
+import { useAppDispatch } from "./hooks";
 
 export default function App() {
   return (
@@ -49,10 +52,27 @@ const Menu = () => (
 );
 
 const Home = () => {
+  const salary = useSelector(selectSalary);
+  const dispatch = useAppDispatch();
+  const [salaryIncrease, setSalaryIncrease] = useState<number>(0);
+
+  const increaseSalary = () => {
+    dispatch(set(salary + salaryIncrease));
+  };
+
   return (
     <div>
       <h2>Home</h2>
-      This is some text
+      {`Your salary is ${salary} kr`}
+      <div>
+        <input
+          type={"number"}
+          id={"salary"}
+          value={salaryIncrease}
+          onChange={(e) => setSalaryIncrease(+e.target.value)}
+        />
+      </div>
+      <div onClick={() => increaseSalary()}>Increase salary by number</div>
     </div>
   );
 };

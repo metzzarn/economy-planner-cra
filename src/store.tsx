@@ -1,6 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import salaryReducer from "./salarySlice";
 
-export default configureStore({
-  reducer: { salaryReducer: salaryReducer },
+const store = configureStore({
+  reducer: { salary: salaryReducer },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;
