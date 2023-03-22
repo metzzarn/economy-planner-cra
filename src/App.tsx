@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectSalary, set } from "./salarySlice";
-import { useAppDispatch } from "./hooks";
+import { Menu } from "./components/NavigationMeny";
+import { Home } from "./components/Home";
 
 export default function App() {
   return (
@@ -23,7 +22,7 @@ export default function App() {
   );
 }
 
-function Layout() {
+const Layout = () => {
   return (
     <div>
       <Menu />
@@ -31,48 +30,6 @@ function Layout() {
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
       <Outlet />
-    </div>
-  );
-}
-
-const Menu = () => (
-  <nav>
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
-      <li>
-        <Link to="/nothing-here">Nothing Here</Link>
-      </li>
-    </ul>
-  </nav>
-);
-
-const Home = () => {
-  const salary = useSelector(selectSalary);
-  const dispatch = useAppDispatch();
-  const [salaryIncrease, setSalaryIncrease] = useState<number>(0);
-
-  const increaseSalary = () => {
-    dispatch(set(salary + salaryIncrease));
-  };
-
-  return (
-    <div>
-      <h2>Home</h2>
-      {`Your salary is ${salary} kr`}
-      <div>
-        <input
-          type={"number"}
-          id={"salary"}
-          value={salaryIncrease}
-          onChange={(e) => setSalaryIncrease(+e.target.value)}
-        />
-      </div>
-      <div onClick={() => increaseSalary()}>Increase salary by number</div>
     </div>
   );
 };
