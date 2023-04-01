@@ -1,4 +1,4 @@
-import styles from 'common/TableRow.module.css';
+import styles from 'common/table/TableRow.module.css';
 import { ReactNode } from 'react';
 
 interface Props {

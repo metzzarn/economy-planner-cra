@@ -4,9 +4,9 @@ import { SalaryForm } from './SalaryForm';
 import React from 'react';
 import { ExpensesForm } from './ExpensesForm';
 import { formatPrice } from 'utils/numberUtils';
-import { Table } from 'common/Table';
-import { TableRow } from 'common/TableRow';
-import { TableItem } from 'common/TableItem';
+import { Table } from 'common/table/Table';
+import { TableRow } from 'common/table/TableRow';
+import { TableItem } from 'common/table/TableItem';
 
 export const Home = () => {
   const salary = useSelector(selectSalary);
