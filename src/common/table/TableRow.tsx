@@ -6,5 +6,9 @@ interface Props {
 }
 
 export const TableRow = (props: Props) => {
-  return <tr className={styles.row}>{props.children}</tr>;
+  return (
+    <tbody>
+      <tr className={styles.row}>{props.children}</tr>
+    </tbody>
+  );
 };

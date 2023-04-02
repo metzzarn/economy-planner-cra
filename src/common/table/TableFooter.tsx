@@ -6,5 +6,9 @@ interface Props {
 }
 
 export const TableFooter = (props: Props) => {
-  return <tr className={styles.footer}>{props.children}</tr>;
+  return (
+    <tfoot>
+      <tr className={styles.footer}>{props.children}</tr>
+    </tfoot>
+  );
 };

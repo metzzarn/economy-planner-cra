@@ -1,9 +1,9 @@
-import styles from 'common/table/TableItem.module.css';
+import styles from 'common/table/TableRowItem.module.css';
 import { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
 }
-export const TableItem = (props: Props) => {
+export const TableRowItem = (props: Props) => {
   return <th className={styles.item}>{props.children}</th>;
 };
