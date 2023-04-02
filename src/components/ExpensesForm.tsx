@@ -1,5 +1,5 @@
 import { Field, Form } from 'react-final-form';
-import { convertToNumber, formatPrice } from 'utils/numberUtils';
+import { convertToNumber } from 'utils/numberUtils';
 import React from 'react';
 import { addExpense } from 'redux/economySlice';
 import { useAppDispatch } from 'hooks';
@@ -12,7 +12,9 @@ export interface ExpenseFormValues {
 export const ExpensesForm = () => {
   const dispatch = useAppDispatch();
 
-  const required = (value: string) => (value ? undefined : 'Required');
+  const requiredDescription = (value: string) =>
+    value ? undefined : 'Required';
+  const requiredAmount = (value: string) => (value ? undefined : 'Required');
 
   return (
     <Form
@@ -35,7 +37,7 @@ export const ExpensesForm = () => {
               name={'name'}
               component={'input'}
               type={'text'}
-              validate={required}
+              validate={requiredDescription}
             >
               {({ input, meta }) => (
                 <div>
@@ -49,9 +51,9 @@ export const ExpensesForm = () => {
               name={'value'}
               component={'input'}
               type={'text'}
-              format={formatPrice}
+              // format={formatPrice}
               formatOnBlur
-              validate={required}
+              validate={requiredAmount}
             >
               {({ input, meta }) => (
                 <div>

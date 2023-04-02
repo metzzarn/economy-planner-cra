@@ -34,13 +34,12 @@ export const Home = () => {
         <SalaryForm />
       </div>
       <div>
-        {`Here are your expenses ${expensesString}`}
         <ExpensesForm />
       </div>
       <div style={{ width: '700px' }}>
         <Table rows={rows()}>
           <TableHeader>Description</TableHeader>
-          <TableHeader>Amount</TableHeader>
+          <TableHeader width={'20%'}>Amount</TableHeader>
         </Table>
       </div>
     </div>
