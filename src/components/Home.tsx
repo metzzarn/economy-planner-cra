@@ -7,12 +7,24 @@ import { formatPrice } from 'utils/numberUtils';
 import { Table } from 'common/table/Table';
 import { TableRow } from 'common/table/TableRow';
 import { TableItem } from 'common/table/TableItem';
+import { TableHeader } from 'common/table/TableHeader';
 
 export const Home = () => {
   const salary = useSelector(selectSalary);
   const expenses = useSelector(selectExpenses);
 
   const expensesString = expenses.map((expense) => expense.value);
+
+  const rows = () => {
+    return expenses.map((expense) => {
+      return (
+        <TableRow>
+          <TableItem>{expense.name}</TableItem>
+          <TableItem>{expense.value}</TableItem>
+        </TableRow>
+      );
+    });
+  };
 
   return (
     <div>
@@ -26,17 +38,9 @@ export const Home = () => {
         <ExpensesForm />
       </div>
       <div style={{ width: '700px' }}>
-        <Table header={['Header 1', 'Header 2', 'Header 3']}>
-          <TableRow>
-            <TableItem>A</TableItem>
-            <TableItem>B</TableItem>
-            <TableItem>C</TableItem>
-          </TableRow>
-          <TableRow>
-            <TableItem>Row 2 A</TableItem>
-            <TableItem>Row 2 B</TableItem>
-            <TableItem>Row 2 C</TableItem>
-          </TableRow>
+        <Table rows={rows()}>
+          <TableHeader>Description</TableHeader>
+          <TableHeader>Amount</TableHeader>
         </Table>
       </div>
     </div>
