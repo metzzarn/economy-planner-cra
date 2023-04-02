@@ -5,6 +5,7 @@ import { TableHeader } from 'common/table/TableHeader';
 import { useSelector } from 'react-redux';
 import { TableRow } from 'common/table/TableRow';
 import { TableItem } from 'common/table/TableItem';
+import { formatPrice } from 'utils/numberUtils';
 
 export const ExpensesTable = () => {
   const expenses = useSelector(selectExpenses);
@@ -14,7 +15,7 @@ export const ExpensesTable = () => {
       return (
         <TableRow>
           <TableItem>{expense.name}</TableItem>
-          <TableItem>{expense.value}</TableItem>
+          <TableItem>{formatPrice(expense.value.toString())}</TableItem>
         </TableRow>
       );
     });

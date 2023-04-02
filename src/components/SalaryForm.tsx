@@ -1,8 +1,8 @@
-import { Field, Form } from "react-final-form";
-import { convertToNumber, formatPrice } from "../utils/numberUtils";
-import React from "react";
-import { setIncome } from "../redux/economySlice";
-import { useAppDispatch } from "../hooks";
+import { Field, Form } from 'react-final-form';
+import { convertToNumber } from 'utils/numberUtils';
+import React from 'react';
+import { setIncome } from 'redux/economySlice';
+import { useAppDispatch } from 'hooks';
 
 export interface SalaryFormValues {
   salary: string;
@@ -20,16 +20,14 @@ export const SalaryForm = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <Field
-              name={"salary"}
-              component={"input"}
-              type={"text"}
-              format={formatPrice}
-              formatOnBlur
-              placeholder={"0,0 kr"}
+              name={'salary'}
+              component={'input'}
+              type={'text'}
+              placeholder={'0,0 kr'}
             />
           </div>
           <div>
-            <button type={"submit"}>Set salary</button>
+            <button type={'submit'}>Set salary</button>
           </div>
         </form>
       )}
