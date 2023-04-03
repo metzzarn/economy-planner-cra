@@ -1,34 +1,31 @@
 import { Field, Form } from 'react-final-form';
 import { convertToNumber } from 'utils/numberUtils';
 import React from 'react';
-import { addExpense } from 'redux/economySlice';
-import { useAppDispatch } from 'hooks';
 
-export interface ExpenseFormValues {
+export interface FormValues {
   name: string;
   value: string;
 }
 
-export const ExpensesForm = () => {
-  const dispatch = useAppDispatch();
+interface Props {
+  action: (name: string, value: number) => void;
+  placeholder?: string;
+  buttonText?: string;
+}
 
+export const DescriptionAmountForm = (props: Props) => {
   const requiredDescription = (value: string) =>
     value ? undefined : 'Required';
   const requiredAmount = (value: string) => (value ? undefined : 'Required');
 
   return (
     <Form
-      onSubmit={(expense: ExpenseFormValues) => {
-        if (!expense.name || !expense.value) {
+      onSubmit={(formValues: FormValues) => {
+        if (!formValues.name || !formValues.value) {
           return;
         }
 
-        return dispatch(
-          addExpense({
-            name: expense.name,
-            value: convertToNumber(expense.value),
-          })
-        );
+        return props.action(formValues.name, convertToNumber(formValues.value));
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
@@ -42,7 +39,11 @@ export const ExpensesForm = () => {
               {({ input, meta }) => (
                 <div>
                   <label>Description</label>
-                  <input {...input} type="text" placeholder="Rent" />
+                  <input
+                    {...input}
+                    type={'text'}
+                    placeholder={props.placeholder ? props.placeholder : ''}
+                  />
                   {meta.error && meta.touched && <span>{meta.error}</span>}
                 </div>
               )}
@@ -51,7 +52,6 @@ export const ExpensesForm = () => {
               name={'value'}
               component={'input'}
               type={'text'}
-              // format={formatPrice}
               formatOnBlur
               validate={requiredAmount}
             >
@@ -65,7 +65,9 @@ export const ExpensesForm = () => {
             </Field>
           </div>
           <div>
-            <button type={'submit'}>Add expense</button>
+            <button type={'submit'}>
+              {props.buttonText ? props.buttonText : 'Submit'}
+            </button>
           </div>
         </form>
       )}
