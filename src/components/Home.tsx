@@ -5,6 +5,7 @@ import React from 'react';
 import { ExpensesForm } from './ExpensesForm';
 import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
+import { SavingsTable } from 'components/SavingsTable';
 
 export const Home = () => {
   const salary = useSelector(selectSalary);
@@ -18,6 +19,7 @@ export const Home = () => {
       </div>
       <ExpensesForm />
       <ExpensesTable />
+      <SavingsTable />
     </div>
   );
 };

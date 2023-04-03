@@ -1,7 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 export interface Expense {
+  name: string;
+  value: number;
+}
+
+export interface Saving {
   name: string;
   value: number;
 }
@@ -11,6 +16,7 @@ interface EconomyState {
     value: number;
   };
   expenses: Expense[];
+  savings: Saving[];
 }
 
 const initialState: EconomyState = {
@@ -18,10 +24,11 @@ const initialState: EconomyState = {
     value: 0,
   },
   expenses: [],
+  savings: [],
 };
 
 export const economySlice = createSlice({
-  name: "economy",
+  name: 'economy',
   initialState,
   reducers: {
     setIncome: (state, action: PayloadAction<number>) => {
@@ -30,11 +37,15 @@ export const economySlice = createSlice({
     addExpense: (state, action: PayloadAction<Expense>) => {
       state.expenses.push(action.payload);
     },
+    addSaving: (state, action: PayloadAction<Saving>) => {
+      state.savings.push(action.payload);
+    },
   },
 });
 
-export const { setIncome, addExpense } = economySlice.actions;
+export const { setIncome, addExpense, addSaving } = economySlice.actions;
 export const selectSalary = (state: RootState) => state.economy.salary.value;
 export const selectExpenses = (state: RootState) => state.economy.expenses;
+export const selectSavings = (state: RootState) => state.economy.savings;
 
 export default economySlice.reducer;
