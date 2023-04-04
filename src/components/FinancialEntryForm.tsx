@@ -13,7 +13,7 @@ interface Props {
   buttonText?: string;
 }
 
-export const DescriptionAmountForm = (props: Props) => {
+export const FinancialEntryForm = (props: Props) => {
   const requiredDescription = (value: string) =>
     value ? undefined : 'Required';
   const requiredAmount = (value: string) => (value ? undefined : 'Required');

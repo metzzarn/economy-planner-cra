@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { addExpense, addSaving, selectSalary } from 'redux/economySlice';
 import { SalaryForm } from './SalaryForm';
 import React from 'react';
-import { DescriptionAmountForm } from 'components/DescriptionAmountForm';
+import { FinancialEntryForm } from 'components/FinancialEntryForm';
 import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
 import { SavingsTable } from 'components/SavingsTable';
@@ -19,13 +19,13 @@ export const Home = () => {
         {`Your salary is ${formatPrice(salary.toString())}`}
         <SalaryForm />
       </div>
-      <DescriptionAmountForm
+      <FinancialEntryForm
         action={(name, value) => dispatch(addExpense({ name, value }))}
         placeholder={'Rent'}
         buttonText={'Add expense'}
       />
       <ExpensesTable />
-      <DescriptionAmountForm
+      <FinancialEntryForm
         action={(name, value) => dispatch(addSaving({ name, value }))}
         placeholder={'Car'}
         buttonText={'Add saving'}
