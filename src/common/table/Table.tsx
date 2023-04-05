@@ -10,7 +10,9 @@ interface Props {
 export const Table = (props: Props) => {
   return (
     <table className={styles.table}>
-      <thead>{props.children}</thead>
+      <thead>
+        <tr>{props.children}</tr>
+      </thead>
       {props.rows}
       {props.footer}
     </table>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectExpenses } from 'redux/economySlice';
+import { selectExpenses, updateExpense } from 'redux/economySlice';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { useSelector } from 'react-redux';
@@ -9,16 +9,34 @@ import { formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
 import { If } from 'common/If';
+import { useAppDispatch } from 'hooks';
 
 export const ExpensesTable = () => {
+  const dispatch = useAppDispatch();
   const expenses = useSelector(selectExpenses);
 
   const rows = () => {
-    return expenses.map((expense) => {
+    return expenses.map((expense, index) => {
+      const updateExpenseDescription = (value: string) => {
+        const state = { name: value, value: expense.value, index };
+        return dispatch(updateExpense(state));
+      };
+      const updateExpenseValue = (value: number) => {
+        const state = { name: expense.name, value, index };
+        return dispatch(updateExpense(state));
+      };
       return (
-        <TableRow>
-          <TableRowItem>{expense.name}</TableRowItem>
-          <TableRowItem>{formatPrice(expense.value.toString())}</TableRowItem>
+        <TableRow key={index}>
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateExpenseDescription}
+          >
+            {expense.name}
+          </TableRowItem>
+          <TableRowItem index={index} allowEdit action={updateExpenseValue}>
+            {formatPrice(expense.value.toString())}
+          </TableRowItem>
         </TableRow>
       );
     });

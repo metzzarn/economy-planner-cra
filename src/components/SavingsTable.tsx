@@ -14,9 +14,9 @@ export const SavingsTable = () => {
   const savings = useSelector(selectSavings);
 
   const rows = () => {
-    return savings.map((saving) => {
+    return savings.map((saving, index) => {
       return (
-        <TableRow>
+        <TableRow key={index}>
           <TableRowItem>{saving.name}</TableRowItem>
           <TableRowItem>{formatPrice(saving.value.toString())}</TableRowItem>
         </TableRow>
