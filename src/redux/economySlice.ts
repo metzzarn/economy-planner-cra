@@ -42,13 +42,13 @@ export const economySlice = createSlice({
     updateExpense: (state, action: PayloadAction<Expense>) => {
       const newArray = [...state.expenses]; //making a new array
 
-      if (action.payload.index === undefined) {
+      if (action.payload.index === undefined || isNaN(action.payload.value)) {
         return;
       }
 
       newArray[action.payload.index] = {
         name: action.payload.name,
-        value: action.payload.value,
+        value: +action.payload.value,
       };
 
       return {
