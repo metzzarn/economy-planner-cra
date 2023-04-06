@@ -17,24 +17,20 @@ export const ExpensesTable = () => {
 
   const rows = () => {
     return expenses.map((expense, index) => {
-      const updateExpenseDescription = (value: string) => {
-        const state = { name: value, value: expense.value, index };
-        return dispatch(updateExpense(state));
+      const updateDescription = (value: string) => {
+        return dispatch(
+          updateExpense({ name: value, value: expense.value, index })
+        );
       };
-      const updateExpenseValue = (value: number) => {
-        const state = { name: expense.name, value, index };
-        return dispatch(updateExpense(state));
+      const updateValue = (value: number) => {
+        return dispatch(updateExpense({ name: expense.name, value, index }));
       };
       return (
         <TableRow key={index}>
-          <TableRowItem
-            index={index}
-            allowEdit
-            action={updateExpenseDescription}
-          >
+          <TableRowItem index={index} allowEdit action={updateDescription}>
             {expense.name}
           </TableRowItem>
-          <TableRowItem index={index} allowEdit action={updateExpenseValue}>
+          <TableRowItem index={index} allowEdit action={updateValue}>
             {formatPrice(expense.value.toString())}
           </TableRowItem>
         </TableRow>

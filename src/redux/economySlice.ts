@@ -1,6 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
+const initialState: EconomyState = {
+  salary: {
+    value: 0,
+  },
+  expenses: [],
+  savings: [],
+};
+
+interface EconomyState {
+  salary: {
+    value: number;
+  };
+  expenses: Expense[];
+  savings: Saving[];
+}
+
 export interface Expense {
   index?: number;
   name: string;
@@ -13,22 +29,6 @@ export interface Saving {
   value: number;
 }
 
-interface EconomyState {
-  salary: {
-    value: number;
-  };
-  expenses: Expense[];
-  savings: Saving[];
-}
-
-const initialState: EconomyState = {
-  salary: {
-    value: 0,
-  },
-  expenses: [],
-  savings: [],
-};
-
 export const economySlice = createSlice({
   name: 'economy',
   initialState,
@@ -40,7 +40,7 @@ export const economySlice = createSlice({
       state.expenses.push(action.payload);
     },
     updateExpense: (state, action: PayloadAction<Expense>) => {
-      const newArray = [...state.expenses]; //making a new array
+      const newArray = [...state.expenses];
 
       if (action.payload.index === undefined || isNaN(action.payload.value)) {
         return;

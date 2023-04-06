@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import economyReducer from "./economySlice";
+import { configureStore } from '@reduxjs/toolkit';
+import economyReducer from 'redux/economySlice';
 
 const store = configureStore({
   reducer: { economy: economyReducer },

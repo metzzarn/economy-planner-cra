@@ -1,5 +1,5 @@
 import styles from 'common/table/TableRowItem.module.css';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { FormValues } from 'components/FinancialEntryForm';
 
@@ -12,6 +12,14 @@ interface Props {
 export const TableRowItem = (props: Props) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
   const [editValue, setEditValue] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [editValue]);
+
   const requiredField = (value: string) => (value ? undefined : 'Required');
 
   const input = (
@@ -20,8 +28,8 @@ export const TableRowItem = (props: Props) => {
         if (!formValues.value) {
           return;
         }
-        console.log('Submit');
 
+        setEditValue(false);
         props.action && props.action(formValues.value);
       }}
       render={({ handleSubmit }) => (
@@ -36,9 +44,9 @@ export const TableRowItem = (props: Props) => {
               {({ input, meta }) => (
                 <div>
                   <input
+                    ref={inputRef}
                     {...input}
                     onBlur={() => {
-                      console.log('onBlur');
                       setEditValue(false);
                       return handleSubmit;
                     }}
@@ -59,10 +67,7 @@ export const TableRowItem = (props: Props) => {
       className={styles.item}
       onMouseEnter={() => props.allowEdit && setShowEditIcon(true)}
       onMouseLeave={() => props.allowEdit && setShowEditIcon(false)}
-      onClick={() => {
-        console.log('onClick');
-        setEditValue(true);
-      }}
+      onClick={() => setEditValue(true)}
     >
       {editValue ? input : props.children}
       {!editValue && showEditIcon && <span>[X]</span>}
