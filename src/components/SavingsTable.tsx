@@ -7,18 +7,32 @@ import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
-import { selectSavings } from 'redux/economySlice';
+import { selectSavings, updateSaving } from 'redux/economySlice';
 import { If } from 'common/If';
+import { useAppDispatch } from 'hooks';
 
 export const SavingsTable = () => {
+  const dispatch = useAppDispatch();
   const savings = useSelector(selectSavings);
 
   const rows = () => {
     return savings.map((saving, index) => {
+      const updateDescription = (value: string) => {
+        return dispatch(
+          updateSaving({ name: value, value: saving.value, index })
+        );
+      };
+      const updateValue = (value: number) => {
+        return dispatch(updateSaving({ name: saving.name, value, index }));
+      };
       return (
         <TableRow key={index}>
-          <TableRowItem>{saving.name}</TableRowItem>
-          <TableRowItem>{formatPrice(saving.value.toString())}</TableRowItem>
+          <TableRowItem index={index} allowEdit action={updateDescription}>
+            {saving.name}
+          </TableRowItem>
+          <TableRowItem index={index} allowEdit action={updateValue}>
+            {formatPrice(saving.value.toString())}
+          </TableRowItem>
         </TableRow>
       );
     });

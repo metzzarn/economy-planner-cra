@@ -59,10 +59,27 @@ export const economySlice = createSlice({
     addSaving: (state, action: PayloadAction<Saving>) => {
       state.savings.push(action.payload);
     },
+    updateSaving: (state, action: PayloadAction<Saving>) => {
+      const newArray = [...state.savings];
+
+      if (action.payload.index === undefined || isNaN(action.payload.value)) {
+        return;
+      }
+
+      newArray[action.payload.index] = {
+        name: action.payload.name,
+        value: +action.payload.value,
+      };
+
+      return {
+        ...state,
+        savings: newArray,
+      };
+    },
   },
 });
 
-export const { setIncome, addExpense, updateExpense, addSaving } =
+export const { setIncome, addExpense, updateExpense, addSaving, updateSaving } =
   economySlice.actions;
 export const selectSalary = (state: RootState) => state.economy.salary.value;
 export const selectExpenses = (state: RootState) => state.economy.expenses;
