@@ -13,17 +13,11 @@ interface EconomyState {
   salary: {
     value: number;
   };
-  expenses: Expense[];
-  savings: Saving[];
+  expenses: FinancialEntry[];
+  savings: FinancialEntry[];
 }
 
-export interface Expense {
-  index?: number;
-  name: string;
-  value: number;
-}
-
-export interface Saving {
+export interface FinancialEntry {
   index?: number;
   name: string;
   value: number;
@@ -36,10 +30,10 @@ export const economySlice = createSlice({
     setIncome: (state, action: PayloadAction<number>) => {
       state.salary.value = action.payload;
     },
-    addExpense: (state, action: PayloadAction<Expense>) => {
+    addExpense: (state, action: PayloadAction<FinancialEntry>) => {
       state.expenses.push(action.payload);
     },
-    updateExpense: (state, action: PayloadAction<Expense>) => {
+    updateExpense: (state, action: PayloadAction<FinancialEntry>) => {
       const newArray = [...state.expenses];
 
       if (action.payload.index === undefined || isNaN(action.payload.value)) {
@@ -56,10 +50,10 @@ export const economySlice = createSlice({
         expenses: newArray,
       };
     },
-    addSaving: (state, action: PayloadAction<Saving>) => {
+    addSaving: (state, action: PayloadAction<FinancialEntry>) => {
       state.savings.push(action.payload);
     },
-    updateSaving: (state, action: PayloadAction<Saving>) => {
+    updateSaving: (state, action: PayloadAction<FinancialEntry>) => {
       const newArray = [...state.savings];
 
       if (action.payload.index === undefined || isNaN(action.payload.value)) {
