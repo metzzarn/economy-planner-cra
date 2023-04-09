@@ -17,21 +17,46 @@ export const SavingsTable = () => {
 
   const rows = () => {
     return savings.map((saving, index) => {
-      const updateDescription = (value: string) => {
+      const updateName = (value: string) => {
         return dispatch(
-          updateSaving({ name: value, value: saving.value, index })
+          updateSaving({
+            name: value,
+            value: saving.value,
+            description: saving.description,
+            index,
+          })
         );
       };
       const updateValue = (value: number) => {
-        return dispatch(updateSaving({ name: saving.name, value, index }));
+        return dispatch(
+          updateSaving({
+            name: saving.name,
+            value,
+            description: saving.description,
+            index,
+          })
+        );
+      };
+      const updateDescription = (description: string) => {
+        return dispatch(
+          updateSaving({
+            name: saving.name,
+            value: saving.value,
+            description,
+            index,
+          })
+        );
       };
       return (
         <TableRow key={index}>
-          <TableRowItem index={index} allowEdit action={updateDescription}>
+          <TableRowItem index={index} allowEdit action={updateName}>
             {saving.name}
           </TableRowItem>
           <TableRowItem index={index} allowEdit action={updateValue}>
             {formatPrice(saving.value.toString())}
+          </TableRowItem>
+          <TableRowItem index={index} allowEdit action={updateDescription}>
+            {saving.description}
           </TableRowItem>
         </TableRow>
       );
@@ -56,8 +81,9 @@ export const SavingsTable = () => {
       <h2>Savings</h2>
       <If true={savings?.length > 0}>
         <Table rows={rows()} footer={footer()}>
-          <TableHeader>Description</TableHeader>
+          <TableHeader>Name</TableHeader>
           <TableHeader width={'20%'}>Amount</TableHeader>
+          <TableHeader>Description</TableHeader>
         </Table>
       </If>
     </div>

@@ -21,6 +21,7 @@ export interface FinancialEntry {
   index?: number;
   name: string;
   value: number;
+  description: string;
 }
 
 export const economySlice = createSlice({
@@ -43,6 +44,7 @@ export const economySlice = createSlice({
       newArray[action.payload.index] = {
         name: action.payload.name,
         value: +action.payload.value,
+        description: action.payload.description,
       };
 
       return {
@@ -63,6 +65,7 @@ export const economySlice = createSlice({
       newArray[action.payload.index] = {
         name: action.payload.name,
         value: +action.payload.value,
+        description: action.payload.description,
       };
 
       return {

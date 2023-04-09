@@ -20,14 +20,20 @@ export const Home = () => {
         <SalaryForm />
       </div>
       <FinancialEntryForm
-        action={(name, value) => dispatch(addExpense({ name, value }))}
-        placeholder={'Rent'}
+        action={(name, value, description) =>
+          dispatch(addExpense({ name, value, description }))
+        }
+        namePlaceholder={'Rent'}
+        descriptionPlaceholder={'E-faktura'}
         buttonText={'Add expense'}
       />
       <ExpensesTable />
       <FinancialEntryForm
-        action={(name, value) => dispatch(addSaving({ name, value }))}
-        placeholder={'Car'}
+        action={(name, value, description) =>
+          dispatch(addSaving({ name, value, description }))
+        }
+        namePlaceholder={'Car'}
+        descriptionPlaceholder={'Autogiro - den 25e'}
         buttonText={'Add saving'}
       />
       <SavingsTable />

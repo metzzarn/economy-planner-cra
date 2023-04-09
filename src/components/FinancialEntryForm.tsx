@@ -5,18 +5,21 @@ import React from 'react';
 export interface FormValues {
   name: string;
   value: string;
+  description: string;
 }
 
 interface Props {
-  action: (name: string, value: number) => void;
-  placeholder?: string;
+  action: (name: string, value: number, description: string) => void;
+  namePlaceholder?: string;
+  descriptionPlaceholder?: string;
   buttonText?: string;
 }
 
 export const FinancialEntryForm = (props: Props) => {
-  const requiredDescription = (value: string) =>
-    value ? undefined : 'Required';
+  const requiredName = (value: string) => (value ? undefined : 'Required');
   const requiredAmount = (value: string) => (value ? undefined : 'Required');
+  const requiredDescription = (description: string) =>
+    description ? undefined : 'Required';
 
   return (
     <Form
@@ -25,7 +28,11 @@ export const FinancialEntryForm = (props: Props) => {
           return;
         }
 
-        return props.action(formValues.name, convertToNumber(formValues.value));
+        return props.action(
+          formValues.name,
+          convertToNumber(formValues.value),
+          formValues.description
+        );
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
@@ -34,15 +41,17 @@ export const FinancialEntryForm = (props: Props) => {
               name={'name'}
               component={'input'}
               type={'text'}
-              validate={requiredDescription}
+              validate={requiredName}
             >
               {({ input, meta }) => (
                 <div>
-                  <label>Description</label>
+                  <label>Name</label>
                   <input
                     {...input}
                     type={'text'}
-                    placeholder={props.placeholder ? props.placeholder : ''}
+                    placeholder={
+                      props.namePlaceholder ? props.namePlaceholder : ''
+                    }
                   />
                   {meta.error && meta.touched && <span>{meta.error}</span>}
                 </div>
@@ -59,6 +68,29 @@ export const FinancialEntryForm = (props: Props) => {
                 <div>
                   <label>Amount</label>
                   <input {...input} type="text" placeholder="0,0 kr" />
+                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+
+            <Field
+              name={'description'}
+              component={'input'}
+              type={'text'}
+              validate={requiredDescription}
+            >
+              {({ input, meta }) => (
+                <div>
+                  <label>Description</label>
+                  <input
+                    {...input}
+                    type={'text'}
+                    placeholder={
+                      props.descriptionPlaceholder
+                        ? props.descriptionPlaceholder
+                        : ''
+                    }
+                  />
                   {meta.error && meta.touched && <span>{meta.error}</span>}
                 </div>
               )}

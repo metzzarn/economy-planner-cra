@@ -17,21 +17,46 @@ export const ExpensesTable = () => {
 
   const rows = () => {
     return expenses.map((expense, index) => {
-      const updateDescription = (value: string) => {
+      const updateName = (value: string) => {
         return dispatch(
-          updateExpense({ name: value, value: expense.value, index })
+          updateExpense({
+            name: value,
+            value: expense.value,
+            description: expense.description,
+            index,
+          })
         );
       };
       const updateValue = (value: number) => {
-        return dispatch(updateExpense({ name: expense.name, value, index }));
+        return dispatch(
+          updateExpense({
+            name: expense.name,
+            value,
+            description: expense.description,
+            index,
+          })
+        );
+      };
+      const updateDescription = (description: string) => {
+        return dispatch(
+          updateExpense({
+            name: expense.name,
+            value: expense.value,
+            description: description,
+            index,
+          })
+        );
       };
       return (
         <TableRow key={index}>
-          <TableRowItem index={index} allowEdit action={updateDescription}>
+          <TableRowItem index={index} allowEdit action={updateName}>
             {expense.name}
           </TableRowItem>
           <TableRowItem index={index} allowEdit action={updateValue}>
             {formatPrice(expense.value.toString())}
+          </TableRowItem>
+          <TableRowItem index={index} allowEdit action={updateDescription}>
+            {expense.description}
           </TableRowItem>
         </TableRow>
       );
@@ -56,8 +81,9 @@ export const ExpensesTable = () => {
       <h2>Expenses</h2>
       <If true={expenses?.length > 0}>
         <Table rows={rows()} footer={footer()}>
-          <TableHeader>Description</TableHeader>
+          <TableHeader>Name</TableHeader>
           <TableHeader width={'20%'}>Amount</TableHeader>
+          <TableHeader>Description</TableHeader>
         </Table>
       </If>
     </div>
