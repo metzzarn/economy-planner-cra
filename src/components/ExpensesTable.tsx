@@ -49,15 +49,24 @@ export const ExpensesTable = () => {
       };
       return (
         <TableRow key={index}>
-          <TableRowItem index={index} allowEdit action={updateName}>
-            {expense.name}
-          </TableRowItem>
-          <TableRowItem index={index} allowEdit action={updateValue}>
-            {formatPrice(expense.value.toString())}
-          </TableRowItem>
-          <TableRowItem index={index} allowEdit action={updateDescription}>
-            {expense.description}
-          </TableRowItem>
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateName}
+            value={expense.name}
+          />
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateValue}
+            value={formatPrice(expense.value.toString())}
+          />
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateDescription}
+            value={expense.description}
+          />
         </TableRow>
       );
     });

@@ -49,15 +49,24 @@ export const SavingsTable = () => {
       };
       return (
         <TableRow key={index}>
-          <TableRowItem index={index} allowEdit action={updateName}>
-            {saving.name}
-          </TableRowItem>
-          <TableRowItem index={index} allowEdit action={updateValue}>
-            {formatPrice(saving.value.toString())}
-          </TableRowItem>
-          <TableRowItem index={index} allowEdit action={updateDescription}>
-            {saving.description}
-          </TableRowItem>
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateName}
+            value={saving.name}
+          />
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateValue}
+            value={formatPrice(saving.value.toString())}
+          />
+          <TableRowItem
+            index={index}
+            allowEdit
+            action={updateDescription}
+            value={saving.description}
+          />
         </TableRow>
       );
     });

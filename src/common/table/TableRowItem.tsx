@@ -1,10 +1,10 @@
 import styles from 'common/table/TableRowItem.module.css';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { FormValues } from 'components/FinancialEntryForm';
 
 interface Props {
-  children: ReactNode;
+  value: string;
   allowEdit?: boolean;
   index?: number;
   action?: (value: any) => void;
@@ -40,6 +40,7 @@ export const TableRowItem = (props: Props) => {
               component={'input'}
               type={'text'}
               validate={requiredField}
+              defaultValue={props.value}
             >
               {({ input, meta }) => (
                 <div>
@@ -69,7 +70,7 @@ export const TableRowItem = (props: Props) => {
       onMouseLeave={() => props.allowEdit && setShowEditIcon(false)}
       onClick={() => setEditValue(true)}
     >
-      {editValue ? input : props.children}
+      {editValue ? input : props.value}
       {!editValue && showEditIcon && <span>[X]</span>}
     </th>
   );
