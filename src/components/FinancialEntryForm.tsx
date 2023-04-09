@@ -18,8 +18,12 @@ interface Props {
 export const FinancialEntryForm = (props: Props) => {
   const requiredName = (value: string) => (value ? undefined : 'Required');
   const requiredAmount = (value: string) => (value ? undefined : 'Required');
-  const requiredDescription = (description: string) =>
-    description ? undefined : 'Required';
+  const maxLengthDescription = (description: string) => {
+    if (description && description.length > 15) {
+      return 'Description cannot be longer than 50 characters';
+    }
+    return undefined;
+  };
 
   return (
     <Form
@@ -77,7 +81,7 @@ export const FinancialEntryForm = (props: Props) => {
               name={'description'}
               component={'input'}
               type={'text'}
-              validate={requiredDescription}
+              validate={maxLengthDescription}
             >
               {({ input, meta }) => (
                 <div>
