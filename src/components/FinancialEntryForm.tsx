@@ -16,11 +16,17 @@ interface Props {
 }
 
 export const FinancialEntryForm = (props: Props) => {
-  const requiredName = (value: string) => (value ? undefined : 'Required');
+  const requiredName = (name: string) => {
+    if (name && name.length > 20) {
+      return 'Description cannot be longer than 20 characters';
+    }
+
+    return name ? undefined : 'Required';
+  };
   const requiredAmount = (value: string) => (value ? undefined : 'Required');
   const maxLengthDescription = (description: string) => {
-    if (description && description.length > 15) {
-      return 'Description cannot be longer than 50 characters';
+    if (description && description.length > 20) {
+      return 'Description cannot be longer than 20 characters';
     }
     return undefined;
   };
