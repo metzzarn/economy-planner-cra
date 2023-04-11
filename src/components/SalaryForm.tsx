@@ -27,7 +27,7 @@ export const SalaryForm = () => {
             />
           </div>
           <div>
-            <button type={'submit'}>Set salary</button>
+            <button type={'submit'}>Set net salary</button>
           </div>
         </form>
       )}
