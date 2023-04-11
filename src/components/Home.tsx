@@ -7,6 +7,7 @@ import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
 import { SavingsTable } from 'components/SavingsTable';
 import { useAppDispatch } from 'hooks';
+import { Summary } from 'components/Summary';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ export const Home = () => {
         buttonText={'Add saving'}
       />
       <SavingsTable />
+      <Summary />
     </div>
   );
 };
