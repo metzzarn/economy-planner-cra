@@ -1,6 +1,6 @@
 export const convertToNumber = (value: string): number =>
   +value
-    .replace(/[^0-9,]/g, '') // Keep only numbers and commas
+    .replace(/[^0-9,-]/g, '') // Keep only numbers and commas
     .replace(/,(?=.*,)/g, '') // Remove all commas but the last one
     .replace(',', '.'); // Replace the comma with a punctuation
 
