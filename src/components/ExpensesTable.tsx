@@ -1,5 +1,9 @@
 import React from 'react';
-import { selectExpenses, updateExpense } from 'redux/economySlice';
+import {
+  removeExpense,
+  selectExpenses,
+  updateExpense,
+} from 'redux/economySlice';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { useSelector } from 'react-redux';
@@ -67,6 +71,12 @@ export const ExpensesTable = () => {
             action={updateDescription}
             value={expense.description}
           />
+          <TableRowItem
+            style={{ cursor: 'pointer' }}
+            value={'X'}
+            index={index}
+            onClick={() => dispatch(removeExpense(index))}
+          />
         </TableRow>
       );
     });
@@ -93,6 +103,7 @@ export const ExpensesTable = () => {
           <TableHeader>Name</TableHeader>
           <TableHeader width={'20%'}>Amount</TableHeader>
           <TableHeader>Description</TableHeader>
+          <TableHeader width={'5%'}></TableHeader>
         </Table>
       </If>
     </div>

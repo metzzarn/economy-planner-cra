@@ -1,5 +1,5 @@
 import styles from 'common/table/TableRowItem.module.css';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { FormValues } from 'components/FinancialEntryForm';
 
@@ -8,6 +8,8 @@ interface Props {
   allowEdit?: boolean;
   index?: number;
   action?: (value: any) => void;
+  style?: CSSProperties;
+  onClick?: () => any;
 }
 export const TableRowItem = (props: Props) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
@@ -65,10 +67,14 @@ export const TableRowItem = (props: Props) => {
 
   return (
     <th
+      style={props.style}
       className={styles.item}
       onMouseEnter={() => props.allowEdit && setShowEditIcon(true)}
       onMouseLeave={() => props.allowEdit && setShowEditIcon(false)}
-      onClick={() => setEditValue(true)}
+      onClick={() => {
+        props.onClick && props.onClick();
+        props.allowEdit && setEditValue(true);
+      }}
     >
       {editValue ? input : props.value}
       {!editValue && showEditIcon && <span>[X]</span>}

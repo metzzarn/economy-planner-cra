@@ -31,6 +31,8 @@ export const economySlice = createSlice({
     setIncome: (state, action: PayloadAction<number>) => {
       state.salary.value = action.payload;
     },
+
+    // Expenses
     addExpense: (state, action: PayloadAction<FinancialEntry>) => {
       state.expenses.push(action.payload);
     },
@@ -52,6 +54,22 @@ export const economySlice = createSlice({
         expenses: newArray,
       };
     },
+    removeExpense: (state, action: PayloadAction<number>) => {
+      if (action.payload === undefined) {
+        return;
+      }
+
+      const newArray = [...state.expenses];
+
+      newArray.splice(action.payload, 1);
+
+      return {
+        ...state,
+        expenses: newArray,
+      };
+    },
+
+    // Savings
     addSaving: (state, action: PayloadAction<FinancialEntry>) => {
       state.savings.push(action.payload);
     },
@@ -73,11 +91,32 @@ export const economySlice = createSlice({
         savings: newArray,
       };
     },
+    removeSaving: (state, action: PayloadAction<number>) => {
+      if (action.payload === undefined) {
+        return;
+      }
+
+      const newArray = [...state.savings];
+
+      newArray.splice(action.payload, 1);
+
+      return {
+        ...state,
+        savings: newArray,
+      };
+    },
   },
 });
 
-export const { setIncome, addExpense, updateExpense, addSaving, updateSaving } =
-  economySlice.actions;
+export const {
+  setIncome,
+  addExpense,
+  updateExpense,
+  removeExpense,
+  addSaving,
+  updateSaving,
+  removeSaving,
+} = economySlice.actions;
 export const selectSalary = (state: RootState) => state.economy.salary.value;
 export const selectExpenses = (state: RootState) => state.economy.expenses;
 export const selectSavings = (state: RootState) => state.economy.savings;

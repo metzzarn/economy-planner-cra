@@ -7,7 +7,7 @@ import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
-import { selectSavings, updateSaving } from 'redux/economySlice';
+import { removeSaving, selectSavings, updateSaving } from 'redux/economySlice';
 import { If } from 'common/If';
 import { useAppDispatch } from 'hooks';
 
@@ -47,6 +47,11 @@ export const SavingsTable = () => {
           })
         );
       };
+
+      const remove = () => {
+        return dispatch(removeSaving(index));
+      };
+
       return (
         <TableRow key={index}>
           <TableRowItem
@@ -66,6 +71,12 @@ export const SavingsTable = () => {
             allowEdit
             action={updateDescription}
             value={saving.description}
+          />
+          <TableRowItem
+            style={{ cursor: 'pointer' }}
+            value={'X'}
+            index={index}
+            onClick={remove}
           />
         </TableRow>
       );
@@ -93,6 +104,7 @@ export const SavingsTable = () => {
           <TableHeader>Name</TableHeader>
           <TableHeader width={'20%'}>Amount</TableHeader>
           <TableHeader>Description</TableHeader>
+          <TableHeader width={'5%'}></TableHeader>
         </Table>
       </If>
     </div>
