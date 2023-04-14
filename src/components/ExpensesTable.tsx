@@ -3,7 +3,7 @@ import {
   removeExpense,
   selectExpenses,
   updateExpense,
-} from 'redux/economySlice';
+} from 'redux/expensesSlice';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { useSelector } from 'react-redux';

@@ -1,8 +1,8 @@
 import { Field, Form } from 'react-final-form';
 import { convertToNumber } from 'utils/numberUtils';
 import React from 'react';
-import { setIncome } from 'redux/economySlice';
 import { useAppDispatch } from 'hooks';
+import { setIncome } from 'redux/salarySlice';
 
 export interface SalaryFormValues {
   salary: string;

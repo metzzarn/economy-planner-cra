@@ -7,7 +7,7 @@ import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
-import { removeSaving, selectSavings, updateSaving } from 'redux/economySlice';
+import { removeSaving, selectSavings, updateSaving } from 'redux/savingsSlice';
 import { If } from 'common/If';
 import { useAppDispatch } from 'hooks';
 

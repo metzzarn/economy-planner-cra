@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { addExpense, addSaving, selectSalary } from 'redux/economySlice';
 import { SalaryForm } from './SalaryForm';
 import React from 'react';
 import { FinancialEntryForm } from 'components/FinancialEntryForm';
@@ -8,6 +7,9 @@ import { ExpensesTable } from 'components/ExpensesTable';
 import { SavingsTable } from 'components/SavingsTable';
 import { useAppDispatch } from 'hooks';
 import { Summary } from 'components/Summary';
+import { selectSalary } from 'redux/salarySlice';
+import { addExpense } from 'redux/expensesSlice';
+import { addSaving } from 'redux/savingsSlice';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
