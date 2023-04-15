@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import economyReducer from 'redux/expensesSlice';
-import salaryReducer from 'redux/salarySlice';
+import incomeReducer from 'redux/incomeSlice';
 import savingsReducer from 'redux/savingsSlice';
 
 const store = configureStore({
   reducer: {
     expenses: economyReducer,
-    salary: salaryReducer,
+    income: incomeReducer,
     savings: savingsReducer,
   },
 });
