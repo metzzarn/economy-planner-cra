@@ -20,7 +20,11 @@ export const incomeSlice = createSlice({
   initialState,
   reducers: {
     setSelectedIncome: (state, action: PayloadAction<number>) => {
-      state.selectedIncome = action.payload;
+      if (action.payload === undefined) {
+        return;
+      }
+
+      state.selectedIncome = state.incomeList[action.payload].value;
     },
     addIncome: (state, action: PayloadAction<IncomeEntry>) => {
       state.incomeList.push(action.payload);
