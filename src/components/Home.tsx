@@ -11,6 +11,7 @@ import { selectIncome } from 'redux/incomeSlice';
 import { addExpense } from 'redux/expensesSlice';
 import { addSaving } from 'redux/savingsSlice';
 import { IncomeList } from 'components/IncomeList';
+import { StateManagement } from 'components/StateManagement';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ export const Home = () => {
   return (
     <div>
       <h2>Home</h2>
+      <StateManagement />
       <div style={{ marginBottom: '10px' }}>
         {`Your salary is ${formatPrice(income.toString())}`}
         <IncomeForm />
