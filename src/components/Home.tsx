@@ -1,11 +1,10 @@
-import { useSelector } from 'react-redux';
 import { IncomeForm } from 'components/IncomeForm';
 import React from 'react';
 import { FinancialEntryForm } from 'components/FinancialEntryForm';
 import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
 import { SavingsTable } from 'components/SavingsTable';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { Summary } from 'components/Summary';
 import { selectIncome } from 'redux/incomeSlice';
 import { addExpense } from 'redux/expensesSlice';
@@ -15,7 +14,7 @@ import { StateManagement } from 'components/StateManagement';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const income = useSelector(selectIncome);
+  const income = useAppSelector(selectIncome);
 
   return (
     <div>

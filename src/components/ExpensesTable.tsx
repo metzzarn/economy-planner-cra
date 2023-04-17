@@ -6,19 +6,18 @@ import {
 } from 'redux/expensesSlice';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
-import { useSelector } from 'react-redux';
 import { TableRow } from 'common/table/TableRow';
 import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
 import { If } from 'common/If';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
 
 export const ExpensesTable = () => {
   const dispatch = useAppDispatch();
-  const expenses = useSelector(selectExpenses);
+  const expenses = useAppSelector(selectExpenses);
 
   const rows = () => {
     return expenses.map((expense: FinancialEntry, index: number) => {

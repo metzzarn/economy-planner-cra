@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
-import { useSelector } from 'react-redux';
 import { TableRow } from 'common/table/TableRow';
 import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
@@ -9,12 +8,12 @@ import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
 import { removeSaving, selectSavings, updateSaving } from 'redux/savingsSlice';
 import { If } from 'common/If';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
-  const savings = useSelector(selectSavings);
+  const savings = useAppSelector(selectSavings);
 
   const rows = () => {
     return savings.map((saving: FinancialEntry, index: number) => {

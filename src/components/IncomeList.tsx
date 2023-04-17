@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
-import { useSelector } from 'react-redux';
 import { TableRow } from 'common/table/TableRow';
 import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
@@ -11,12 +10,12 @@ import {
   selectIncomeList,
   setSelectedIncome,
 } from 'redux/incomeSlice';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();
-  const incomeList = useSelector(selectIncomeList);
+  const incomeList = useAppSelector(selectIncomeList);
 
   const rows = () => {
     return incomeList.map((income: FinancialEntry, index: number) => (
