@@ -3,6 +3,7 @@ import { selectExpenses } from 'redux/expensesSlice';
 import { formatPrice } from 'utils/numberUtils';
 import { selectIncome } from 'redux/incomeSlice';
 import { selectSavings } from 'redux/savingsSlice';
+import { FinancialEntry } from 'redux/common';
 
 export const Summary = () => {
   const income = useSelector(selectIncome);
@@ -10,10 +11,13 @@ export const Summary = () => {
   const savings = useSelector(selectSavings);
 
   const totalExpenses = expenses.reduce(
-    (acc, expense) => acc + expense.value,
+    (acc: number, expense: FinancialEntry) => acc + expense.value,
     0
   );
-  const totalSavings = savings.reduce((acc, saving) => acc + saving.value, 0);
+  const totalSavings = savings.reduce(
+    (acc: number, saving: FinancialEntry) => acc + saving.value,
+    0
+  );
   const discretionaryIncome = income - totalSavings - totalExpenses;
 
   return (

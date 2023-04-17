@@ -10,13 +10,14 @@ import { TableFooterItem } from 'common/table/TableFooterItem';
 import { removeSaving, selectSavings, updateSaving } from 'redux/savingsSlice';
 import { If } from 'common/If';
 import { useAppDispatch } from 'hooks';
+import { FinancialEntry } from 'redux/common';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
   const savings = useSelector(selectSavings);
 
   const rows = () => {
-    return savings.map((saving, index) => {
+    return savings.map((saving: FinancialEntry, index: number) => {
       const updateName = (value: string) => {
         return dispatch(
           updateSaving({
@@ -86,7 +87,10 @@ export const SavingsTable = () => {
           <span style={{ fontWeight: 'bold' }}>Total</span>
         </TableFooterItem>
         <TableFooterItem>
-          {savings.reduce((acc, curr) => acc + curr.value, 0)}
+          {savings.reduce(
+            (acc: number, curr: FinancialEntry) => acc + curr.value,
+            0
+          )}
         </TableFooterItem>
       </TableFooter>
     );

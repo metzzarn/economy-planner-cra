@@ -14,13 +14,14 @@ import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
 import { If } from 'common/If';
 import { useAppDispatch } from 'hooks';
+import { FinancialEntry } from 'redux/common';
 
 export const ExpensesTable = () => {
   const dispatch = useAppDispatch();
   const expenses = useSelector(selectExpenses);
 
   const rows = () => {
-    return expenses.map((expense, index) => {
+    return expenses.map((expense: FinancialEntry, index: number) => {
       const updateName = (value: string) => {
         return dispatch(
           updateExpense({
@@ -89,7 +90,10 @@ export const ExpensesTable = () => {
           <span style={{ fontWeight: 'bold' }}>Total</span>
         </TableFooterItem>
         <TableFooterItem>
-          {expenses.reduce((acc, curr) => acc + curr.value, 0)}
+          {expenses.reduce(
+            (acc: number, curr: FinancialEntry) => acc + curr.value,
+            0
+          )}
         </TableFooterItem>
       </TableFooter>
     );

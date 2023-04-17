@@ -12,13 +12,14 @@ import {
   setSelectedIncome,
 } from 'redux/incomeSlice';
 import { useAppDispatch } from 'hooks';
+import { FinancialEntry } from 'redux/common';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();
   const incomeList = useSelector(selectIncomeList);
 
   const rows = () => {
-    return incomeList.map((income, index) => (
+    return incomeList.map((income: FinancialEntry, index: number) => (
       <TableRow key={index}>
         <TableRowItem
           index={index}
