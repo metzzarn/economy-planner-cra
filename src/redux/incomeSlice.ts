@@ -28,11 +28,37 @@ export const incomeSlice = createSlice({
     },
     addIncome: (state, action: PayloadAction<IncomeEntry>) => {
       state.incomeList.push(action.payload);
+      if (state.selectedIncome === 0) {
+        state.selectedIncome = action.payload.value;
+      }
+    },
+    removeIncome: (state, action: PayloadAction<number>) => {
+      if (action.payload === undefined) {
+        return;
+      }
+
+      const newIncomeList = [...state.incomeList];
+      const deletedIncome = newIncomeList.splice(action.payload, 1);
+
+      const newSelectedIncome =
+        newIncomeList.length > 0 ? newIncomeList[0].value : 0;
+
+      const shouldChangeSelectedIncome =
+        deletedIncome[0].value === state.selectedIncome;
+
+      return {
+        ...state,
+        incomeList: newIncomeList,
+        selectedIncome: shouldChangeSelectedIncome
+          ? newSelectedIncome
+          : state.selectedIncome,
+      };
     },
   },
 });
 
-export const { setSelectedIncome, addIncome } = incomeSlice.actions;
+export const { setSelectedIncome, addIncome, removeIncome } =
+  incomeSlice.actions;
 export const selectIncome = (state: RootState) => state.income.selectedIncome;
 export const selectIncomeList = (state: RootState) => state.income.incomeList;
 

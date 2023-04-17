@@ -48,10 +48,6 @@ export const SavingsTable = () => {
         );
       };
 
-      const remove = () => {
-        return dispatch(removeSaving(index));
-      };
-
       return (
         <TableRow key={index}>
           <TableRowItem
@@ -76,7 +72,7 @@ export const SavingsTable = () => {
             style={{ cursor: 'pointer' }}
             value={'X'}
             index={index}
-            onClick={remove}
+            onClick={() => dispatch(removeSaving(index))}
           />
         </TableRow>
       );

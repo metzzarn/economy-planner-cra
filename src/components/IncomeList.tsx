@@ -6,7 +6,11 @@ import { TableRow } from 'common/table/TableRow';
 import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { If } from 'common/If';
-import { selectIncomeList, setSelectedIncome } from 'redux/incomeSlice';
+import {
+  removeIncome,
+  selectIncomeList,
+  setSelectedIncome,
+} from 'redux/incomeSlice';
 import { useAppDispatch } from 'hooks';
 
 export const IncomeList = () => {
@@ -22,6 +26,12 @@ export const IncomeList = () => {
           onClick={() => dispatch(setSelectedIncome(index))}
           style={{ cursor: 'pointer' }}
         />
+        <TableRowItem
+          style={{ cursor: 'pointer' }}
+          value={'X'}
+          index={index}
+          onClick={() => dispatch(removeIncome(index))}
+        />
       </TableRow>
     ));
   };
@@ -31,6 +41,7 @@ export const IncomeList = () => {
       <If true={incomeList?.length > 0}>
         <Table rows={rows()}>
           <TableHeader>Net income</TableHeader>
+          <TableHeader width={'5%'}></TableHeader>
         </Table>
       </If>
     </div>
