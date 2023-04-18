@@ -20,6 +20,11 @@ export const StateManagement = () => {
     }
   };
 
+  const onClearLocalStorage = () => {
+    store.dispatch({ type: 'RESET_STATE', payload: undefined });
+    localStorage.clear();
+  };
+
   return (
     <div>
       <form onSubmit={() => saveStateToFile(store.getState())}>
@@ -28,8 +33,14 @@ export const StateManagement = () => {
         </div>
       </form>
 
-      <input type={'file'} ref={inputFile} />
-      <button onClick={onLoadStateFromFile}>Load state from file</button>
+      <div>
+        <input type={'file'} ref={inputFile} />
+        <button onClick={onLoadStateFromFile}>Load state from file</button>
+      </div>
+
+      <div>
+        <button onClick={onClearLocalStorage}>Clear local storage</button>
+      </div>
     </div>
   );
 };

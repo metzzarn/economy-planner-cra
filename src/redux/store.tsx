@@ -2,8 +2,8 @@ import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import economyReducer from 'redux/expensesSlice';
 import incomeReducer from 'redux/incomeSlice';
 import savingsReducer from 'redux/savingsSlice';
-import { STATE_LOCAL_STORAGE_KEY } from 'utils/constants';
 import { loadStateFromLocalStorage } from 'utils/stateUtils';
+import { STATE_LOCAL_STORAGE_KEY } from 'utils/constants';
 
 const combinedReducer = combineReducers({
   expenses: economyReducer,
@@ -11,9 +11,15 @@ const combinedReducer = combineReducers({
   savings: savingsReducer,
 });
 
-const rootReducer = (state: any, action: AnyAction) => {
+const rootReducer = (
+  state: ReturnType<typeof combinedReducer> | undefined,
+  action: AnyAction
+) => {
   if (action.type === 'LOAD_STATE') {
     return action.payload;
+  }
+  if (action.type === 'RESET_STATE') {
+    return combinedReducer(undefined, action);
   }
 
   return combinedReducer(state, action);

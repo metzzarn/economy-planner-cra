@@ -6,19 +6,19 @@ import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { If } from 'common/If';
 import {
+  IncomeEntry,
   removeIncome,
   selectIncomeList,
   setSelectedIncome,
 } from 'redux/incomeSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { FinancialEntry } from 'redux/common';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();
   const incomeList = useAppSelector(selectIncomeList);
 
   const rows = () => {
-    return incomeList.map((income: FinancialEntry, index: number) => (
+    return incomeList.map((income: IncomeEntry, index: number) => (
       <TableRow key={index}>
         <TableRowItem
           index={index}
