@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { TableRow } from 'common/table/TableRow';
@@ -6,15 +6,77 @@ import { TableRowItem } from 'common/table/TableRowItem';
 import { formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
-import { removeSaving, selectSavings, updateSaving } from 'redux/savingsSlice';
+import {
+  editSavingsTitle,
+  removeSaving,
+  selectSavings,
+  selectSavingsTitle,
+  updateSaving,
+} from 'redux/savingsSlice';
 import { If } from 'common/If';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
+import { Field, Form } from 'react-final-form';
+
+interface FormValues {
+  title: string;
+}
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
   const savings = useAppSelector(selectSavings);
+  const title = useAppSelector(selectSavingsTitle) || 'Savings';
+  const [editValue, setEditValue] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  const requiredField = (value: string) => (value ? undefined : 'Required');
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [editValue]);
+
+  const titleInput = (
+    <Form
+      onSubmit={(formValues: FormValues) => {
+        if (!formValues.title) {
+          return;
+        }
+
+        setEditValue(false);
+        return dispatch(editSavingsTitle(formValues.title));
+      }}
+      render={({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <Field
+              name={'title'}
+              component={'input'}
+              type={'text'}
+              validate={requiredField}
+              defaultValue={title}
+            >
+              {({ input, meta }) => (
+                <div>
+                  <input
+                    ref={inputRef}
+                    {...input}
+                    onBlur={() => {
+                      setEditValue(false);
+                      return handleSubmit;
+                    }}
+                    type={'text'}
+                  />
+                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+          </div>
+        </form>
+      )}
+    />
+  );
   const rows = () => {
     return savings.map((saving: FinancialEntry, index: number) => {
       const updateName = (value: string) => {
@@ -97,7 +159,13 @@ export const SavingsTable = () => {
 
   return (
     <div style={{ width: '700px' }}>
-      <h2>Savings</h2>
+      <h2
+        onClick={() => {
+          setEditValue(true);
+        }}
+      >
+        {editValue ? titleInput : title}
+      </h2>
       <If true={savings?.length > 0}>
         <Table rows={rows()} footer={footer()}>
           <TableHeader>Name</TableHeader>

@@ -3,10 +3,12 @@ import { RootState } from './store';
 import { FinancialEntry } from 'redux/common';
 
 const initialState: ExpensesState = {
+  title: 'Expenses',
   expenses: [],
 };
 
 interface ExpensesState {
+  title: string;
   expenses: FinancialEntry[];
 }
 
@@ -49,11 +51,18 @@ export const expensesSlice = createSlice({
         expenses: newArray,
       };
     },
+    editExpensesTitle: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        title: action.payload,
+      };
+    },
   },
 });
 
-export const { addExpense, updateExpense, removeExpense } =
+export const { addExpense, updateExpense, removeExpense, editExpensesTitle } =
   expensesSlice.actions;
 export const selectExpenses = (state: RootState) => state.expenses.expenses;
+export const selectExpensesTitle = (state: RootState) => state.expenses.title;
 
 export default expensesSlice.reducer;

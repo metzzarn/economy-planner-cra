@@ -1,12 +1,12 @@
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit';
-import economyReducer from 'redux/expensesSlice';
+import expensesReducer from 'redux/expensesSlice';
 import incomeReducer from 'redux/incomeSlice';
 import savingsReducer from 'redux/savingsSlice';
 import { loadStateFromLocalStorage } from 'utils/stateUtils';
 import { STATE_LOCAL_STORAGE_KEY } from 'utils/constants';
 
 const combinedReducer = combineReducers({
-  expenses: economyReducer,
+  expenses: expensesReducer,
   income: incomeReducer,
   savings: savingsReducer,
 });
