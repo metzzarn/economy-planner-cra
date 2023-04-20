@@ -1,6 +1,11 @@
 import { Field, Form } from 'react-final-form';
 import { convertToNumber } from 'utils/numberUtils';
 import React from 'react';
+import {
+  maxLength,
+  requiredMaxLength,
+  requiredString,
+} from 'utils/fieldValidation';
 
 export interface FormValues {
   name: string;
@@ -16,21 +21,6 @@ interface Props {
 }
 
 export const FinancialEntryForm = (props: Props) => {
-  const requiredName = (name: string) => {
-    if (name && name.length > 20) {
-      return 'Description cannot be longer than 20 characters';
-    }
-
-    return name ? undefined : 'Required';
-  };
-  const requiredAmount = (value: string) => (value ? undefined : 'Required');
-  const maxLengthDescription = (description: string) => {
-    if (description && description.length > 20) {
-      return 'Description cannot be longer than 20 characters';
-    }
-    return undefined;
-  };
-
   return (
     <Form
       onSubmit={(formValues: FormValues) => {
@@ -51,7 +41,12 @@ export const FinancialEntryForm = (props: Props) => {
               name={'name'}
               component={'input'}
               type={'text'}
-              validate={requiredName}
+              validate={(value) =>
+                requiredMaxLength(
+                  value,
+                  'Name cannot be longer than 20 characters'
+                )
+              }
             >
               {({ input, meta }) => (
                 <div>
@@ -72,7 +67,7 @@ export const FinancialEntryForm = (props: Props) => {
               component={'input'}
               type={'text'}
               formatOnBlur
-              validate={requiredAmount}
+              validate={requiredString}
             >
               {({ input, meta }) => (
                 <div>
@@ -87,7 +82,12 @@ export const FinancialEntryForm = (props: Props) => {
               name={'description'}
               component={'input'}
               type={'text'}
-              validate={maxLengthDescription}
+              validate={(value) =>
+                maxLength(
+                  value,
+                  'Description cannot be longer than 20 characters'
+                )
+              }
             >
               {({ input, meta }) => (
                 <div>

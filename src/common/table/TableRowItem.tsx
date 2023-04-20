@@ -2,6 +2,7 @@ import styles from 'common/table/TableRowItem.module.css';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { FormValues } from 'components/FinancialEntryForm';
+import { requiredString } from 'utils/fieldValidation';
 
 interface Props {
   value: string;
@@ -22,8 +23,6 @@ export const TableRowItem = (props: Props) => {
     }
   }, [editValue]);
 
-  const requiredField = (value: string) => (value ? undefined : 'Required');
-
   const input = (
     <Form
       onSubmit={(formValues: FormValues) => {
@@ -41,7 +40,7 @@ export const TableRowItem = (props: Props) => {
               name={'value'}
               component={'input'}
               type={'text'}
-              validate={requiredField}
+              validate={requiredString}
               defaultValue={props.value}
             >
               {({ input, meta }) => (

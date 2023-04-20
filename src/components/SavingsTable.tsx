@@ -17,6 +17,7 @@ import { If } from 'common/If';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
 import { Field, Form } from 'react-final-form';
+import { requiredString } from 'utils/fieldValidation';
 
 interface FormValues {
   title: string;
@@ -28,8 +29,6 @@ export const SavingsTable = () => {
   const title = useAppSelector(selectSavingsTitle) || 'Savings';
   const [editValue, setEditValue] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const requiredField = (value: string) => (value ? undefined : 'Required');
 
   useEffect(() => {
     if (inputRef.current) {
@@ -54,7 +53,7 @@ export const SavingsTable = () => {
               name={'title'}
               component={'input'}
               type={'text'}
-              validate={requiredField}
+              validate={requiredString}
               defaultValue={title}
             >
               {({ input, meta }) => (

@@ -1,8 +1,8 @@
 # TODO
 
+- Savings and expenses validation is not working
 - Save history (by saving state)
 - Switch between history states
-- Move validations to a common file
 - Generalize edit input field (for example in TableRowItem and ExpensesTable)
 
 ## Future
