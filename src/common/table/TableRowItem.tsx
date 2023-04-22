@@ -1,67 +1,42 @@
 import styles from 'common/table/TableRowItem.module.css';
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { Field, Form } from 'react-final-form';
-import { FormValues } from 'components/FinancialEntryForm';
-import { requiredString } from 'utils/fieldValidation';
+import React, { CSSProperties, useState } from 'react';
+import {
+  Editable,
+  EditableArea,
+  EditableInput,
+  EditablePreview,
+} from '@ark-ui/react';
 
 interface Props {
   value: string;
   allowEdit?: boolean;
-  index?: number;
   action?: (value: any) => void;
   style?: CSSProperties;
   onClick?: () => any;
 }
 export const TableRowItem = (props: Props) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
-  const [editValue, setEditValue] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [editValue]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const input = (
-    <Form
-      onSubmit={(formValues: FormValues) => {
-        if (!formValues.value) {
-          return;
-        }
-
-        setEditValue(false);
-        props.action && props.action(formValues.value);
+    <Editable
+      placeholder={props.value}
+      defaultValue={props.value}
+      onSubmit={(value) => {
+        setIsEditing(false);
+        return props.action && props.action(value.value);
       }}
-      render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <Field
-              name={'value'}
-              component={'input'}
-              type={'text'}
-              validate={requiredString}
-              defaultValue={props.value}
-            >
-              {({ input, meta }) => (
-                <div>
-                  <input
-                    ref={inputRef}
-                    {...input}
-                    onBlur={() => {
-                      setEditValue(false);
-                      return handleSubmit;
-                    }}
-                    type={'text'}
-                  />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-          </div>
-        </form>
-      )}
-    />
+      maxLength={25}
+      selectOnFocus={false}
+      readOnly={!props.allowEdit}
+      onEdit={() => setIsEditing(true)}
+    >
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+        {!isEditing && showEditIcon && <span>[X]</span>}
+      </EditableArea>
+    </Editable>
   );
 
   return (
@@ -70,13 +45,9 @@ export const TableRowItem = (props: Props) => {
       className={styles.item}
       onMouseEnter={() => props.allowEdit && setShowEditIcon(true)}
       onMouseLeave={() => props.allowEdit && setShowEditIcon(false)}
-      onClick={() => {
-        props.onClick && props.onClick();
-        props.allowEdit && setEditValue(true);
-      }}
+      onClick={() => props.onClick && props.onClick()}
     >
-      {editValue ? input : props.value}
-      {!editValue && showEditIcon && <span>[X]</span>}
+      {input}
     </th>
   );
 };

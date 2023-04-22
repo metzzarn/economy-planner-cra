@@ -21,7 +21,6 @@ export const IncomeList = () => {
     return incomeList.map((income: IncomeEntry, index: number) => (
       <TableRow key={index}>
         <TableRowItem
-          index={index}
           value={formatPrice(income.value.toString())}
           onClick={() => dispatch(setSelectedIncome(index))}
           style={{ cursor: 'pointer' }}
@@ -29,7 +28,6 @@ export const IncomeList = () => {
         <TableRowItem
           style={{ cursor: 'pointer' }}
           value={'X'}
-          index={index}
           onClick={() => dispatch(removeIncome(index))}
         />
       </TableRow>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { TableRow } from 'common/table/TableRow';
@@ -16,66 +16,18 @@ import {
 import { If } from 'common/If';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
-import { Field, Form } from 'react-final-form';
-import { requiredString } from 'utils/fieldValidation';
-
-interface FormValues {
-  title: string;
-}
+import {
+  Editable,
+  EditableArea,
+  EditableInput,
+  EditablePreview,
+} from '@ark-ui/react';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
   const savings = useAppSelector(selectSavings);
   const title = useAppSelector(selectSavingsTitle) || 'Savings';
-  const [editValue, setEditValue] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [editValue]);
-
-  const titleInput = (
-    <Form
-      onSubmit={(formValues: FormValues) => {
-        if (!formValues.title) {
-          return;
-        }
-
-        setEditValue(false);
-        return dispatch(editSavingsTitle(formValues.title));
-      }}
-      render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <Field
-              name={'title'}
-              component={'input'}
-              type={'text'}
-              validate={requiredString}
-              defaultValue={title}
-            >
-              {({ input, meta }) => (
-                <div>
-                  <input
-                    ref={inputRef}
-                    {...input}
-                    onBlur={() => {
-                      setEditValue(false);
-                      return handleSubmit;
-                    }}
-                    type={'text'}
-                  />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-          </div>
-        </form>
-      )}
-    />
-  );
   const rows = () => {
     return savings.map((saving: FinancialEntry, index: number) => {
       const updateName = (value: string) => {
@@ -111,20 +63,13 @@ export const SavingsTable = () => {
 
       return (
         <TableRow key={index}>
+          <TableRowItem allowEdit action={updateName} value={saving.name} />
           <TableRowItem
-            index={index}
-            allowEdit
-            action={updateName}
-            value={saving.name}
-          />
-          <TableRowItem
-            index={index}
             allowEdit
             action={updateValue}
             value={formatPrice(saving.value.toString())}
           />
           <TableRowItem
-            index={index}
             allowEdit
             action={updateDescription}
             value={saving.description}
@@ -132,7 +77,6 @@ export const SavingsTable = () => {
           <TableRowItem
             style={{ cursor: 'pointer' }}
             value={'X'}
-            index={index}
             onClick={() => dispatch(removeSaving(index))}
           />
         </TableRow>
@@ -158,12 +102,20 @@ export const SavingsTable = () => {
 
   return (
     <div style={{ width: '700px' }}>
-      <h2
-        onClick={() => {
-          setEditValue(true);
-        }}
-      >
-        {editValue ? titleInput : title}
+      <h2>
+        <Editable
+          name={'savingsTitle'}
+          placeholder={title}
+          defaultValue={title}
+          onSubmit={(value) => dispatch(editSavingsTitle(value.value))}
+          maxLength={25}
+          selectOnFocus={false}
+        >
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+        </Editable>
       </h2>
       <If true={savings?.length > 0}>
         <Table rows={rows()} footer={footer()}>

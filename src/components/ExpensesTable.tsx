@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import {
   editExpensesTitle,
   removeExpense,
@@ -16,66 +16,17 @@ import { TableFooterItem } from 'common/table/TableFooterItem';
 import { If } from 'common/If';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinancialEntry } from 'redux/common';
-import { Field, Form } from 'react-final-form';
-import { requiredString } from 'utils/fieldValidation';
-
-interface FormValues {
-  title: string;
-}
+import {
+  Editable,
+  EditableArea,
+  EditableInput,
+  EditablePreview,
+} from '@ark-ui/react';
 
 export const ExpensesTable = () => {
   const dispatch = useAppDispatch();
   const expenses = useAppSelector(selectExpenses);
   const title = useAppSelector(selectExpensesTitle) || 'Expenses';
-  const [editValue, setEditValue] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [editValue]);
-
-  const titleInput = (
-    <Form
-      onSubmit={(formValues: FormValues) => {
-        if (!formValues.title) {
-          return;
-        }
-
-        setEditValue(false);
-        return dispatch(editExpensesTitle(formValues.title));
-      }}
-      render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <Field
-              name={'title'}
-              component={'input'}
-              type={'text'}
-              validate={requiredString}
-              defaultValue={title}
-            >
-              {({ input, meta }) => (
-                <div>
-                  <input
-                    ref={inputRef}
-                    {...input}
-                    onBlur={() => {
-                      setEditValue(false);
-                      return handleSubmit;
-                    }}
-                    type={'text'}
-                  />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-          </div>
-        </form>
-      )}
-    />
-  );
 
   const rows = () => {
     return expenses.map((expense: FinancialEntry, index: number) => {
@@ -111,20 +62,13 @@ export const ExpensesTable = () => {
       };
       return (
         <TableRow key={index}>
+          <TableRowItem allowEdit action={updateName} value={expense.name} />
           <TableRowItem
-            index={index}
-            allowEdit
-            action={updateName}
-            value={expense.name}
-          />
-          <TableRowItem
-            index={index}
             allowEdit
             action={updateValue}
             value={formatPrice(expense.value.toString())}
           />
           <TableRowItem
-            index={index}
             allowEdit
             action={updateDescription}
             value={expense.description}
@@ -132,7 +76,6 @@ export const ExpensesTable = () => {
           <TableRowItem
             style={{ cursor: 'pointer' }}
             value={'X'}
-            index={index}
             onClick={() => dispatch(removeExpense(index))}
           />
         </TableRow>
@@ -158,12 +101,20 @@ export const ExpensesTable = () => {
 
   return (
     <div style={{ width: '700px' }}>
-      <h2
-        onClick={() => {
-          setEditValue(true);
-        }}
-      >
-        {editValue ? titleInput : title}
+      <h2>
+        <Editable
+          name={'expensesTitle'}
+          placeholder={title}
+          defaultValue={title}
+          onSubmit={(value) => dispatch(editExpensesTitle(value.value))}
+          maxLength={25}
+          selectOnFocus={false}
+        >
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+        </Editable>
       </h2>
       <If true={expenses?.length > 0}>
         <Table rows={rows()} footer={footer()}>
