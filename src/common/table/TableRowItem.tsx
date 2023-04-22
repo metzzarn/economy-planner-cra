@@ -18,27 +18,6 @@ export const TableRowItem = (props: Props) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const input = (
-    <Editable
-      placeholder={props.value}
-      defaultValue={props.value}
-      onSubmit={(value) => {
-        setIsEditing(false);
-        return props.action && props.action(value.value);
-      }}
-      maxLength={25}
-      selectOnFocus={false}
-      readOnly={!props.allowEdit}
-      onEdit={() => setIsEditing(true)}
-    >
-      <EditableArea>
-        <EditableInput />
-        <EditablePreview />
-        {!isEditing && showEditIcon && <span>[X]</span>}
-      </EditableArea>
-    </Editable>
-  );
-
   return (
     <th
       style={props.style}
@@ -47,7 +26,25 @@ export const TableRowItem = (props: Props) => {
       onMouseLeave={() => props.allowEdit && setShowEditIcon(false)}
       onClick={() => props.onClick && props.onClick()}
     >
-      {input}
+      <Editable
+        placeholder={props.value}
+        // defaultValue={props.value}
+        value={isEditing ? undefined : props.value}
+        onSubmit={(value) => {
+          setIsEditing(false);
+          return props.action && props.action(value.value);
+        }}
+        maxLength={30}
+        selectOnFocus={false}
+        readOnly={!props.allowEdit}
+        onEdit={() => setIsEditing(true)}
+      >
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+          {!isEditing && showEditIcon && <span>[X]</span>}
+        </EditableArea>
+      </Editable>
     </th>
   );
 };

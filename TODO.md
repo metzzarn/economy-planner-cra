@@ -1,7 +1,5 @@
 # TODO
 
-- Borttagning i tabellerna tar alltid bort den sista posten
-- 
 - Sort income list by amount
 - Sort tables by name or amount
 
