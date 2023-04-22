@@ -10,7 +10,7 @@ import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { TableRow } from 'common/table/TableRow';
 import { TableRowItem } from 'common/table/TableRowItem';
-import { formatPrice } from 'utils/numberUtils';
+import { convertToNumber, formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
 import { If } from 'common/If';
@@ -40,11 +40,11 @@ export const ExpensesTable = () => {
           })
         );
       };
-      const updateValue = (value: number) => {
+      const updateValue = (value: string) => {
         return dispatch(
           updateExpense({
             name: expense.name,
-            value,
+            value: convertToNumber(value),
             description: expense.description,
             index,
           })

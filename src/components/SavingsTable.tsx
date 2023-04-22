@@ -3,7 +3,7 @@ import { Table } from 'common/table/Table';
 import { TableHeader } from 'common/table/TableHeader';
 import { TableRow } from 'common/table/TableRow';
 import { TableRowItem } from 'common/table/TableRowItem';
-import { formatPrice } from 'utils/numberUtils';
+import { convertToNumber, formatPrice } from 'utils/numberUtils';
 import { TableFooter } from 'common/table/TableFooter';
 import { TableFooterItem } from 'common/table/TableFooterItem';
 import {
@@ -40,11 +40,11 @@ export const SavingsTable = () => {
           })
         );
       };
-      const updateValue = (value: number) => {
+      const updateValue = (value: string) => {
         return dispatch(
           updateSaving({
             name: saving.name,
-            value,
+            value: convertToNumber(value),
             description: saving.description,
             index,
           })
