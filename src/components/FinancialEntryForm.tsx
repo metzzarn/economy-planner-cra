@@ -44,7 +44,7 @@ export const FinancialEntryForm = (props: Props) => {
               validate={(value) =>
                 requiredMaxLength(
                   value,
-                  'Name cannot be longer than 20 characters'
+                  'Name cannot be longer than 30 characters'
                 )
               }
             >
@@ -85,7 +85,7 @@ export const FinancialEntryForm = (props: Props) => {
               validate={(value) =>
                 maxLength(
                   value,
-                  'Description cannot be longer than 20 characters'
+                  'Description cannot be longer than 30 characters'
                 )
               }
             >
