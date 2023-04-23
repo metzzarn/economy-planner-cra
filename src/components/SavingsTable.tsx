@@ -10,7 +10,9 @@ import {
   editSavingsTitle,
   removeSaving,
   selectSavings,
+  selectSavingsSortOrder,
   selectSavingsTitle,
+  sortSavingsByName,
   updateSaving,
 } from 'redux/savingsSlice';
 import { If } from 'common/If';
@@ -22,10 +24,12 @@ import {
   EditableInput,
   EditablePreview,
 } from '@ark-ui/react';
+import { SortOrder } from 'common/SortOrder';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
   const savings = useAppSelector(selectSavings);
+  const sortOrder = useAppSelector(selectSavingsSortOrder);
   const title = useAppSelector(selectSavingsTitle) || 'Savings';
 
   const rows = () => {
@@ -119,7 +123,20 @@ export const SavingsTable = () => {
       </h2>
       <If true={savings?.length > 0}>
         <Table rows={rows()} footer={footer()}>
-          <TableHeader>Name</TableHeader>
+          <TableHeader
+            onClick={() =>
+              dispatch(
+                sortSavingsByName(
+                  sortOrder === SortOrder.Descending
+                    ? SortOrder.Ascending
+                    : SortOrder.Descending
+                )
+              )
+            }
+            style={{ cursor: 'pointer' }}
+          >
+            Name
+          </TableHeader>
           <TableHeader width={'20%'}>Amount</TableHeader>
           <TableHeader>Description</TableHeader>
           <TableHeader width={'5%'}></TableHeader>

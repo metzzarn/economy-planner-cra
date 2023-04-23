@@ -3,7 +3,9 @@ import {
   editExpensesTitle,
   removeExpense,
   selectExpenses,
+  selectExpensesSortOrder,
   selectExpensesTitle,
+  sortByName,
   updateExpense,
 } from 'redux/expensesSlice';
 import { Table } from 'common/table/Table';
@@ -22,10 +24,12 @@ import {
   EditableInput,
   EditablePreview,
 } from '@ark-ui/react';
+import { SortOrder } from 'common/SortOrder';
 
 export const ExpensesTable = () => {
   const dispatch = useAppDispatch();
   const expenses = useAppSelector(selectExpenses);
+  const sortOrder = useAppSelector(selectExpensesSortOrder);
   const title = useAppSelector(selectExpensesTitle) || 'Expenses';
 
   const rows = () => {
@@ -118,7 +122,20 @@ export const ExpensesTable = () => {
       </h2>
       <If true={expenses?.length > 0}>
         <Table rows={rows()} footer={footer()}>
-          <TableHeader>Name</TableHeader>
+          <TableHeader
+            onClick={() =>
+              dispatch(
+                sortByName(
+                  sortOrder === SortOrder.Descending
+                    ? SortOrder.Ascending
+                    : SortOrder.Descending
+                )
+              )
+            }
+            style={{ cursor: 'pointer' }}
+          >
+            Name
+          </TableHeader>
           <TableHeader width={'20%'}>Amount</TableHeader>
           <TableHeader>Description</TableHeader>
           <TableHeader width={'5%'}></TableHeader>

@@ -1,7 +1,7 @@
 # TODO
 
 - Sort income list by amount
-- Sort tables by name or amount
+- Sort tables by amount
 
 - Savings and expenses validation is not working
 - Add multiple expenses tables

@@ -1,15 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { FinancialEntry } from 'redux/common';
+import { SortOrder } from 'common/SortOrder';
+import { arraySort } from 'utils/arraySort';
 
 const initialState: SavingsState = {
   title: 'Savings',
   savings: [],
+  sortOrder: SortOrder.Descending,
+  sortColumn: 'name',
 };
 
 interface SavingsState {
   title: string;
   savings: FinancialEntry[];
+  sortOrder?: SortOrder;
+  sortColumn?: string;
 }
 
 export const economySlice = createSlice({
@@ -57,12 +63,28 @@ export const economySlice = createSlice({
         title: action.payload,
       };
     },
+    sortSavingsByName: (state, action: PayloadAction<SortOrder>) => {
+      const newArray = arraySort([...state.savings], action.payload);
+
+      return {
+        ...state,
+        savings: newArray,
+        sortOrder: action.payload,
+      };
+    },
   },
 });
 
-export const { addSaving, updateSaving, removeSaving, editSavingsTitle } =
-  economySlice.actions;
+export const {
+  addSaving,
+  updateSaving,
+  removeSaving,
+  editSavingsTitle,
+  sortSavingsByName,
+} = economySlice.actions;
 export const selectSavings = (state: RootState) => state.savings.savings;
 export const selectSavingsTitle = (state: RootState) => state.savings.title;
+export const selectSavingsSortOrder = (state: RootState) =>
+  state.savings.sortOrder;
 
 export default economySlice.reducer;
