@@ -1,14 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
+import { SortOrder } from 'common/SortOrder';
+import { arraySortByValue } from 'utils/arraySort';
 
 const initialState: IncomeState = {
   incomeList: [],
   selectedIncome: 0,
+  sortOrder: SortOrder.Descending,
 };
 
 interface IncomeState {
   incomeList: IncomeEntry[];
   selectedIncome: number;
+  sortOrder: SortOrder;
 }
 export interface IncomeEntry {
   index?: number;
@@ -54,12 +58,27 @@ export const incomeSlice = createSlice({
           : state.selectedIncome,
       };
     },
+    sortIncomesByValue: (state, action: PayloadAction<SortOrder>) => {
+      const newArray = arraySortByValue([...state.incomeList], action.payload);
+
+      return {
+        ...state,
+        incomeList: newArray,
+        sortOrder: action.payload,
+      };
+    },
   },
 });
 
-export const { setSelectedIncome, addIncome, removeIncome } =
-  incomeSlice.actions;
+export const {
+  setSelectedIncome,
+  addIncome,
+  removeIncome,
+  sortIncomesByValue,
+} = incomeSlice.actions;
 export const selectIncome = (state: RootState) => state.income.selectedIncome;
 export const selectIncomeList = (state: RootState) => state.income.incomeList;
+export const selectIncomeSortOrder = (state: RootState) =>
+  state.income.sortOrder;
 
 export default incomeSlice.reducer;

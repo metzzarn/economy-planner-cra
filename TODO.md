@@ -1,7 +1,5 @@
 # TODO
 
-- Sort income list by amount
-
 - Savings and expenses validation is not working
 - Add multiple expenses tables
 - Save history (by saving state)
