@@ -2,20 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { FinancialEntry } from 'redux/common';
 import { SortOrder } from 'common/SortOrder';
-import { arraySort } from 'utils/arraySort';
+import { arraySortByName, arraySortByValue } from 'utils/arraySort';
 
 const initialState: ExpensesState = {
   title: 'Expenses',
   expenses: [],
   sortOrder: SortOrder.Descending,
-  sortColumn: 'name',
 };
 
 interface ExpensesState {
   title: string;
   expenses: FinancialEntry[];
   sortOrder?: SortOrder;
-  sortColumn?: string;
 }
 
 export const expensesSlice = createSlice({
@@ -63,8 +61,17 @@ export const expensesSlice = createSlice({
         title: action.payload,
       };
     },
-    sortByName: (state, action: PayloadAction<SortOrder>) => {
-      const newArray = arraySort([...state.expenses], action.payload);
+    sortExpensesByName: (state, action: PayloadAction<SortOrder>) => {
+      const newArray = arraySortByName([...state.expenses], action.payload);
+
+      return {
+        ...state,
+        expenses: newArray,
+        sortOrder: action.payload,
+      };
+    },
+    sortExpensesByValue: (state, action: PayloadAction<SortOrder>) => {
+      const newArray = arraySortByValue([...state.expenses], action.payload);
 
       return {
         ...state,
@@ -80,7 +87,8 @@ export const {
   updateExpense,
   removeExpense,
   editExpensesTitle,
-  sortByName,
+  sortExpensesByName,
+  sortExpensesByValue,
 } = expensesSlice.actions;
 export const selectExpenses = (state: RootState) => state.expenses.expenses;
 export const selectExpensesTitle = (state: RootState) => state.expenses.title;

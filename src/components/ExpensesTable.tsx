@@ -5,7 +5,8 @@ import {
   selectExpenses,
   selectExpensesSortOrder,
   selectExpensesTitle,
-  sortByName,
+  sortExpensesByName,
+  sortExpensesByValue,
   updateExpense,
 } from 'redux/expensesSlice';
 import { Table } from 'common/table/Table';
@@ -125,7 +126,7 @@ export const ExpensesTable = () => {
           <TableHeader
             onClick={() =>
               dispatch(
-                sortByName(
+                sortExpensesByName(
                   sortOrder === SortOrder.Descending
                     ? SortOrder.Ascending
                     : SortOrder.Descending
@@ -136,7 +137,21 @@ export const ExpensesTable = () => {
           >
             Name
           </TableHeader>
-          <TableHeader width={'20%'}>Amount</TableHeader>
+          <TableHeader
+            width={'20%'}
+            onClick={() =>
+              dispatch(
+                sortExpensesByValue(
+                  sortOrder === SortOrder.Descending
+                    ? SortOrder.Ascending
+                    : SortOrder.Descending
+                )
+              )
+            }
+            style={{ cursor: 'pointer' }}
+          >
+            Amount
+          </TableHeader>
           <TableHeader>Description</TableHeader>
           <TableHeader width={'5%'}></TableHeader>
         </Table>

@@ -13,6 +13,7 @@ import {
   selectSavingsSortOrder,
   selectSavingsTitle,
   sortSavingsByName,
+  sortSavingsByValue,
   updateSaving,
 } from 'redux/savingsSlice';
 import { If } from 'common/If';
@@ -137,7 +138,21 @@ export const SavingsTable = () => {
           >
             Name
           </TableHeader>
-          <TableHeader width={'20%'}>Amount</TableHeader>
+          <TableHeader
+            width={'20%'}
+            onClick={() =>
+              dispatch(
+                sortSavingsByValue(
+                  sortOrder === SortOrder.Descending
+                    ? SortOrder.Ascending
+                    : SortOrder.Descending
+                )
+              )
+            }
+            style={{ cursor: 'pointer' }}
+          >
+            Amount
+          </TableHeader>
           <TableHeader>Description</TableHeader>
           <TableHeader width={'5%'}></TableHeader>
         </Table>
