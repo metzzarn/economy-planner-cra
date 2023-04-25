@@ -2,8 +2,14 @@
 
 - Savings and expenses validation is not working
 - Add multiple expenses tables
+
+- Implement undo/redo
+
 - Save history (by saving state)
 - Switch between history states
+
+- Add settings page
+  - Decimal places
 
 ## Future
 

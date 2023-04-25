@@ -96,9 +96,13 @@ export const SavingsTable = () => {
           <span style={{ fontWeight: 'bold' }}>Total</span>
         </TableFooterItem>
         <TableFooterItem>
-          {savings.reduce(
-            (acc: number, curr: FinancialEntry) => acc + curr.value,
-            0
+          {formatPrice(
+            savings
+              .reduce(
+                (acc: number, curr: FinancialEntry) => acc + curr.value,
+                0
+              )
+              .toString()
           )}
         </TableFooterItem>
       </TableFooter>
