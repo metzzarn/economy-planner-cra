@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link } from 'react-router-dom';
+import React from 'react';
 
 export const Menu = () => (
   <nav>
@@ -9,6 +9,9 @@ export const Menu = () => (
       </li>
       <li>
         <Link to="/dashboard">Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/settings">Settings</Link>
       </li>
       <li>
         <Link to="/nothing-here">Nothing Here</Link>

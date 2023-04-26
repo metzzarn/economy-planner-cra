@@ -8,8 +8,7 @@
 - Save history (by saving state)
 - Switch between history states
 
-- Add settings page
-  - Decimal places
+- Add decimal places on Settings page
 
 ## Future
 
