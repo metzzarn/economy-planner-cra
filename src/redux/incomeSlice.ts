@@ -20,7 +20,7 @@ export interface IncomeEntry {
 }
 
 export const incomeSlice = createSlice({
-  name: 'economy',
+  name: 'income',
   initialState,
   reducers: {
     setSelectedIncome: (state, action: PayloadAction<number>) => {

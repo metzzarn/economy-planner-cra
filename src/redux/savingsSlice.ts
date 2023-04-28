@@ -18,8 +18,8 @@ interface SavingsState {
   sortColumn?: string;
 }
 
-export const economySlice = createSlice({
-  name: 'economy',
+export const savingsSlice = createSlice({
+  name: 'savings',
   initialState,
   reducers: {
     addSaving: (state, action: PayloadAction<FinancialEntry>) => {
@@ -91,10 +91,10 @@ export const {
   editSavingsTitle,
   sortSavingsByName,
   sortSavingsByValue,
-} = economySlice.actions;
+} = savingsSlice.actions;
 export const selectSavings = (state: RootState) => state.savings.savings;
 export const selectSavingsTitle = (state: RootState) => state.savings.title;
 export const selectSavingsSortOrder = (state: RootState) =>
   state.savings.sortOrder;
 
-export default economySlice.reducer;
+export default savingsSlice.reducer;
