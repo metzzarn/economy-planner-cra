@@ -26,12 +26,14 @@ import {
   EditablePreview,
 } from '@ark-ui/react';
 import { SortOrder } from 'common/SortOrder';
+import { selectDecimalPlaces } from 'redux/settingsSlice';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
   const savings = useAppSelector(selectSavings);
   const sortOrder = useAppSelector(selectSavingsSortOrder);
   const title = useAppSelector(selectSavingsTitle) || 'Savings';
+  const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   const rows = () => {
     return savings.map((saving: FinancialEntry, index: number) => {
@@ -72,7 +74,7 @@ export const SavingsTable = () => {
           <TableRowItem
             allowEdit
             action={updateValue}
-            value={formatPrice(saving.value.toString())}
+            value={formatPrice(saving.value.toString(), decimalPlaces)}
           />
           <TableRowItem
             allowEdit
@@ -102,7 +104,8 @@ export const SavingsTable = () => {
                 (acc: number, curr: FinancialEntry) => acc + curr.value,
                 0
               )
-              .toString()
+              .toString(),
+            decimalPlaces
           )}
         </TableFooterItem>
       </TableFooter>

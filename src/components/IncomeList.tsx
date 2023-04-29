@@ -15,17 +15,19 @@ import {
 } from 'redux/incomeSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { SortOrder } from 'common/SortOrder';
+import { selectDecimalPlaces } from 'redux/settingsSlice';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();
   const incomeList = useAppSelector(selectIncomeList);
   const sortOrder = useAppSelector(selectIncomeSortOrder);
+  const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   const rows = () => {
     return incomeList.map((income: IncomeEntry, index: number) => (
       <TableRow key={index}>
         <TableRowItem
-          value={formatPrice(income.value.toString())}
+          value={formatPrice(income.value.toString(), decimalPlaces)}
           onClick={() => dispatch(setSelectedIncome(index))}
           style={{ cursor: 'pointer' }}
         />

@@ -8,7 +8,6 @@ export const Settings = () => {
   return (
     <div>
       <h2>Settings</h2>
-      {/*<form>*/}
       Decimal places:
       <div>
         <div>
@@ -53,10 +52,6 @@ export const Settings = () => {
           <label htmlFor="decimalPlaces2">2</label>
         </div>
       </div>
-      {/*  <div>*/}
-      {/*    <button type="submit">Submit</button>*/}
-      {/*  </div>*/}
-      {/*</form>*/}
     </div>
   );
 };

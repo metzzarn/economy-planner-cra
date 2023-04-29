@@ -11,17 +11,19 @@ import { addExpense } from 'redux/expensesSlice';
 import { addSaving } from 'redux/savingsSlice';
 import { IncomeList } from 'components/IncomeList';
 import { StateManagement } from 'components/StateManagement';
+import { selectDecimalPlaces } from 'redux/settingsSlice';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const income = useAppSelector(selectIncome);
+  const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   return (
     <div>
       <h2>Home</h2>
       <StateManagement />
       <div style={{ marginBottom: '10px' }}>
-        {`Your salary is ${formatPrice(income.toString())}`}
+        {`Your salary is ${formatPrice(income.toString(), decimalPlaces)}`}
         <IncomeForm />
         <IncomeList />
       </div>
