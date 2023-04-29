@@ -1,5 +1,7 @@
 # TODO
 
+- Create tables with MUI
+
 - Savings and expenses validation is not working
 - Add multiple expenses tables
 
@@ -7,6 +9,8 @@
 
 - Save history (by saving state)
 - Switch between history states
+
+- Change currency in settings
 
 ## Future
 
