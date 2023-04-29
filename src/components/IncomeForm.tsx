@@ -3,6 +3,7 @@ import { convertToNumber } from 'utils/numberUtils';
 import React from 'react';
 import { useAppDispatch } from 'hooks';
 import { addIncome } from 'redux/incomeSlice';
+import { Button } from '@mui/material';
 
 export interface IncomeFormValues {
   netIncome: string;
@@ -27,7 +28,9 @@ export const IncomeForm = () => {
             />
           </div>
           <div>
-            <button type={'submit'}>Add income</button>
+            <Button variant="contained" type={'submit'}>
+              Add income
+            </Button>
           </div>
         </form>
       )}

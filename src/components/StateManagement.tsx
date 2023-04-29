@@ -1,10 +1,12 @@
 import { saveStateToFile } from 'utils/stateUtils';
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from 'react-redux';
+import { Button } from '@mui/material';
 
 export const StateManagement = () => {
   const store = useStore();
   const inputFile = React.useRef<HTMLInputElement>(null);
+  const [chosenFileName, setChosenFileName] = useState<string>('');
 
   const onLoadStateFromFile = () => {
     if (inputFile.current?.files) {
@@ -29,17 +31,42 @@ export const StateManagement = () => {
     <div>
       <form onSubmit={() => saveStateToFile(store.getState())}>
         <div>
-          <button type={'submit'}>Save state to file</button>
+          <Button variant="contained" type={'submit'}>
+            Save state to file
+          </Button>
         </div>
       </form>
 
       <div>
-        <input type={'file'} ref={inputFile} />
-        <button onClick={onLoadStateFromFile}>Load state from file</button>
+        <Button variant="outlined" onClick={() => inputFile?.current?.click()}>
+          Choose file
+        </Button>
+        <input
+          hidden
+          type={'file'}
+          ref={inputFile}
+          onChange={(e) =>
+            e.target?.files && setChosenFileName(e.target?.files[0]?.name)
+          }
+        />
+        <div>{chosenFileName}</div>
+        <Button
+          variant="contained"
+          type={'submit'}
+          onClick={onLoadStateFromFile}
+        >
+          Load state from file
+        </Button>
       </div>
 
       <div>
-        <button onClick={onClearLocalStorage}>Clear local storage</button>
+        <Button
+          variant="contained"
+          type={'submit'}
+          onClick={onClearLocalStorage}
+        >
+          Clear local storage
+        </Button>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   requiredMaxLength,
   requiredString,
 } from 'utils/fieldValidation';
+import { Button } from '@mui/material';
 
 export interface FormValues {
   name: string;
@@ -107,9 +108,9 @@ export const FinancialEntryForm = (props: Props) => {
             </Field>
           </div>
           <div>
-            <button type={'submit'}>
+            <Button variant="contained" type={'submit'}>
               {props.buttonText ? props.buttonText : 'Submit'}
-            </button>
+            </Button>
           </div>
         </form>
       )}

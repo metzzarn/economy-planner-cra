@@ -8,8 +8,6 @@
 - Save history (by saving state)
 - Switch between history states
 
-- Add decimal places on Settings page
-
 ## Future
 
 ### Encryption
