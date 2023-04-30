@@ -11,6 +11,7 @@
 - Switch between history states
 
 - Change currency in settings
+- Setup tests
 
 ## Future
 

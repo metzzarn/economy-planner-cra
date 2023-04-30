@@ -1,7 +1,7 @@
 import { Field, Form } from 'react-final-form';
 import { convertToNumber } from 'utils/numberUtils';
 import React, { FormEvent, useState } from 'react';
-import { isValidNumber } from 'utils/validation';
+import { isValidNumber, validNumberPattern } from 'utils/validation';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
 export interface FormValues {
@@ -77,7 +77,7 @@ export const FinancialEntryForm = (props: Props) => {
           endAdornment: <InputAdornment position={'end'}>kr</InputAdornment>,
           inputProps: {
             inputMode: 'decimal',
-            pattern: '[0-9]*',
+            pattern: validNumberPattern,
           },
         }}
         onChange={(event) =>

@@ -3,7 +3,7 @@ import React, { FormEvent, useState } from 'react';
 import { useAppDispatch } from 'hooks';
 import { addIncome } from 'redux/incomeSlice';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
-import { isValidNumber } from 'utils/validation';
+import { isValidNumber, validNumberPattern } from 'utils/validation';
 
 export const IncomeForm = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ export const IncomeForm = () => {
           endAdornment: <InputAdornment position={'end'}>kr</InputAdornment>,
           inputProps: {
             inputMode: 'decimal',
-            pattern: '[0-9]*',
+            pattern: validNumberPattern,
           },
         }}
         onChange={(event) =>
