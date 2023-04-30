@@ -1,24 +1,22 @@
 import React from 'react';
 import './App.css';
 import { Link, Outlet, Route, Routes } from 'react-router-dom';
-import { Menu } from './components/NavigationMeny';
-import { Home } from './components/Home';
-import { Settings } from 'components/Settings';
+import { Menu } from 'components/NavigationMeny';
 
 export default function App() {
   return (
     <div className="App">
       <Routes>
         <Route path={'/'} element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="settings" element={<Settings />} />
+          {/*<Route index element={<Home />} />*/}
+          {/*<Route path="dashboard" element={<Dashboard />} />*/}
+          {/*<Route path="settings" element={<Settings />} />*/}
 
           {/* Using path="*"" means "match anything", so this route
                     acts like a catch-all for URLs that we don't have explicit
                     routes for. */}
-          <Route path="*" element={<NoMatch />} />
         </Route>
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>
   );
@@ -32,14 +30,6 @@ const Layout = () => {
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
       <Outlet />
-    </div>
-  );
-};
-
-const Dashboard = () => {
-  return (
-    <div>
-      <h2>Dashboard</h2>
     </div>
   );
 };
