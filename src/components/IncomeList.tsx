@@ -1,9 +1,4 @@
 import React from 'react';
-import { Table } from 'common/table/Table';
-import { TableHeader } from 'common/table/TableHeader';
-import { TableRow } from 'common/table/TableRow';
-import { TableRowItem } from 'common/table/TableRowItem';
-import { formatPrice } from 'utils/numberUtils';
 import { If } from 'common/If';
 import {
   IncomeEntry,
@@ -14,8 +9,17 @@ import {
   sortIncomesByValue,
 } from 'redux/incomeSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { SortOrder } from 'common/SortOrder';
 import { selectDecimalPlaces } from 'redux/settingsSlice';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
+import { SortOrder } from 'common/SortOrder';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();
@@ -23,44 +27,54 @@ export const IncomeList = () => {
   const sortOrder = useAppSelector(selectIncomeSortOrder);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
-  const rows = () => {
-    return incomeList.map((income: IncomeEntry, index: number) => (
-      <TableRow key={index}>
-        <TableRowItem
-          value={formatPrice(income.value.toString(), decimalPlaces)}
-          onClick={() => dispatch(setSelectedIncome(index))}
-          style={{ cursor: 'pointer' }}
-        />
-        <TableRowItem
-          style={{ cursor: 'pointer' }}
-          value={'X'}
-          onClick={() => dispatch(removeIncome(index))}
-        />
-      </TableRow>
-    ));
-  };
-
   return (
-    <div style={{ width: '700px' }}>
+    <TableContainer component={Paper} sx={{ maxWidth: 700 }}>
       <If true={incomeList?.length > 0}>
-        <Table rows={rows()}>
-          <TableHeader
-            onClick={() =>
-              dispatch(
-                sortIncomesByValue(
-                  sortOrder === SortOrder.Descending
-                    ? SortOrder.Ascending
-                    : SortOrder.Descending
-                )
-              )
-            }
-            style={{ cursor: 'pointer' }}
-          >
-            Net income
-          </TableHeader>
-          <TableHeader width={'5%'}></TableHeader>
+        <Table size="small" aria-label="income table">
+          <TableHead>
+            <TableRow>
+              <TableCell
+                onClick={() =>
+                  dispatch(
+                    sortIncomesByValue(
+                      sortOrder === SortOrder.Descending
+                        ? SortOrder.Ascending
+                        : SortOrder.Descending
+                    )
+                  )
+                }
+                style={{ cursor: 'pointer' }}
+              >
+                Net income (kr)
+              </TableCell>
+              <TableCell align="left" width={'5%'} />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {incomeList.map((income: IncomeEntry, index: number) => (
+              <TableRow
+                key={income.value}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell
+                  component="th"
+                  scope="row"
+                  onClick={() => dispatch(setSelectedIncome(index))}
+                >
+                  <span style={{ cursor: 'pointer' }}>{income.value}</span>
+                </TableCell>
+                <TableCell
+                  align="right"
+                  onClick={() => dispatch(removeIncome(index))}
+                  style={{ cursor: 'pointer' }}
+                >
+                  X
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </If>
-    </div>
+    </TableContainer>
   );
 };
