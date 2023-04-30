@@ -9,7 +9,6 @@ import {
   sortIncomesByValue,
 } from 'redux/incomeSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { selectDecimalPlaces } from 'redux/settingsSlice';
 import {
   Paper,
   Table,
@@ -25,7 +24,6 @@ export const IncomeList = () => {
   const dispatch = useAppDispatch();
   const incomeList = useAppSelector(selectIncomeList);
   const sortOrder = useAppSelector(selectIncomeSortOrder);
-  const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   return (
     <TableContainer component={Paper} sx={{ maxWidth: 700 }}>
