@@ -1,6 +1,11 @@
 import { convertToNumber } from 'utils/numberUtils';
 import React, { FormEvent, useState } from 'react';
-import { isValidNumber, validNumberPattern } from 'utils/validation';
+import {
+  isValidNumber,
+  maxLength,
+  requiredMaxLength,
+  validNumberPattern,
+} from 'utils/validation';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
 export interface FormValues {
@@ -36,20 +41,6 @@ export const FinancialEntryForm = (props: Props) => {
     props.action(name, convertToNumber(value), description);
   };
 
-  const requiredMaxLength = (value: string) => {
-    if (value && value.length > 30) {
-      return 'Cannot be longer than 30 characters';
-    }
-    return value ? '' : 'Required';
-  };
-
-  const maxLength = (value: string) => {
-    if (value && value.length > 30) {
-      return 'Cannot be longer than 30 characters';
-    }
-    return '';
-  };
-
   return (
     <Box component={'form'} sx={{ mt: 1 }} onSubmit={handleSubmit}>
       <TextField
@@ -83,7 +74,7 @@ export const FinancialEntryForm = (props: Props) => {
         onChange={(event) =>
           isValidNumber(event.target.value)
             ? setAmountErrorText(' ')
-            : setAmountErrorText('Please enter a valid number')
+            : setAmountErrorText('Must be a valid number')
         }
         helperText={amountErrorText}
       />

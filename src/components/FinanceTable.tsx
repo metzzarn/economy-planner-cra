@@ -4,8 +4,13 @@ import {
   DataGrid,
   GridCellParams,
   GridColDef,
+  GridEditInputCell,
+  GridPreProcessEditCellProps,
+  GridRenderEditCellParams,
   GridRowModel,
 } from '@mui/x-data-grid';
+import { isValidNumber, maxLength, requiredMaxLength } from 'utils/validation';
+import { styled, Tooltip, tooltipClasses, TooltipProps } from '@mui/material';
 
 interface AmountTableProps {
   data: FinancialEntry[];
@@ -19,24 +24,66 @@ interface AmountTableProps {
 }
 
 export const FinanceTable = (props: AmountTableProps) => {
+  const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.error.main,
+      color: theme.palette.error.contrastText,
+    },
+  }));
+
+  const renderEdit = (params: GridRenderEditCellParams) => {
+    const { error } = params;
+    return (
+      <div>
+        <div>
+          <GridEditInputCell {...params} error={!!error} />
+        </div>
+        <StyledTooltip open={!!error} title={error || ''}>
+          <div></div>
+        </StyledTooltip>
+      </div>
+    );
+  };
+
   const columns: GridColDef[] = [
     {
       field: 'name',
       headerName: 'Name',
       flex: 5,
       editable: true,
+      preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        const errorMessage = requiredMaxLength(params.props.value);
+        const error = errorMessage.length > 0 ? errorMessage : null;
+        return { ...params.props, error: error };
+      },
+      renderEditCell: renderEdit,
     },
     {
       field: 'amount',
       headerName: 'Amount',
       flex: 2,
       editable: true,
+      preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        const errorMessage = isValidNumber(params.props.value)
+          ? null
+          : 'Must be a valid number';
+        return { ...params.props, error: errorMessage };
+      },
+      renderEditCell: renderEdit,
     },
     {
       field: 'description',
       headerName: 'Description',
       flex: 5,
       editable: true,
+      preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        const errorMessage = maxLength(params.props.value);
+        const error = errorMessage.length > 0 ? errorMessage : null;
+        return { ...params.props, error: error };
+      },
+      renderEditCell: renderEdit,
     },
     {
       field: 'remove',
@@ -80,7 +127,7 @@ export const FinanceTable = (props: AmountTableProps) => {
         onCellClick={(params: GridCellParams) =>
           params.field === 'remove' && props.removeRow(Number(params.id))
         }
-      />{' '}
+      />
     </div>
   );
 };

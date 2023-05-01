@@ -39,7 +39,7 @@ export const IncomeForm = () => {
         onChange={(event) =>
           isValidNumber(event.target.value)
             ? setErrorText(' ')
-            : setErrorText('Please enter a valid number')
+            : setErrorText('Must be a valid number')
         }
         helperText={errorText}
       />
