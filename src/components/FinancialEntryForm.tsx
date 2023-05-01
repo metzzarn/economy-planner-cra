@@ -36,8 +36,6 @@ export const FinancialEntryForm = (props: Props) => {
     props.action(name, convertToNumber(value), description);
   };
 
-  const requiredString = (value: string) => (value ? undefined : 'Required');
-
   const requiredMaxLength = (value: string) => {
     if (value && value.length > 30) {
       return 'Cannot be longer than 30 characters';

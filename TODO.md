@@ -1,7 +1,5 @@
 # TODO
 
-- Create tables with MUI
-
 - Savings and expenses validation is not working
 - Add multiple expenses tables
 
