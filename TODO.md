@@ -1,14 +1,14 @@
 # TODO
 
-- Savings and expenses validation is not working
+- Change currency symbol in input fields
+
 - Add multiple expenses tables
 
 - Implement undo/redo
-
+- 
 - Save history (by saving state)
 - Switch between history states
 
-- Change currency in settings
 - Setup tests
 
 ## Future

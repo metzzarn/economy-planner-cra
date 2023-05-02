@@ -8,12 +8,6 @@ import {
 } from 'utils/validation';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
-export interface FormValues {
-  name: string;
-  value: string;
-  description: string;
-}
-
 interface Props {
   action: (name: string, value: number, description: string) => void;
   namePlaceholder?: string;

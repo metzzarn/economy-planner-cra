@@ -1,57 +1,91 @@
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { selectDecimalPlaces, setDecimalPlaces } from 'redux/settingsSlice';
+import {
+  selectCurrency,
+  selectDecimalPlaces,
+  setCurrency,
+  setDecimalPlaces,
+} from 'redux/settingsSlice';
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
+import React from 'react';
 
 export const Settings = () => {
   const dispatch = useAppDispatch();
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
+  const currency = useAppSelector(selectCurrency);
+
+  const handleDecimalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setDecimalPlaces(parseInt(event.target.value)));
+  };
+
+  const handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const currency =
+      event.target.value === 'SEK'
+        ? { currency: 'SEK', locale: 'sv-SE' }
+        : { currency: 'USD', locale: 'en-US' };
+    dispatch(setCurrency(currency));
+  };
 
   return (
     <div>
       <h2>Settings</h2>
-      Decimal places:
-      <div>
-        <div>
-          <input
-            type="radio"
-            id="decimalPlaces0"
-            name="decimalPlaces"
-            defaultChecked={decimalPlaces === 0}
-            value="0"
-            onChange={() => {
-              dispatch(setDecimalPlaces(0));
-            }}
+      <FormControl>
+        <FormLabel id={'decimal-places-radio-group'}>Decimal Places</FormLabel>
+        <RadioGroup
+          row
+          aria-labelledby={'decimal-places-radio-group'}
+          name={'decimal-places-radio-group'}
+          value={decimalPlaces}
+          onChange={handleDecimalChange}
+        >
+          <FormControlLabel
+            labelPlacement={'top'}
+            value={'0'}
+            control={<Radio />}
+            label={'0'}
           />
-          <label htmlFor="decimalPlaces0">0</label>
-        </div>
+          <FormControlLabel
+            labelPlacement={'top'}
+            value={'1'}
+            control={<Radio />}
+            label={'1'}
+          />
+          <FormControlLabel
+            labelPlacement={'top'}
+            value={'2'}
+            control={<Radio />}
+            label={'2'}
+          />
+        </RadioGroup>
+      </FormControl>
 
-        <div>
-          <input
-            type="radio"
-            id="decimalPlaces1"
-            name="decimalPlaces"
-            defaultChecked={decimalPlaces === 1}
-            value="1"
-            onChange={() => {
-              dispatch(setDecimalPlaces(1));
-            }}
+      <FormControl>
+        <FormLabel id={'currency-radio-group'}>Currency</FormLabel>
+        <RadioGroup
+          aria-labelledby={'currency-radio-group'}
+          name={'currency-radio-group'}
+          value={currency.currency}
+          onChange={handleCurrencyChange}
+        >
+          <FormControlLabel
+            labelPlacement={'top'}
+            value={'SEK'}
+            control={<Radio />}
+            label={'Svenska kronor'}
           />
-          <label htmlFor="decimalPlaces1">1</label>
-        </div>
-
-        <div>
-          <input
-            type="radio"
-            id="decimalPlaces2"
-            name="decimalPlaces"
-            defaultChecked={decimalPlaces === 2}
-            value="2"
-            onChange={() => {
-              dispatch(setDecimalPlaces(2));
-            }}
+          <FormControlLabel
+            labelPlacement={'top'}
+            value={'USD'}
+            control={<Radio />}
+            label={'Dollar'}
           />
-          <label htmlFor="decimalPlaces2">2</label>
-        </div>
-      </div>
+        </RadioGroup>
+      </FormControl>
     </div>
   );
 };

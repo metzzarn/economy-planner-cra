@@ -43,7 +43,7 @@ export const IncomeList = () => {
                 }
                 style={{ cursor: 'pointer' }}
               >
-                Net income (kr)
+                Net income
               </TableCell>
               <TableCell align="left" width={'5%'} />
             </TableRow>
