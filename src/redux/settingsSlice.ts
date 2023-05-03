@@ -1,18 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-const initialState: IncomeState = {
+const initialState: {
+  decimalPlaces: number;
+  currency: Currency;
+} = {
   decimalPlaces: 2,
   currency: {
     currency: 'SEK',
     locale: 'sv-SE',
   },
 };
-
-interface IncomeState {
-  decimalPlaces: number;
-  currency: Currency;
-}
 
 export interface Currency {
   currency: string;

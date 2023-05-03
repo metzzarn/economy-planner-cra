@@ -54,7 +54,7 @@ export const ExpensesTable = () => {
             updateExpense({
               index: id,
               name: name,
-              value: amount,
+              value: Number(amount),
               description: description,
             })
           );

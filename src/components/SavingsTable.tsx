@@ -54,7 +54,7 @@ export const SavingsTable = () => {
             updateSaving({
               index: id,
               name: name,
-              value: amount,
+              value: Number(amount),
               description: description,
             })
           );

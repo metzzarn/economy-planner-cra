@@ -1,4 +1,4 @@
-export const validNumberPattern = '^\\d+([,.]\\d{1,2})?$';
+export const validNumberPattern = '^\\d+([,.]\\d{1,4})?$';
 
 export const isValidNumber = (input: string) => {
   const regex = new RegExp(validNumberPattern);

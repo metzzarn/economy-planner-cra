@@ -1,6 +1,6 @@
 # TODO
 
-- Change currency symbol in input fields
+- Fix problem with index not being updated when deleting a financial entry
 
 - Add multiple expenses tables
 

@@ -1,12 +1,14 @@
-import { convertToNumber } from 'utils/numberUtils';
+import { convertToNumber, currencySymbol } from 'utils/numberUtils';
 import React, { FormEvent, useState } from 'react';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { addIncome } from 'redux/incomeSlice';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 import { isValidNumber, validNumberPattern } from 'utils/validation';
+import { selectCurrency } from 'redux/settingsSlice';
 
 export const IncomeForm = () => {
   const dispatch = useAppDispatch();
+  const currency = useAppSelector(selectCurrency);
 
   const [errorText, setErrorText] = useState<string>(' ');
 
@@ -28,9 +30,13 @@ export const IncomeForm = () => {
         name={'netIncome'}
         variant={'outlined'}
         size={'small'}
-        placeholder={'0,0 kr'}
+        placeholder={'0,0'.replace(',', currencySymbol(currency).decimal)}
         InputProps={{
-          endAdornment: <InputAdornment position={'end'}>kr</InputAdornment>,
+          endAdornment: (
+            <InputAdornment position={'end'}>
+              {currencySymbol(currency).symbol}
+            </InputAdornment>
+          ),
           inputProps: {
             inputMode: 'decimal',
             pattern: validNumberPattern,

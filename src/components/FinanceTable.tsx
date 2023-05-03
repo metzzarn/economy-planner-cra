@@ -11,19 +11,24 @@ import {
 } from '@mui/x-data-grid';
 import { isValidNumber, maxLength, requiredMaxLength } from 'utils/validation';
 import { styled, Tooltip, tooltipClasses, TooltipProps } from '@mui/material';
+import { currencySymbol } from 'utils/numberUtils';
+import { useAppSelector } from 'hooks';
+import { selectCurrency } from 'redux/settingsSlice';
 
 interface AmountTableProps {
   data: FinancialEntry[];
   updateRow: (
     id: number,
     name: string,
-    amount: number,
+    amount: string,
     description: string
   ) => void;
   removeRow: (id: number) => void;
 }
 
 export const FinanceTable = (props: AmountTableProps) => {
+  const currency = useAppSelector(selectCurrency);
+
   const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
@@ -97,12 +102,14 @@ export const FinanceTable = (props: AmountTableProps) => {
     },
   ];
 
-  const rows = props.data.map((expense: FinancialEntry) => {
+  const rows = props.data.map((entry: FinancialEntry, index) => {
     return {
-      id: expense.index,
-      name: expense.name,
-      amount: expense.value,
-      description: expense.description,
+      id: index,
+      name: entry.name,
+      amount: entry.value
+        ?.toString()
+        .replace('.', currencySymbol(currency).decimal),
+      description: entry.description,
     };
   });
 
