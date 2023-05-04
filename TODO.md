@@ -2,10 +2,12 @@
 
 - Fix problem with index not being updated when deleting a financial entry
 
+- Add expenses and savings to their respective tabs
+
 - Add multiple expenses tables
 
 - Implement undo/redo
-- 
+
 - Save history (by saving state)
 - Switch between history states
 
