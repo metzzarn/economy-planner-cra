@@ -3,6 +3,7 @@ import { If } from 'common/If';
 import {
   IncomeEntry,
   removeIncome,
+  selectIncome,
   selectIncomeList,
   selectIncomeSortOrder,
   setSelectedIncome,
@@ -24,6 +25,7 @@ export const IncomeList = () => {
   const dispatch = useAppDispatch();
   const incomeList = useAppSelector(selectIncomeList);
   const sortOrder = useAppSelector(selectIncomeSortOrder);
+  const selectedIncome = useAppSelector(selectIncome);
 
   return (
     <TableContainer component={Paper} sx={{ maxWidth: 700 }}>
@@ -59,7 +61,15 @@ export const IncomeList = () => {
                   scope="row"
                   onClick={() => dispatch(setSelectedIncome(index))}
                 >
-                  <span style={{ cursor: 'pointer' }}>{income.value}</span>
+                  <span
+                    style={{
+                      cursor: 'pointer',
+                      fontWeight:
+                        income.value === selectedIncome ? 'bold' : 'normal',
+                    }}
+                  >
+                    {income.value}
+                  </span>
                 </TableCell>
                 <TableCell
                   align="right"
