@@ -6,6 +6,9 @@
 
 - Add multiple expenses tables
 
+- Verify state before loading it
+- Add confirm modal on load and clear state
+
 - Implement undo/redo
 
 - Save history (by saving state)
