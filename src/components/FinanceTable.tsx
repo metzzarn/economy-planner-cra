@@ -18,12 +18,12 @@ import { selectCurrency } from 'redux/settingsSlice';
 interface AmountTableProps {
   data: FinancialEntry[];
   updateRow: (
-    id: number,
+    index: number,
     name: string,
     amount: string,
     description: string
   ) => void;
-  removeRow: (id: number) => void;
+  removeRow: (index: number) => void;
 }
 
 export const FinanceTable = (props: AmountTableProps) => {
