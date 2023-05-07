@@ -1,6 +1,6 @@
 # TODO
 
-- Fix problem with index not being updated when deleting a financial entry
+- When removing an income, set selected income to the next in the list
 
 - Add multiple expenses tables
 

@@ -18,7 +18,11 @@ export const expensesSlice = createSlice({
   reducers: {
     addExpense: (state, action: PayloadAction<FinancialEntry>) => {
       action.payload.index = state.expenses.length;
-      state.expenses.push(action.payload);
+      state.expenses.push({
+        name: action.payload.name,
+        value: action.payload.value,
+        description: action.payload.description,
+      });
     },
     updateExpense: (state, action: PayloadAction<FinancialEntry>) => {
       if (
@@ -32,7 +36,6 @@ export const expensesSlice = createSlice({
       const newArray = [...state.expenses];
 
       newArray[action.payload.index] = {
-        index: action.payload.index,
         name: action.payload.name,
         value: +action.payload.value,
         description: action.payload.description,

@@ -17,7 +17,11 @@ export const savingsSlice = createSlice({
   initialState,
   reducers: {
     addSaving: (state, action: PayloadAction<FinancialEntry>) => {
-      state.savings.push(action.payload);
+      state.savings.push({
+        name: action.payload.name,
+        value: action.payload.value,
+        description: action.payload.description,
+      });
     },
     updateSaving: (state, action: PayloadAction<FinancialEntry>) => {
       if (

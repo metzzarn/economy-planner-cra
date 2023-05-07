@@ -16,6 +16,7 @@ import {
   EditablePreview,
 } from '@ark-ui/react';
 import { FinancialEntryForm } from 'components/FinancialEntryForm';
+import { convertToNumber } from 'utils/numberUtils';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
@@ -54,7 +55,7 @@ export const SavingsTable = () => {
             updateSaving({
               index: id,
               name: name,
-              value: Number(amount),
+              value: convertToNumber(amount),
               description: description,
             })
           );
