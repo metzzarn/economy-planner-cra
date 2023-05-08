@@ -1,7 +1,5 @@
 # TODO
 
-- When removing an income, set selected income to the next in the list
-
 - Add multiple expenses tables
 
 - Add setting to save current tab (income, expenses, savings) and load it on next visit

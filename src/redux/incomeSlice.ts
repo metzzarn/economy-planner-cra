@@ -44,8 +44,10 @@ export const incomeSlice = createSlice({
       const newIncomeList = [...state.incomeList];
       const deletedIncome = newIncomeList.splice(action.payload, 1);
 
-      const newSelectedIncome =
-        newIncomeList.length > 0 ? newIncomeList[0].value : 0;
+      const nextInList = newIncomeList[action.payload];
+      const newSelectedIncome = nextInList
+        ? nextInList.value
+        : newIncomeList[action.payload - 1]?.value || 0;
 
       const shouldChangeSelectedIncome =
         deletedIncome[0].value === state.selectedIncome;
