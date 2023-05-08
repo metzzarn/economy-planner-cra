@@ -1,6 +1,12 @@
-import { STATE_FILE_NAME, STATE_LOCAL_STORAGE_KEY } from 'utils/constants';
+import {
+  STATE_FILE_NAME,
+  STATE_LOCAL_STORAGE_KEY,
+  STATE_VERSION,
+} from 'utils/constants';
 
 export const saveStateToFile = (state: any) => {
+  // Add version to the state before saving
+  state.version = STATE_VERSION;
   const blob = new Blob([JSON.stringify(state, null, 2)], {
     type: 'application/json',
   });

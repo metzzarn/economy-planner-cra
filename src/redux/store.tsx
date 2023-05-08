@@ -4,7 +4,7 @@ import incomeReducer from 'redux/incomeSlice';
 import savingsReducer from 'redux/savingsSlice';
 import settingsReducer from 'redux/settingsSlice';
 import { loadStateFromLocalStorage } from 'utils/stateUtils';
-import { STATE_LOCAL_STORAGE_KEY } from 'utils/constants';
+import { STATE_LOCAL_STORAGE_KEY, STATE_VERSION } from 'utils/constants';
 
 const combinedReducer = combineReducers({
   expenses: expensesReducer,
@@ -18,8 +18,17 @@ const rootReducer = (
   action: AnyAction
 ) => {
   if (action.type === 'LOAD_STATE') {
-    return action.payload;
+    if (action.payload.version === STATE_VERSION) {
+      console.log('Loading state from file');
+      delete action.payload.version;
+      return action.payload;
+    } else {
+      console.error(
+        `The version of the state (${action.payload.version}) does not match the current version (${STATE_VERSION}).`
+      );
+    }
   }
+
   if (action.type === 'RESET_STATE') {
     return combinedReducer(undefined, action);
   }
