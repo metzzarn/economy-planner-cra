@@ -19,7 +19,6 @@ const rootReducer = (
 ) => {
   if (action.type === 'LOAD_STATE') {
     if (action.payload.version === STATE_VERSION) {
-      console.log('Loading state from file');
       delete action.payload.version;
       return action.payload;
     } else {

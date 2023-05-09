@@ -8,9 +8,6 @@
 
 - Implement undo/redo
 
-- Save history (by saving state)
-- Switch between history states
-
 - Setup tests
 
 ## Future
