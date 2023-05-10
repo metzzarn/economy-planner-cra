@@ -8,6 +8,8 @@
 
 - Setup tests
 
+- Migrate to using Vite or other React framework
+
 ## Future
 
 ### Encryption
