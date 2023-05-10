@@ -3,22 +3,28 @@ import React from 'react';
 import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
 import { SavingsTable } from 'components/SavingsTable';
-import { useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { Summary } from 'components/Summary';
 import { selectIncome } from 'redux/incomeSlice';
 import { IncomeList } from 'components/IncomeList';
-import { selectCurrency, selectDecimalPlaces } from 'redux/settingsSlice';
+import {
+  selectCurrency,
+  selectCurrentTabHome,
+  selectDecimalPlaces,
+  setCurrentTabHome,
+} from 'redux/settingsSlice';
 import { Box, Tab, Tabs } from '@mui/material';
 import { TabPanel } from 'common/TabPanel';
 
 export const Home = () => {
+  const dispatch = useAppDispatch();
   const income = useAppSelector(selectIncome);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const currency = useAppSelector(selectCurrency);
+  const currentTab = useAppSelector(selectCurrentTabHome);
 
-  const [tabValue, setTabValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
+    dispatch(setCurrentTabHome(newValue));
   };
 
   return (
@@ -32,19 +38,19 @@ export const Home = () => {
         )}`}
       </div>
       <Box>
-        <Tabs value={tabValue} onChange={handleChange}>
+        <Tabs value={currentTab} onChange={handleChange}>
           <Tab label="Income" />
           <Tab label="Expenses" />
           <Tab label="Savings" />
         </Tabs>
-        <TabPanel value={tabValue} index={0}>
+        <TabPanel value={currentTab} index={0}>
           <IncomeForm />
           <IncomeList />
         </TabPanel>
-        <TabPanel value={tabValue} index={1}>
+        <TabPanel value={currentTab} index={1}>
           <ExpensesTable />
         </TabPanel>
-        <TabPanel value={tabValue} index={2}>
+        <TabPanel value={currentTab} index={2}>
           <SavingsTable />
         </TabPanel>
       </Box>

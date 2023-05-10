@@ -2,9 +2,7 @@
 
 - Add multiple expenses tables
 
-- Add setting to save current tab (income, expenses, savings) and load it on next visit
-
-- Add confirm modal on load and clear state
+- Add setting to remember tab or not
 
 - Implement undo/redo
 

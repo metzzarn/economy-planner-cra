@@ -1,4 +1,5 @@
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { legacy_createStore as createStore } from 'redux';
 import expensesReducer from 'redux/expensesSlice';
 import incomeReducer from 'redux/incomeSlice';
 import savingsReducer from 'redux/savingsSlice';
@@ -37,7 +38,9 @@ const rootReducer = (
 
 const store = configureStore({
   reducer: rootReducer,
-  preloadedState: loadStateFromLocalStorage(),
+  preloadedState: loadStateFromLocalStorage(
+    createStore(rootReducer).getState()
+  ),
 });
 
 store.subscribe(() => {

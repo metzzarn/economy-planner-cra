@@ -17,14 +17,31 @@ export const saveStateToFile = (state: any) => {
   link.click();
 };
 
-export const loadStateFromLocalStorage = () => {
+export const loadStateFromLocalStorage = (state: any) => {
   try {
     const serializedState = localStorage.getItem(STATE_LOCAL_STORAGE_KEY);
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+    const loadedState = JSON.parse(serializedState);
+    fillObject(state, loadedState);
+    return loadedState;
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const fillObject = (from: any, to: any) => {
+  for (const key in from) {
+    if (from.hasOwnProperty(key)) {
+      if (Object.prototype.toString.call(from[key]) === '[object Object]') {
+        if (!to.hasOwnProperty(key)) {
+          to[key] = {};
+        }
+        fillObject(from[key], to[key]);
+      } else if (!to.hasOwnProperty(key)) {
+        to[key] = from[key];
+      }
+    }
   }
 };

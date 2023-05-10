@@ -1,4 +1,4 @@
-import { saveStateToFile } from 'utils/stateUtils';
+import { fillObject, saveStateToFile } from 'utils/stateUtils';
 import React, { useRef, useState } from 'react';
 import { useStore } from 'react-redux';
 import {
@@ -59,6 +59,7 @@ export const StateManagement = () => {
       reader.onload = (e) => {
         if (e.target?.result) {
           const state = JSON.parse(e.target.result.toString());
+          fillObject(store.getState(), state);
           store.dispatch({ type: 'LOAD_STATE', payload: state });
         }
       };
