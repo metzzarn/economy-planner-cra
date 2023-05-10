@@ -53,7 +53,7 @@ export const FinanceTable = (props: AmountTableProps) => {
       return acc + Number(curr.value);
     }, 0);
     setTotal(formatPrice(total.toString(), decimalPlaces, currency));
-  });
+  }, [props.data, decimalPlaces, currency]);
 
   const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />
