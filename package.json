@@ -9,7 +9,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://<username>.github.io/<repo>/",
+  "homepage": "https://<username>.github.io/economy-planner-cra/",
   "eslintConfig": {
     "extends": [
       "react-app",
