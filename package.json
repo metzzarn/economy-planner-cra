@@ -9,7 +9,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://metzzarn.github.io/economy-planner-cra",
+  "homepage": "https://<username>.github.io/<repo>/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "prettier": "2.8.3",
     "vite": "^4.3.5",
     "vite-plugin-svgr": "^3.2.0",
@@ -51,7 +52,6 @@
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-final-form": "^6.5.9",

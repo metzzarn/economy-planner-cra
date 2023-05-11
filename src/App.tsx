@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path={'/economy-planner-cra'} element={<Layout />}>
+        <Route path={'/'} element={<Layout />}>
           {/*<Route index element={<Home />} />*/}
           {/*<Route path="dashboard" element={<Dashboard />} />*/}
           {/*<Route path="settings" element={<Settings />} />*/}
