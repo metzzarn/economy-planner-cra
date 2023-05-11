@@ -6,7 +6,8 @@ import svgrPlugin from 'vite-plugin-svgr';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+  base: '/economy-planner-cra/',
   server: {
-    open: '/economy-planner-cra',
+    open: true,
   },
 });
