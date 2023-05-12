@@ -2,6 +2,8 @@
 
 ## Soon
 
+- Remove metzzarn as repo for GitHub Pages
+
 - Add multiple expenses tables
 
 - Add setting to remember tab or not
