@@ -15,6 +15,10 @@
 
 - Translation (Swedish)
 
+- Mobile friendly tables
+
+- Progressive Web App
+
 
 ## Future
 
