@@ -9,14 +9,9 @@ import {
 } from 'redux/expensesSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { FinanceTable } from 'components/FinanceTable';
-import {
-  Editable,
-  EditableArea,
-  EditableInput,
-  EditablePreview,
-} from '@ark-ui/react';
 import { FinancialEntryForm } from 'components/FinancialEntryForm';
 import { convertToNumber } from 'utils/numberUtils';
+import { EditableText } from 'common/EditableText';
 
 export const ExpensesTable = () => {
   const dispatch = useAppDispatch();
@@ -26,21 +21,10 @@ export const ExpensesTable = () => {
   return (
     <div>
       <h2>
-        <Editable
-          name={'expensesTitle'}
-          placeholder={title}
-          defaultValue={title}
-          onSubmit={(value: { value: string }) =>
-            editExpensesTitle(value.value)
-          }
-          maxLength={25}
-          selectOnFocus={false}
-        >
-          <EditableArea>
-            <EditableInput />
-            <EditablePreview />
-          </EditableArea>
-        </Editable>
+        <EditableText
+          title={title}
+          action={(value) => dispatch(editExpensesTitle(value))}
+        />
       </h2>
       <FinancialEntryForm
         action={(name, value, description) =>
