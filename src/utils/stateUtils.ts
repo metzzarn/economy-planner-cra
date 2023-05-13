@@ -33,7 +33,10 @@ export const loadStateFromLocalStorage = (state: any) => {
 
 export const fillObject = (from: any, to: any) => {
   for (const key in from) {
-    if (from.hasOwnProperty(key)) {
+    if (
+      from.hasOwnProperty(key) &&
+      !(key === '__proto__' || key === 'constructor')
+    ) {
       if (Object.prototype.toString.call(from[key]) === '[object Object]') {
         if (!to.hasOwnProperty(key)) {
           to[key] = {};
