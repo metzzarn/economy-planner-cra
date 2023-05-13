@@ -30,7 +30,9 @@ export const ExpensesTable = () => {
           name={'expensesTitle'}
           placeholder={title}
           defaultValue={title}
-          onSubmit={(value) => editExpensesTitle(value.value)}
+          onSubmit={(value: { value: string }) =>
+            editExpensesTitle(value.value)
+          }
           maxLength={25}
           selectOnFocus={false}
         >

@@ -30,7 +30,7 @@ export const SavingsTable = () => {
           name={'expensesTitle'}
           placeholder={title}
           defaultValue={title}
-          onSubmit={(value) => editSavingsTitle(value.value)}
+          onSubmit={(value: { value: string }) => editSavingsTitle(value.value)}
           maxLength={25}
           selectOnFocus={false}
         >
