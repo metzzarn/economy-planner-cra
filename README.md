@@ -9,4 +9,4 @@ No data is saved on a server, it's all stored in your web browsers local storage
 ## Development
 
 ### Running
-Run the project in development mode using `npm start`.
+Run the project using `npm start`.
