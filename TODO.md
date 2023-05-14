@@ -19,6 +19,9 @@
 
 - Progressive Web App
 
+- Savings projections with interest over time
+- Graphs for savings projections 
+
 
 ## Future
 
