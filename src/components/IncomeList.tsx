@@ -1,7 +1,6 @@
 import React from 'react';
 import { If } from 'common/If';
 import {
-  IncomeEntry,
   removeIncome,
   selectIncome,
   selectIncomeList,
@@ -20,6 +19,7 @@ import {
   TableRow,
 } from '@mui/material';
 import { SortOrder } from 'common/SortOrder';
+import { IncomeEntry } from 'redux/common';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();

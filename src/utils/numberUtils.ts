@@ -1,4 +1,4 @@
-import { Currency } from 'redux/settingsSlice';
+import { Currency } from 'redux/common';
 
 export const convertToNumber = (value: string): number =>
   +value
