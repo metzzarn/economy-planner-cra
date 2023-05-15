@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <ThemeProvider theme={createTheme()}>
     <React.StrictMode>
-      <BrowserRouter basename={'/economy-planner-cra'}>
+      <BrowserRouter basename={'/economy-planner'}>
         <Provider store={store}>
           <App />
         </Provider>

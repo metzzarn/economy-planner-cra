@@ -39,7 +39,7 @@ const NoMatch = () => {
     <div>
       <h2>Nothing to see here!</h2>
       <p>
-        <Link to="/economy-planner-cra">Go to the home page</Link>
+        <Link to="/economy-planner">Go to the home page</Link>
       </p>
     </div>
   );
