@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { FinancialEntry } from 'redux/common';
+import { ExpensesState, FinancialEntry } from 'redux/common';
 
 const initialState: ExpensesState = {
   title: 'Expenses',
   expenses: [],
 };
-
-interface ExpensesState {
-  title: string;
-  expenses: FinancialEntry[];
-}
 
 export const expensesSlice = createSlice({
   name: 'economy',

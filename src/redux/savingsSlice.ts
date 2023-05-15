@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { FinancialEntry } from 'redux/common';
+import { FinancialEntry, SavingsState } from 'redux/common';
 
 const initialState: SavingsState = {
   title: 'Savings',
   savings: [],
 };
-
-interface SavingsState {
-  title: string;
-  savings: FinancialEntry[];
-}
 
 export const savingsSlice = createSlice({
   name: 'savings',

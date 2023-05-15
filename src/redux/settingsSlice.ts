@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
+import { Currency, SettingsState } from 'redux/common';
 
-const initialState: {
-  decimalPlaces: number;
-  currency: Currency;
-  currentTab: {
-    home: number;
-  };
-} = {
+const initialState: SettingsState = {
   decimalPlaces: 2,
   currency: {
     currency: 'SEK',
@@ -17,11 +12,6 @@ const initialState: {
     home: 0,
   },
 };
-
-export interface Currency {
-  currency: string;
-  locale: string;
-}
 
 export const settingsSlice = createSlice({
   name: 'settings',

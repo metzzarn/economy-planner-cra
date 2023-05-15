@@ -2,8 +2,6 @@
 
 ## Soon
 
-- Use generics for state and replace `any`
-
 - Remove metzzarn as repo for GitHub Pages
 
 - Add multiple expenses tables

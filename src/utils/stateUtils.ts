@@ -3,8 +3,9 @@ import {
   STATE_LOCAL_STORAGE_KEY,
   STATE_VERSION,
 } from 'utils/constants';
+import { EconomyState } from 'redux/common';
 
-export const saveStateToFile = (state: any) => {
+export const saveStateToFile = (state: EconomyState) => {
   // Add version to the state before saving
   state.version = STATE_VERSION;
   const blob = new Blob([JSON.stringify(state, null, 2)], {
@@ -17,7 +18,7 @@ export const saveStateToFile = (state: any) => {
   link.click();
 };
 
-export const loadStateFromLocalStorage = (state: any) => {
+export const loadStateFromLocalStorage = (state: EconomyState) => {
   try {
     const serializedState = localStorage.getItem(STATE_LOCAL_STORAGE_KEY);
     if (serializedState === null) {

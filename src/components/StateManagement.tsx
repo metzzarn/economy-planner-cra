@@ -10,9 +10,10 @@ import {
   DialogTitle,
   Snackbar,
 } from '@mui/material';
+import { EconomyState } from 'redux/common';
 
 export const StateManagement = () => {
-  const store = useStore();
+  const store = useStore<EconomyState>();
   const inputFile = useRef<HTMLInputElement>(null);
   const [chosenFileName, setChosenFileName] = useState<string>('');
 
