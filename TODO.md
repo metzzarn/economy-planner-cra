@@ -20,6 +20,8 @@
 - Savings projections with interest over time
 - Graphs for savings projections 
 
+- Use Skatteverkets API for tax
+
 
 ## Future
 
