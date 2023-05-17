@@ -31,6 +31,7 @@ export interface ExpensesState {
 export interface SettingsState {
   decimalPlaces: number;
   currency: Currency;
+  saveTab: boolean,
   currentTab: {
     home: number;
   };
