@@ -1,5 +1,5 @@
 import { IncomeForm } from 'components/IncomeForm';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
 import { SavingsTable } from 'components/SavingsTable';
