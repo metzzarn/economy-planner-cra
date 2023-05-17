@@ -11,6 +11,7 @@ import {
   selectCurrency,
   selectCurrentTabHome,
   selectDecimalPlaces,
+  selectSaveTab,
   setCurrentTabHome,
 } from 'redux/settingsSlice';
 import { Box, Tab, Tabs } from '@mui/material';
@@ -21,10 +22,17 @@ export const Home = () => {
   const income = useAppSelector(selectIncome);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const currency = useAppSelector(selectCurrency);
-  const currentTab = useAppSelector(selectCurrentTabHome);
+  const currentTabHome = useAppSelector(selectCurrentTabHome);
+  const saveTab = useAppSelector(selectSaveTab);
+  const [currentTab, setCurrentTab] = React.useState<number>(0);
+
+  useEffect(() => {
+    setCurrentTab(currentTabHome);
+  });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    dispatch(setCurrentTabHome(newValue));
+    saveTab && dispatch(setCurrentTabHome(newValue));
+    setCurrentTab(newValue);
   };
 
   return (
