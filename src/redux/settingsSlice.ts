@@ -45,7 +45,7 @@ export const settingsSlice = createSlice({
   },
 });
 
-export const { setDecimalPlaces, setCurrency, setSavedTabHome } =
+export const { setDecimalPlaces, setCurrency, setSavedTabHome, setSaveTab } =
   settingsSlice.actions;
 export const selectDecimalPlaces = (state: RootState) =>
   state.settings.decimalPlaces;

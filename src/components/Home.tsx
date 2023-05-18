@@ -1,21 +1,21 @@
-import { IncomeForm } from "components/IncomeForm";
-import React, { useEffect, useState } from "react";
-import { formatPrice } from "utils/numberUtils";
-import { ExpensesTable } from "components/ExpensesTable";
-import { SavingsTable } from "components/SavingsTable";
-import { useAppDispatch, useAppSelector } from "hooks";
-import { Summary } from "components/Summary";
-import { selectIncome } from "redux/incomeSlice";
-import { IncomeList } from "components/IncomeList";
+import { IncomeForm } from 'components/IncomeForm';
+import React, { useEffect, useState } from 'react';
+import { formatPrice } from 'utils/numberUtils';
+import { ExpensesTable } from 'components/ExpensesTable';
+import { SavingsTable } from 'components/SavingsTable';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { Summary } from 'components/Summary';
+import { selectIncome } from 'redux/incomeSlice';
+import { IncomeList } from 'components/IncomeList';
 import {
   selectCurrency,
   selectDecimalPlaces,
   selectSavedTabHome,
   selectSaveTab,
   setSavedTabHome
-} from "redux/settingsSlice";
-import { Box, Tab, Tabs } from "@mui/material";
-import { TabPanel } from "common/TabPanel";
+} from 'redux/settingsSlice';
+import { Box, Tab, Tabs } from '@mui/material';
+import { TabPanel } from 'common/TabPanel';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ export const Home = () => {
   }, [savedTabHome]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    saveTab && dispatch(setSavedTabHome(newValue));
+    !saveTab && dispatch(setSavedTabHome(newValue));
     setCurrentTab(newValue);
   };
 

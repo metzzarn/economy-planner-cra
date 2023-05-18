@@ -2,22 +2,38 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import {
   selectCurrency,
   selectDecimalPlaces,
+  selectSavedTabHome,
+  selectSaveTab,
   setCurrency,
   setDecimalPlaces,
+  setSavedTabHome,
+  setSaveTab
 } from 'redux/settingsSlice';
 import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  InputLabel,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
+  SelectChangeEvent
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Settings = () => {
   const dispatch = useAppDispatch();
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const currency = useAppSelector(selectCurrency);
+  const savedTabHome = useAppSelector(selectSavedTabHome);
+  const saveTab = useAppSelector(selectSaveTab);
+
+  const [savedTabHomeState, setSavedTabHomeState] = useState('-1');
+
+  useEffect(() => {
+    setSavedTabHomeState(saveTab ?  savedTabHome.toString() : '-1');
+  }, [savedTabHome]);
 
   const handleDecimalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setDecimalPlaces(parseInt(event.target.value)));
@@ -29,6 +45,18 @@ export const Settings = () => {
         ? { currency: 'SEK', locale: 'sv-SE' }
         : { currency: 'USD', locale: 'en-US' };
     dispatch(setCurrency(currency));
+  };
+
+  const handleSavedTabChange = (event: SelectChangeEvent) => {
+    setSavedTabHomeState(event.target.value);
+
+    if (parseInt(event.target.value) === -1) {
+      dispatch(setSaveTab(false));
+      return;
+    }
+
+    dispatch(setSaveTab(true));
+    dispatch(setSavedTabHome(parseInt(event.target.value)));
   };
 
   return (
@@ -85,6 +113,22 @@ export const Settings = () => {
             label={'Dollar'}
           />
         </RadioGroup>
+      </FormControl>
+
+      <FormControl>
+        <InputLabel id='demo-simple-select-label'>Age</InputLabel>
+        <Select
+          labelId='demo-simple-select-label'
+          id='demo-simple-select'
+          value={savedTabHomeState}
+          label='Age'
+          onChange={handleSavedTabChange}
+        >
+          <MenuItem value={-1}>--None--</MenuItem>
+          <MenuItem value={0}>Income</MenuItem>
+          <MenuItem value={1}>Expenses</MenuItem>
+          <MenuItem value={2}>Savings</MenuItem>
+        </Select>
       </FormControl>
     </div>
   );
