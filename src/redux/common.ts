@@ -1,4 +1,4 @@
-import { SortOrder } from 'common/SortOrder';
+import { SortOrder } from "common/SortOrder";
 
 export interface FinancialEntry {
   index?: number;
@@ -32,7 +32,7 @@ export interface SettingsState {
   decimalPlaces: number;
   currency: Currency;
   saveTab: boolean;
-  currentTab: {
+  savedTab: {
     home: number;
   };
 }

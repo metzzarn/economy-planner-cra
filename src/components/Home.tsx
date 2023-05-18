@@ -1,37 +1,37 @@
-import { IncomeForm } from 'components/IncomeForm';
-import React, { useEffect } from 'react';
-import { formatPrice } from 'utils/numberUtils';
-import { ExpensesTable } from 'components/ExpensesTable';
-import { SavingsTable } from 'components/SavingsTable';
-import { useAppDispatch, useAppSelector } from 'hooks';
-import { Summary } from 'components/Summary';
-import { selectIncome } from 'redux/incomeSlice';
-import { IncomeList } from 'components/IncomeList';
+import { IncomeForm } from "components/IncomeForm";
+import React, { useEffect, useState } from "react";
+import { formatPrice } from "utils/numberUtils";
+import { ExpensesTable } from "components/ExpensesTable";
+import { SavingsTable } from "components/SavingsTable";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { Summary } from "components/Summary";
+import { selectIncome } from "redux/incomeSlice";
+import { IncomeList } from "components/IncomeList";
 import {
   selectCurrency,
-  selectCurrentTabHome,
   selectDecimalPlaces,
+  selectSavedTabHome,
   selectSaveTab,
-  setCurrentTabHome,
-} from 'redux/settingsSlice';
-import { Box, Tab, Tabs } from '@mui/material';
-import { TabPanel } from 'common/TabPanel';
+  setSavedTabHome
+} from "redux/settingsSlice";
+import { Box, Tab, Tabs } from "@mui/material";
+import { TabPanel } from "common/TabPanel";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const income = useAppSelector(selectIncome);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const currency = useAppSelector(selectCurrency);
-  const currentTabHome = useAppSelector(selectCurrentTabHome);
+  const savedTabHome = useAppSelector(selectSavedTabHome);
   const saveTab = useAppSelector(selectSaveTab);
-  const [currentTab, setCurrentTab] = React.useState<number>(0);
+  const [currentTab, setCurrentTab] = useState<number>(0);
 
   useEffect(() => {
-    setCurrentTab(currentTabHome);
-  });
+    setCurrentTab(savedTabHome);
+  }, [savedTabHome]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    saveTab && dispatch(setCurrentTabHome(newValue));
+    saveTab && dispatch(setSavedTabHome(newValue));
     setCurrentTab(newValue);
   };
 
