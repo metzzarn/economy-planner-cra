@@ -4,9 +4,6 @@
 
 - Add multiple expenses tables
 
-- Add setting to remember tab or not
-- Set a default tab when remember tab is not selected
-
 - Implement undo/redo
 
 - Setup tests

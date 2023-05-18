@@ -7,7 +7,7 @@ const initialState: ExpensesState = {
   expenses: [],
 };
 
-export const expensesSlice = createSlice({
+const expensesSlice = createSlice({
   name: 'economy',
   initialState,
   reducers: {

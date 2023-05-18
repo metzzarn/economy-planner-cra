@@ -7,7 +7,7 @@ const initialState: SavingsState = {
   savings: [],
 };
 
-export const savingsSlice = createSlice({
+const savingsSlice = createSlice({
   name: 'savings',
   initialState,
   reducers: {

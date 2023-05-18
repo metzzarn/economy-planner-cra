@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import { Currency, SettingsState } from "redux/common";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
+import { Currency, SettingsState } from 'redux/common';
 
 const initialState: SettingsState = {
   decimalPlaces: 2,
@@ -14,7 +14,7 @@ const initialState: SettingsState = {
   },
 };
 
-export const settingsSlice = createSlice({
+const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {

@@ -10,7 +10,7 @@ const initialState: IncomeState = {
   sortOrder: SortOrder.Descending,
 };
 
-export const incomeSlice = createSlice({
+const incomeSlice = createSlice({
   name: 'income',
   initialState,
   reducers: {
