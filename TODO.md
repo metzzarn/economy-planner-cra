@@ -2,6 +2,8 @@
 
 ## Soon
 
+- Add description and help texts
+
 - Add multiple expenses tables
 
 - Implement undo/redo
