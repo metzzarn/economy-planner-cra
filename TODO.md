@@ -4,6 +4,8 @@
 
 - Add description and help texts
 
+- Add dashboard tab with summary 
+
 - Add multiple expenses tables
 
 - Implement undo/redo
