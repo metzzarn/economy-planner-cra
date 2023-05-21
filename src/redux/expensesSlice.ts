@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { ExpensesState, FinancialEntry } from 'redux/common';
+import undoable from 'redux/undoable';
 
 const initialState: ExpensesState = {
   title: 'Expenses',
@@ -8,7 +9,7 @@ const initialState: ExpensesState = {
 };
 
 const expensesSlice = createSlice({
-  name: 'economy',
+  name: 'expenses',
   initialState,
   reducers: {
     addExpense: (state, action: PayloadAction<FinancialEntry>) => {
@@ -64,9 +65,23 @@ const expensesSlice = createSlice({
   },
 });
 
+export const UndoAction = {
+  type: 'UNDO-' + expensesSlice.name.toUpperCase(),
+};
+
+export const RedoAction = {
+  type: 'REDO-' + expensesSlice.name.toUpperCase(),
+};
+export const selectCanUndo = (state: RootState) =>
+  state.expenses.past.length > 0;
+export const selectCanRedo = (state: RootState) =>
+  state.expenses.future.length > 0;
+
 export const { addExpense, updateExpense, removeExpense, editExpensesTitle } =
   expensesSlice.actions;
-export const selectExpenses = (state: RootState) => state.expenses.expenses;
-export const selectExpensesTitle = (state: RootState) => state.expenses.title;
+export const selectExpenses = (state: RootState) =>
+  state.expenses.present.expenses;
+export const selectExpensesTitle = (state: RootState) =>
+  state.expenses.present.title;
 
-export default expensesSlice.reducer;
+export default undoable(expensesSlice.reducer, UndoAction, RedoAction);

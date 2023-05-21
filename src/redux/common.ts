@@ -1,4 +1,4 @@
-import { SortOrder } from "common/SortOrder";
+import { SortOrder } from 'common/SortOrder';
 
 export interface FinancialEntry {
   index?: number;
@@ -44,8 +44,14 @@ export interface Currency {
 
 export interface EconomyState {
   income: IncomeState;
-  expenses: ExpensesState;
-  savings: SavingsState;
+  expenses: UndoableState<ExpensesState>;
+  savings: UndoableState<SavingsState>;
   settings: SettingsState;
   version?: string;
+}
+
+export interface UndoableState<T> {
+  past: T[];
+  present: T;
+  future: T[];
 }

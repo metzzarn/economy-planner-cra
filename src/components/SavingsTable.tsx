@@ -2,9 +2,13 @@ import React from 'react';
 import {
   addSaving,
   editSavingsTitle,
+  RedoAction,
   removeSaving,
+  selectCanRedo,
+  selectCanUndo,
   selectSavings,
   selectSavingsTitle,
+  UndoAction,
   updateSaving,
 } from 'redux/savingsSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -12,14 +16,23 @@ import { FinanceTable } from 'components/FinanceTable';
 import { FinancialEntryForm } from 'components/FinancialEntryForm';
 import { convertToNumber } from 'utils/numberUtils';
 import { EditableText } from 'common/EditableText';
+import { UndoRedo } from 'components/UndoRedo';
 
 export const SavingsTable = () => {
   const dispatch = useAppDispatch();
   const savings = useAppSelector(selectSavings);
   const title = useAppSelector(selectSavingsTitle) || 'Savings';
+  const canUndo = useAppSelector(selectCanUndo);
+  const canRedo = useAppSelector(selectCanRedo);
 
   return (
     <div>
+      <UndoRedo
+        canUndo={canUndo}
+        canRedo={canRedo}
+        onUndo={() => dispatch(UndoAction)}
+        onRedo={() => dispatch(RedoAction)}
+      />
       <h2>
         <EditableText
           title={title}

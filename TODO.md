@@ -8,8 +8,6 @@
 
 - Add multiple expenses tables
 
-- Implement undo/redo
-
 - Setup tests
 
 - Translation (Swedish)

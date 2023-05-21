@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { FinancialEntry, SavingsState } from 'redux/common';
+import undoable from 'redux/undoable';
 
 const initialState: SavingsState = {
   title: 'Savings',
@@ -63,9 +64,24 @@ const savingsSlice = createSlice({
   },
 });
 
+export const UndoAction = {
+  type: 'UNDO-' + savingsSlice.name.toUpperCase(),
+};
+
+export const RedoAction = {
+  type: 'REDO-' + savingsSlice.name.toUpperCase(),
+};
+
+export const selectCanUndo = (state: RootState) =>
+  state.savings.past.length > 0;
+export const selectCanRedo = (state: RootState) =>
+  state.savings.future.length > 0;
+
 export const { addSaving, updateSaving, removeSaving, editSavingsTitle } =
   savingsSlice.actions;
-export const selectSavings = (state: RootState) => state.savings.savings;
-export const selectSavingsTitle = (state: RootState) => state.savings.title;
+export const selectSavings = (state: RootState) =>
+  state.savings.present.savings;
+export const selectSavingsTitle = (state: RootState) =>
+  state.savings.present.title;
 
-export default savingsSlice.reducer;
+export default undoable(savingsSlice.reducer, UndoAction, RedoAction);
