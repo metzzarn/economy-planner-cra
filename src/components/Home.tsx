@@ -1,4 +1,3 @@
-import { IncomeForm } from 'components/IncomeForm';
 import React, { useEffect, useState } from 'react';
 import { formatPrice } from 'utils/numberUtils';
 import { ExpensesTable } from 'components/ExpensesTable';
@@ -12,7 +11,7 @@ import {
   selectDecimalPlaces,
   selectSavedTabHome,
   selectSaveTab,
-  setSavedTabHome
+  setSavedTabHome,
 } from 'redux/settingsSlice';
 import { Box, Tab, Tabs } from '@mui/material';
 import { TabPanel } from 'common/TabPanel';
@@ -52,7 +51,6 @@ export const Home = () => {
           <Tab label="Savings" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <IncomeForm />
           <IncomeList />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>

@@ -7,7 +7,7 @@ import {
   setCurrency,
   setDecimalPlaces,
   setSavedTabHome,
-  setSaveTab
+  setSaveTab,
 } from 'redux/settingsSlice';
 import {
   FormControl,
@@ -18,7 +18,8 @@ import {
   Radio,
   RadioGroup,
   Select,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Tooltip,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
@@ -32,7 +33,7 @@ export const Settings = () => {
   const [savedTabHomeState, setSavedTabHomeState] = useState('-1');
 
   useEffect(() => {
-    setSavedTabHomeState(saveTab ?  savedTabHome.toString() : '-1');
+    setSavedTabHomeState(saveTab ? savedTabHome.toString() : '-1');
   }, [savedTabHome]);
 
   const handleDecimalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,19 +117,26 @@ export const Settings = () => {
       </FormControl>
 
       <FormControl>
-        <InputLabel id='demo-simple-select-label'>Age</InputLabel>
-        <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={savedTabHomeState}
-          label='Age'
-          onChange={handleSavedTabChange}
+        <Tooltip
+          title={'Set default tab when opening the app'}
+          enterDelay={700}
         >
-          <MenuItem value={-1}>--None--</MenuItem>
-          <MenuItem value={0}>Income</MenuItem>
-          <MenuItem value={1}>Expenses</MenuItem>
-          <MenuItem value={2}>Savings</MenuItem>
-        </Select>
+          <div>
+            <InputLabel id="default-home-tab-label">Tab</InputLabel>
+            <Select
+              labelId="default-home-tab-label"
+              id="default-home-tab"
+              value={savedTabHomeState}
+              label="Tab"
+              onChange={handleSavedTabChange}
+            >
+              <MenuItem value={-1}>--None--</MenuItem>
+              <MenuItem value={0}>Income</MenuItem>
+              <MenuItem value={1}>Expenses</MenuItem>
+              <MenuItem value={2}>Savings</MenuItem>
+            </Select>
+          </div>
+        </Tooltip>
       </FormControl>
     </div>
   );

@@ -90,6 +90,13 @@ export const FinanceTable = (props: AmountTableProps) => {
         return { ...params.props, error: error };
       },
       renderEditCell: renderEdit,
+      renderCell: (params: GridCellParams) => {
+        return (
+          <Tooltip title={'Double-click to edit'} enterDelay={700}>
+            <span>{params.value as string}</span>
+          </Tooltip>
+        );
+      },
     },
     {
       field: 'amount',
@@ -103,6 +110,15 @@ export const FinanceTable = (props: AmountTableProps) => {
         return { ...params.props, error: errorMessage };
       },
       renderEditCell: renderEdit,
+      renderCell: (params: GridCellParams) => {
+        return (
+          <Tooltip title={'Double-click to edit'} enterDelay={700}>
+            <span>
+              {formatPrice(params.value as string, decimalPlaces, currency)}
+            </span>
+          </Tooltip>
+        );
+      },
     },
     {
       field: 'description',
@@ -124,7 +140,11 @@ export const FinanceTable = (props: AmountTableProps) => {
       filterable: false,
       sortable: false,
       disableColumnMenu: true,
-      renderCell: () => <div style={{ cursor: 'pointer' }}>X</div>,
+      renderCell: () => (
+        <Tooltip title={'Remove'} enterDelay={700}>
+          <div style={{ cursor: 'pointer' }}>X</div>
+        </Tooltip>
+      ),
     },
   ];
 
@@ -161,7 +181,6 @@ export const FinanceTable = (props: AmountTableProps) => {
         sx={{ mt: 1 }}
         columns={columns}
         rows={rows}
-        // hideFooter={true}
         hideFooterPagination={true}
         hideFooterSelectedRowCount={true}
         disableColumnSelector
