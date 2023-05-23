@@ -1,5 +1,5 @@
 import { convertToNumber, currencySymbol } from 'utils/numberUtils';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import {
   isValidNumber,
   maxLength,
@@ -21,6 +21,7 @@ export const FinancialEntryForm = (props: Props) => {
   const [nameErrorText, setNameErrorText] = useState<string>('');
   const [amountErrorText, setAmountErrorText] = useState<string>('');
   const [descriptionErrorText, setDescriptionErrorText] = useState<string>('');
+  const nameRef = useRef<HTMLInputElement>();
 
   const currency = useAppSelector(selectCurrency);
 
@@ -36,6 +37,8 @@ export const FinancialEntryForm = (props: Props) => {
       return;
     }
 
+    nameRef?.current?.focus();
+    nameRef?.current?.select();
     props.action(name, convertToNumber(value), description);
   };
 
@@ -52,6 +55,7 @@ export const FinancialEntryForm = (props: Props) => {
         onChange={(event) =>
           setNameErrorText(requiredMaxLength(event.target.value))
         }
+        inputRef={nameRef}
         helperText={nameErrorText}
       />
       <TextField

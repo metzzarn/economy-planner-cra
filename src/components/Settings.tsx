@@ -63,81 +63,89 @@ export const Settings = () => {
   return (
     <div>
       <h2>Settings</h2>
-      <FormControl>
-        <FormLabel id={'decimal-places-radio-group'}>Decimal Places</FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby={'decimal-places-radio-group'}
-          name={'decimal-places-radio-group'}
-          value={decimalPlaces}
-          onChange={handleDecimalChange}
-        >
-          <FormControlLabel
-            labelPlacement={'top'}
-            value={'0'}
-            control={<Radio />}
-            label={'0'}
-          />
-          <FormControlLabel
-            labelPlacement={'top'}
-            value={'1'}
-            control={<Radio />}
-            label={'1'}
-          />
-          <FormControlLabel
-            labelPlacement={'top'}
-            value={'2'}
-            control={<Radio />}
-            label={'2'}
-          />
-        </RadioGroup>
-      </FormControl>
+      <div>
+        <FormControl style={{ display: 'inline-block' }}>
+          <FormLabel id={'decimal-places-radio-group'}>
+            Decimal Places
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby={'decimal-places-radio-group'}
+            name={'decimal-places-radio-group'}
+            value={decimalPlaces}
+            onChange={handleDecimalChange}
+          >
+            <FormControlLabel
+              labelPlacement={'top'}
+              value={'0'}
+              control={<Radio />}
+              label={'0'}
+            />
+            <FormControlLabel
+              labelPlacement={'top'}
+              value={'1'}
+              control={<Radio />}
+              label={'1'}
+            />
+            <FormControlLabel
+              labelPlacement={'top'}
+              value={'2'}
+              control={<Radio />}
+              label={'2'}
+            />
+          </RadioGroup>
+        </FormControl>
+      </div>
 
-      <FormControl>
-        <FormLabel id={'currency-radio-group'}>Currency</FormLabel>
-        <RadioGroup
-          aria-labelledby={'currency-radio-group'}
-          name={'currency-radio-group'}
-          value={currency.currency}
-          onChange={handleCurrencyChange}
-        >
-          <FormControlLabel
-            labelPlacement={'top'}
-            value={'SEK'}
-            control={<Radio />}
-            label={'Svenska kronor'}
-          />
-          <FormControlLabel
-            labelPlacement={'top'}
-            value={'USD'}
-            control={<Radio />}
-            label={'Dollar'}
-          />
-        </RadioGroup>
-      </FormControl>
+      <div>
+        <FormControl style={{ display: 'inline-block' }}>
+          <FormLabel id={'currency-radio-group'}>Currency</FormLabel>
+          <RadioGroup
+            aria-labelledby={'currency-radio-group'}
+            name={'currency-radio-group'}
+            value={currency.currency}
+            onChange={handleCurrencyChange}
+          >
+            <FormControlLabel
+              labelPlacement={'top'}
+              value={'SEK'}
+              control={<Radio />}
+              label={'Svenska kronor'}
+            />
+            <FormControlLabel
+              labelPlacement={'top'}
+              value={'USD'}
+              control={<Radio />}
+              label={'Dollar'}
+            />
+          </RadioGroup>
+        </FormControl>
+      </div>
 
-      <FormControl>
-        <Tooltip
-          title={'Set default tab when opening the app'}
-          enterDelay={700}
-        >
-          <div>
-            <InputLabel id="default-home-tab-label">Tab</InputLabel>
-            <Select
-              labelId="default-home-tab-label"
-              id="default-home-tab"
-              value={savedTabHomeState}
-              label="Tab"
-              onChange={handleSavedTabChange}
-            >
-              <MenuItem value={-1}>--None--</MenuItem>
-              <MenuItem value={0}>Income</MenuItem>
-              <MenuItem value={1}>Expenses</MenuItem>
-              <MenuItem value={2}>Savings</MenuItem>
-            </Select>
-          </div>
-        </Tooltip>
-      </FormControl>
+      <div>
+        <FormControl>
+          <Tooltip
+            title={'Set default tab when opening the app'}
+            enterDelay={700}
+          >
+            <div>
+              <InputLabel id="default-home-tab-label">Tab</InputLabel>
+              <Select
+                labelId="default-home-tab-label"
+                id="default-home-tab"
+                value={savedTabHomeState}
+                label="Tab"
+                onChange={handleSavedTabChange}
+              >
+                <MenuItem value={-1}>--None--</MenuItem>
+                <MenuItem value={0}>Income</MenuItem>
+                <MenuItem value={1}>Expenses</MenuItem>
+                <MenuItem value={2}>Savings</MenuItem>
+              </Select>
+            </div>
+          </Tooltip>
+        </FormControl>
+      </div>
     </div>
   );
 };
