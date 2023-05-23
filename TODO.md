@@ -12,8 +12,6 @@
 
 - Translation (Swedish)
 
-- Mobile friendly tables
-
 - Progressive Web App
 
 - Savings projections with interest over time

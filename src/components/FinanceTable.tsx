@@ -83,6 +83,8 @@ export const FinanceTable = (props: AmountTableProps) => {
       field: 'name',
       headerName: 'Name',
       flex: 5,
+      minWidth: 200,
+      maxWidth: 250,
       editable: true,
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
         const errorMessage = requiredMaxLength(params.props.value);
@@ -102,7 +104,10 @@ export const FinanceTable = (props: AmountTableProps) => {
       field: 'amount',
       headerName: 'Amount',
       flex: 2,
+      minWidth: 80,
+      maxWidth: 140,
       editable: true,
+
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
         const errorMessage = isValidNumber(params.props.value)
           ? null
@@ -124,6 +129,8 @@ export const FinanceTable = (props: AmountTableProps) => {
       field: 'description',
       headerName: 'Description',
       flex: 5,
+      minWidth: 200,
+      maxWidth: 250,
       editable: true,
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
         const errorMessage = maxLength(params.props.value);
@@ -135,7 +142,8 @@ export const FinanceTable = (props: AmountTableProps) => {
     {
       field: 'remove',
       headerName: '',
-      flex: 1,
+      minWidth: 50,
+      maxWidth: 50,
       editable: false,
       filterable: false,
       sortable: false,
@@ -176,7 +184,7 @@ export const FinanceTable = (props: AmountTableProps) => {
   };
 
   return (
-    <div style={{ width: '700px' }}>
+    <div style={{ maxWidth: '700px' }}>
       <DataGrid
         sx={{ mt: 1 }}
         columns={columns}
