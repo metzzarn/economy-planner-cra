@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { formatPrice } from 'utils/numberUtils';
-import { ExpensesTable } from 'components/ExpensesTable';
-import { SavingsTable } from 'components/SavingsTable';
+import { Expenses } from 'components/Expenses';
+import { Savings } from 'components/Savings';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Summary } from 'components/Summary';
 import { selectIncome } from 'redux/incomeSlice';
@@ -54,10 +54,10 @@ export const Home = () => {
           <IncomeList />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <ExpensesTable />
+          <Expenses />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
-          <SavingsTable />
+          <Savings />
         </TabPanel>
       </Box>
       <Summary />

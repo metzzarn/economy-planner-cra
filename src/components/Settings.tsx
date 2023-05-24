@@ -64,7 +64,7 @@ export const Settings = () => {
     <div>
       <h2>Settings</h2>
       <div>
-        <FormControl style={{ display: 'inline-block' }}>
+        <FormControl sx={{ display: 'inline-block', my: 2 }}>
           <FormLabel id={'decimal-places-radio-group'}>
             Decimal Places
           </FormLabel>
@@ -98,9 +98,10 @@ export const Settings = () => {
       </div>
 
       <div>
-        <FormControl style={{ display: 'inline-block' }}>
+        <FormControl sx={{ display: 'inline-block', my: 2 }}>
           <FormLabel id={'currency-radio-group'}>Currency</FormLabel>
           <RadioGroup
+            row
             aria-labelledby={'currency-radio-group'}
             name={'currency-radio-group'}
             value={currency.currency}
@@ -123,7 +124,7 @@ export const Settings = () => {
       </div>
 
       <div>
-        <FormControl>
+        <FormControl sx={{ display: 'inline-block', my: 2 }}>
           <Tooltip
             title={'Set default tab when opening the app'}
             enterDelay={700}

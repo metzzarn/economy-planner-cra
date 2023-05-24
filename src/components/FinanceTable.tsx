@@ -184,7 +184,7 @@ export const FinanceTable = (props: AmountTableProps) => {
   };
 
   return (
-    <div style={{ maxWidth: '700px' }}>
+    <Box sx={{ maxWidth: '700px' }}>
       <DataGrid
         sx={{ mt: 1 }}
         columns={columns}
@@ -213,6 +213,6 @@ export const FinanceTable = (props: AmountTableProps) => {
           footer: { total },
         }}
       />
-    </div>
+    </Box>
   );
 };

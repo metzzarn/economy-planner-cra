@@ -1,3 +1,5 @@
+import { Button } from '@mui/material';
+
 interface Props {
   canUndo: boolean;
   canRedo: boolean;
@@ -8,8 +10,12 @@ interface Props {
 export const UndoRedo = (props: Props) => {
   return (
     <div>
-      <button onClick={props.onUndo} disabled={!props.canUndo}>Undo</button>
-      <button onClick={props.onRedo} disabled={!props.canRedo}>Redo</button>
+      <Button onClick={props.onUndo} disabled={!props.canUndo}>
+        Undo
+      </Button>
+      <Button onClick={props.onRedo} disabled={!props.canRedo}>
+        Redo
+      </Button>
     </div>
   );
-}
+};
