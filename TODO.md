@@ -4,6 +4,8 @@
 
 - Add dashboard tab with summary 
 
+- Add tab for expected expenses (food, clothes shopping etc.)
+
 - Add multiple expenses tables
 
 - Setup tests
