@@ -4,7 +4,7 @@
 
 - Add dashboard tab with summary 
 
-- Add tab for expected expenses (food, clothes shopping etc.)
+- Add editable descriptions for tables
 
 - Add multiple expenses tables
 
