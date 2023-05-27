@@ -8,6 +8,8 @@
 
 - Add multiple expenses tables
 
+- Show what percentage of the income that savings and up to 
+
 - Setup tests
 
 - Translation (Swedish)
