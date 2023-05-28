@@ -9,6 +9,7 @@ export interface FinancialEntry {
 
 export interface SavingsState {
   title: string;
+  description: string;
   savings: FinancialEntry[];
 }
 
@@ -25,6 +26,7 @@ export interface IncomeEntry {
 
 export interface ExpensesState {
   title: string;
+  description: string;
   expenses: FinancialEntry[];
 }
 

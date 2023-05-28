@@ -1,12 +1,14 @@
 import React from 'react';
 import {
   addSaving,
+  editSavingsDescription,
   editSavingsTitle,
   RedoAction,
   removeSaving,
   selectCanRedo,
   selectCanUndo,
   selectSavings,
+  selectSavingsDescription,
   selectSavingsTitle,
   UndoAction,
   updateSaving,
@@ -23,6 +25,7 @@ export const Savings = () => {
   const dispatch = useAppDispatch();
   const savings = useAppSelector(selectSavings);
   const title = useAppSelector(selectSavingsTitle) || 'Savings';
+  const description = useAppSelector(selectSavingsDescription);
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
   const [checked, setChecked] = React.useState(false);
@@ -35,10 +38,18 @@ export const Savings = () => {
     <div>
       <h2>
         <EditableText
-          title={title}
+          text={title}
           action={(value) => dispatch(editSavingsTitle(value))}
         />
       </h2>
+      <EditableText
+        text={description}
+        action={(value) => dispatch(editSavingsDescription(value))}
+        multiline={true}
+        placeholder={'Description'}
+        fontSize={'1rem'}
+        fontWeight={400}
+      />
       <FormControlLabel
         control={<Switch checked={checked} onChange={handleChange} />}
         label={'Add savings'}

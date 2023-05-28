@@ -1,12 +1,14 @@
 import React from 'react';
 import {
   addExpense,
+  editExpensesDescription,
   editExpensesTitle,
   RedoAction,
   removeExpense,
   selectCanRedo,
   selectCanUndo,
   selectExpenses,
+  selectExpensesDescription,
   selectExpensesTitle,
   UndoAction,
   updateExpense,
@@ -23,6 +25,7 @@ export const Expenses = () => {
   const dispatch = useAppDispatch();
   const expenses = useAppSelector(selectExpenses);
   const title = useAppSelector(selectExpensesTitle) || 'Expenses';
+  const description = useAppSelector(selectExpensesDescription);
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
   const [checked, setChecked] = React.useState(false);
@@ -35,10 +38,18 @@ export const Expenses = () => {
     <div>
       <h2>
         <EditableText
-          title={title}
+          text={title}
           action={(value) => dispatch(editExpensesTitle(value))}
         />
       </h2>
+      <EditableText
+        text={description}
+        action={(value) => dispatch(editExpensesDescription(value))}
+        multiline={true}
+        placeholder={'Description'}
+        fontSize={'1rem'}
+        fontWeight={400}
+      />
       <FormControlLabel
         control={<Switch checked={checked} onChange={handleChange} />}
         label={'Add expenses'}

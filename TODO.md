@@ -4,8 +4,6 @@
 
 - Add dashboard tab with summary 
 
-- Add editable descriptions for tables
-
 - Add multiple expenses tables
 
 - Show what percentage of the income that savings and up to 

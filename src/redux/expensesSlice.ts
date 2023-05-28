@@ -5,6 +5,7 @@ import undoable from 'redux/undoable';
 
 const initialState: ExpensesState = {
   title: 'Expenses',
+  description: '',
   expenses: [],
 };
 
@@ -62,6 +63,12 @@ const expensesSlice = createSlice({
         title: action.payload,
       };
     },
+    editExpensesDescription: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        description: action.payload,
+      };
+    },
   },
 });
 
@@ -77,11 +84,18 @@ export const selectCanUndo = (state: RootState) =>
 export const selectCanRedo = (state: RootState) =>
   state.expenses.future.length > 0;
 
-export const { addExpense, updateExpense, removeExpense, editExpensesTitle } =
-  expensesSlice.actions;
+export const {
+  addExpense,
+  updateExpense,
+  removeExpense,
+  editExpensesTitle,
+  editExpensesDescription,
+} = expensesSlice.actions;
 export const selectExpenses = (state: RootState) =>
   state.expenses.present.expenses;
 export const selectExpensesTitle = (state: RootState) =>
   state.expenses.present.title;
+export const selectExpensesDescription = (state: RootState) =>
+  state.expenses.present.description;
 
 export default undoable(expensesSlice.reducer, UndoAction, RedoAction);
