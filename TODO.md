@@ -6,7 +6,7 @@
 
 - Add multiple expenses tables
 
-- Show what percentage of the income that savings and up to 
+- Show what percentage of the income that savings add up to 
 
 - Setup tests
 
