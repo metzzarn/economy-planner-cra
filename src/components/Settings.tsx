@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'hooks';
 import {
-  selectCurrency,
   selectDecimalPlaces,
+  selectLanguage,
   selectSavedTabHome,
   selectSaveTab,
   setCurrency,
@@ -26,7 +26,7 @@ import React, { useEffect, useState } from 'react';
 export const Settings = () => {
   const dispatch = useAppDispatch();
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
-  const currency = useAppSelector(selectCurrency);
+  const language = useAppSelector(selectLanguage);
   const savedTabHome = useAppSelector(selectSavedTabHome);
   const saveTab = useAppSelector(selectSaveTab);
 
@@ -99,25 +99,25 @@ export const Settings = () => {
 
       <div>
         <FormControl sx={{ display: 'inline-block', my: 2 }}>
-          <FormLabel id={'currency-radio-group'}>Currency</FormLabel>
+          <FormLabel id={'language-radio-group'}>Language</FormLabel>
           <RadioGroup
             row
-            aria-labelledby={'currency-radio-group'}
-            name={'currency-radio-group'}
-            value={currency.currency}
+            aria-labelledby={'language-radio-group'}
+            name={'language-radio-group'}
+            value={language.currency}
             onChange={handleCurrencyChange}
           >
             <FormControlLabel
               labelPlacement={'top'}
               value={'SEK'}
               control={<Radio />}
-              label={'Svenska kronor'}
+              label={'Svenska'}
             />
             <FormControlLabel
               labelPlacement={'top'}
               value={'USD'}
               control={<Radio />}
-              label={'Dollar'}
+              label={'English'}
             />
           </RadioGroup>
         </FormControl>

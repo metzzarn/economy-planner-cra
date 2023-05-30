@@ -1,4 +1,4 @@
-import { Currency } from 'redux/common';
+import { Language } from 'redux/common';
 
 export const convertToNumber = (value: string): number =>
   +value
@@ -9,7 +9,7 @@ export const convertToNumber = (value: string): number =>
 export const formatPrice = (
   value: string,
   decimalPlaces: number,
-  currency: Currency
+  currency: Language
 ) =>
   value !== undefined
     ? convertToNumber(value).toLocaleString(currency.locale, {
@@ -19,7 +19,7 @@ export const formatPrice = (
       })
     : '';
 
-export const currencySymbol = (currency: Currency) => {
+export const currencySymbol = (currency: Language) => {
   const symbol = Intl.NumberFormat(currency.locale, {
     style: 'currency',
     currency: currency.currency,

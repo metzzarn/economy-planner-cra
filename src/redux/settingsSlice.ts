@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { Currency, SettingsState } from 'redux/common';
+import { Language, SettingsState } from 'redux/common';
 
 const initialState: SettingsState = {
   decimalPlaces: 2,
-  currency: {
+  language: {
     currency: 'SEK',
     locale: 'sv-SE',
   },
@@ -25,12 +25,12 @@ const settingsSlice = createSlice({
 
       state.decimalPlaces = action.payload;
     },
-    setCurrency: (state, action: PayloadAction<Currency>) => {
+    setCurrency: (state, action: PayloadAction<Language>) => {
       if (action.payload === undefined) {
         return;
       }
 
-      state.currency = action.payload;
+      state.language = action.payload;
     },
     setSaveTab: (state, action: PayloadAction<boolean>) => {
       state.saveTab = action.payload;
@@ -49,7 +49,7 @@ export const { setDecimalPlaces, setCurrency, setSavedTabHome, setSaveTab } =
   settingsSlice.actions;
 export const selectDecimalPlaces = (state: RootState) =>
   state.settings.decimalPlaces;
-export const selectCurrency = (state: RootState) => state.settings.currency;
+export const selectLanguage = (state: RootState) => state.settings.language;
 export const selectSavedTabHome = (state: RootState) =>
   state.settings.savedTab.home;
 export const selectSaveTab = (state: RootState) => state.settings.saveTab;

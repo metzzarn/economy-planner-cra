@@ -20,6 +20,7 @@ import { convertToNumber } from 'utils/numberUtils';
 import { EditableText } from 'common/EditableText';
 import { UndoRedo } from 'components/UndoRedo';
 import { Box, Collapse, FormControlLabel, Switch } from '@mui/material';
+import { SavingsGraphs } from 'components/SavingsGraphs';
 
 export const Savings = () => {
   const dispatch = useAppDispatch();
@@ -50,6 +51,7 @@ export const Savings = () => {
         fontSize={'1rem'}
         fontWeight={400}
       />
+      <SavingsGraphs />
       <FormControlLabel
         control={<Switch checked={checked} onChange={handleChange} />}
         label={'Add savings'}

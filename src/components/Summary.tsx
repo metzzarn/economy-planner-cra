@@ -2,7 +2,7 @@ import { selectExpenses } from 'redux/expensesSlice';
 import { selectIncome } from 'redux/incomeSlice';
 import { selectSavings } from 'redux/savingsSlice';
 import { useAppSelector } from 'hooks';
-import { selectCurrency, selectDecimalPlaces } from 'redux/settingsSlice';
+import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { FinancialEntry } from 'redux/common';
 import { formatPrice } from 'utils/numberUtils';
 
@@ -11,7 +11,7 @@ export const Summary = () => {
   const expenses = useAppSelector(selectExpenses);
   const savings = useAppSelector(selectSavings);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
-  const currency = useAppSelector(selectCurrency);
+  const language = useAppSelector(selectLanguage);
 
   const totalExpenses = expenses.reduce(
     (acc: number, expense: FinancialEntry) =>
@@ -32,7 +32,7 @@ export const Summary = () => {
         {`Discretionary income ${formatPrice(
           discretionaryIncome.toString(),
           decimalPlaces,
-          currency
+          language
         )}`}
       </div>
     </div>

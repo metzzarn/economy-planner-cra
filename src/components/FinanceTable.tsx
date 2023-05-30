@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 import { currencySymbol, formatPrice } from 'utils/numberUtils';
 import { useAppSelector } from 'hooks';
-import { selectCurrency, selectDecimalPlaces } from 'redux/settingsSlice';
+import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 
 interface AmountTableProps {
   data: FinancialEntry[];
@@ -41,19 +41,19 @@ declare module '@mui/x-data-grid' {
 }
 
 export const FinanceTable = (props: AmountTableProps) => {
-  const currency = useAppSelector(selectCurrency);
+  const language = useAppSelector(selectLanguage);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   const [total, setTotal] = React.useState(
-    formatPrice('0,0', decimalPlaces, currency)
+    formatPrice('0,0', decimalPlaces, language)
   );
 
   useEffect(() => {
     const total = props.data.reduce((acc, curr) => {
       return acc + Number(curr.value);
     }, 0);
-    setTotal(formatPrice(total.toString(), decimalPlaces, currency));
-  }, [props.data, decimalPlaces, currency]);
+    setTotal(formatPrice(total.toString(), decimalPlaces, language));
+  }, [props.data, decimalPlaces, language]);
 
   const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -119,7 +119,7 @@ export const FinanceTable = (props: AmountTableProps) => {
         return (
           <Tooltip title={'Double-click to edit'} enterDelay={700}>
             <span>
-              {formatPrice(params.value as string, decimalPlaces, currency)}
+              {formatPrice(params.value as string, decimalPlaces, language)}
             </span>
           </Tooltip>
         );
@@ -162,7 +162,7 @@ export const FinanceTable = (props: AmountTableProps) => {
       name: entry.name,
       amount: entry.value
         ?.toString()
-        .replace('.', currencySymbol(currency).decimal),
+        .replace('.', currencySymbol(language).decimal),
       description: entry.description,
     };
   });

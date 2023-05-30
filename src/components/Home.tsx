@@ -7,8 +7,8 @@ import { Summary } from 'components/Summary';
 import { selectIncome } from 'redux/incomeSlice';
 import { IncomeList } from 'components/IncomeList';
 import {
-  selectCurrency,
   selectDecimalPlaces,
+  selectLanguage,
   selectSavedTabHome,
   selectSaveTab,
   setSavedTabHome,
@@ -20,7 +20,7 @@ export const Home = () => {
   const dispatch = useAppDispatch();
   const income = useAppSelector(selectIncome);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
-  const currency = useAppSelector(selectCurrency);
+  const language = useAppSelector(selectLanguage);
   const savedTabHome = useAppSelector(selectSavedTabHome);
   const saveTab = useAppSelector(selectSaveTab);
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -41,7 +41,7 @@ export const Home = () => {
         {`Your salary is ${formatPrice(
           income.toString(),
           decimalPlaces,
-          currency
+          language
         )}`}
       </div>
       <Box>

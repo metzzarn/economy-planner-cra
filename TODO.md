@@ -14,8 +14,7 @@
 
 - Progressive Web App
 
-- Savings projections with interest over time
-- Graphs for savings projections 
+- Add interest over time to savings graph
 
 - Use Skatteverkets API for tax
 

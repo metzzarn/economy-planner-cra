@@ -28,14 +28,14 @@ import { SortOrder } from 'common/SortOrder';
 import { IncomeEntry } from 'redux/common';
 import { convertToNumber, currencySymbol } from 'utils/numberUtils';
 import { isValidNumber, validNumberPattern } from 'utils/validation';
-import { selectCurrency } from 'redux/settingsSlice';
+import { selectLanguage } from 'redux/settingsSlice';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();
   const incomeList = useAppSelector(selectIncomeList);
   const sortOrder = useAppSelector(selectIncomeSortOrder);
   const selectedIncome = useAppSelector(selectIncome);
-  const currency = useAppSelector(selectCurrency);
+  const language = useAppSelector(selectLanguage);
 
   const [errorText, setErrorText] = useState<string>(' ');
 
@@ -58,11 +58,11 @@ export const IncomeList = () => {
           name={'netIncome'}
           variant={'outlined'}
           size={'small'}
-          placeholder={'0,0'.replace(',', currencySymbol(currency).decimal)}
+          placeholder={'0,0'.replace(',', currencySymbol(language).decimal)}
           InputProps={{
             endAdornment: (
               <InputAdornment position={'end'}>
-                {currencySymbol(currency).symbol}
+                {currencySymbol(language).symbol}
               </InputAdornment>
             ),
             inputProps: {

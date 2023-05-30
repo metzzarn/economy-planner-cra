@@ -32,14 +32,14 @@ export interface ExpensesState {
 
 export interface SettingsState {
   decimalPlaces: number;
-  currency: Currency;
+  language: Language;
   saveTab: boolean;
   savedTab: {
     home: number;
   };
 }
 
-export interface Currency {
+export interface Language {
   currency: string;
   locale: string;
 }

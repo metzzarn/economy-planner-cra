@@ -8,7 +8,7 @@ import {
 } from 'utils/validation';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 import { useAppSelector } from 'hooks';
-import { selectCurrency } from 'redux/settingsSlice';
+import { selectLanguage } from 'redux/settingsSlice';
 
 interface Props {
   action: (name: string, value: number, description: string) => void;
@@ -23,7 +23,7 @@ export const FinancialEntryForm = (props: Props) => {
   const [descriptionErrorText, setDescriptionErrorText] = useState<string>('');
   const nameRef = useRef<HTMLInputElement>();
 
-  const currency = useAppSelector(selectCurrency);
+  const language = useAppSelector(selectLanguage);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -65,11 +65,11 @@ export const FinancialEntryForm = (props: Props) => {
         name={'value'}
         variant={'outlined'}
         size={'small'}
-        placeholder={'0,0'.replace(',', currencySymbol(currency).decimal)}
+        placeholder={'0,0'.replace(',', currencySymbol(language).decimal)}
         InputProps={{
           endAdornment: (
             <InputAdornment position={'end'}>
-              {currencySymbol(currency).symbol}
+              {currencySymbol(language).symbol}
             </InputAdornment>
           ),
           inputProps: {
