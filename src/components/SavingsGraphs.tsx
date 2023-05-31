@@ -67,11 +67,16 @@ export const SavingsGraphs = () => {
       const borderColor = 'hsl(' + number + ', 80%, 60%)';
       const backgroundColor = 'hsl(' + number + ', 80%, 35%)';
 
+      let sum = 0;
+      const accumulatedSavingsPerMonth = months.map((month, index) => {
+        sum *= 1 + 8 / 100 / 12;
+        sum += saving.value;
+        return sum;
+      });
+
       return {
         label: saving.name,
-        data: months.map(
-          (month, index) => (saving.value ? saving.value : 1) * (index + 1)
-        ),
+        data: accumulatedSavingsPerMonth,
         borderColor: borderColor,
         backgroundColor: backgroundColor,
       };
@@ -97,7 +102,10 @@ export const SavingsGraphs = () => {
             <MenuItem value={3}>3 månader</MenuItem>
             <MenuItem value={6}>6 månader</MenuItem>
             <MenuItem value={12}>1 år</MenuItem>
-            <MenuItem value={24}>2 år</MenuItem>
+            <MenuItem value={2 * 12}>2 år</MenuItem>
+            <MenuItem value={3 * 12}>3 år</MenuItem>
+            <MenuItem value={4 * 12}>4 år</MenuItem>
+            <MenuItem value={5 * 12}>5 år</MenuItem>
           </Select>
         </div>
       </FormControl>
