@@ -6,30 +6,30 @@ export const convertToNumber = (value: string): number =>
     .replace(',', '.')
     .replace(/[^0-9.-]/g, '');
 
-export const formatPrice = (
+export const formatAmount = (
   value: string,
   decimalPlaces: number,
-  currency: Language
+  language: Language
 ) =>
   value !== undefined
-    ? convertToNumber(value).toLocaleString(currency.locale, {
-        currency: currency.currency,
+    ? convertToNumber(value).toLocaleString(language.locale, {
+        currency: language.currency,
         style: 'currency',
         maximumFractionDigits: decimalPlaces,
       })
     : '';
 
-export const currencySymbol = (currency: Language) => {
-  const symbol = Intl.NumberFormat(currency.locale, {
+export const currencySymbol = (language: Language) => {
+  const symbol = Intl.NumberFormat(language.locale, {
     style: 'currency',
-    currency: currency.currency,
+    currency: language.currency,
   })
     .formatToParts(1.1)
     .find((part) => part.type === 'currency')?.value;
 
-  const decimal = Intl.NumberFormat(currency.locale, {
+  const decimal = Intl.NumberFormat(language.locale, {
     style: 'currency',
-    currency: currency.currency,
+    currency: language.currency,
   })
     .formatToParts(1.1)
     .find((part) => part.type === 'decimal')?.value;

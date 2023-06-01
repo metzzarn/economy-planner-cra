@@ -4,8 +4,8 @@ import {
   selectLanguage,
   selectSavedTabHome,
   selectSaveTab,
-  setCurrency,
   setDecimalPlaces,
+  setLanguage,
   setSavedTabHome,
   setSaveTab,
 } from 'redux/settingsSlice';
@@ -40,12 +40,12 @@ export const Settings = () => {
     dispatch(setDecimalPlaces(parseInt(event.target.value)));
   };
 
-  const handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const currency =
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const language =
       event.target.value === 'SEK'
         ? { currency: 'SEK', locale: 'sv-SE' }
         : { currency: 'USD', locale: 'en-US' };
-    dispatch(setCurrency(currency));
+    dispatch(setLanguage(language));
   };
 
   const handleSavedTabChange = (event: SelectChangeEvent) => {
@@ -105,7 +105,7 @@ export const Settings = () => {
             aria-labelledby={'language-radio-group'}
             name={'language-radio-group'}
             value={language.currency}
-            onChange={handleCurrencyChange}
+            onChange={handleLanguageChange}
           >
             <FormControlLabel
               labelPlacement={'top'}

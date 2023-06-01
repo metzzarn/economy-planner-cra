@@ -19,7 +19,7 @@ import {
   TooltipProps,
   Typography,
 } from '@mui/material';
-import { currencySymbol, formatPrice } from 'utils/numberUtils';
+import { currencySymbol, formatAmount } from 'utils/numberUtils';
 import { useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 
@@ -45,14 +45,14 @@ export const FinanceTable = (props: AmountTableProps) => {
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   const [total, setTotal] = React.useState(
-    formatPrice('0,0', decimalPlaces, language)
+    formatAmount('0,0', decimalPlaces, language)
   );
 
   useEffect(() => {
     const total = props.data.reduce((acc, curr) => {
       return acc + Number(curr.value);
     }, 0);
-    setTotal(formatPrice(total.toString(), decimalPlaces, language));
+    setTotal(formatAmount(total.toString(), decimalPlaces, language));
   }, [props.data, decimalPlaces, language]);
 
   const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -119,7 +119,7 @@ export const FinanceTable = (props: AmountTableProps) => {
         return (
           <Tooltip title={'Double-click to edit'} enterDelay={700}>
             <span>
-              {formatPrice(params.value as string, decimalPlaces, language)}
+              {formatAmount(params.value as string, decimalPlaces, language)}
             </span>
           </Tooltip>
         );

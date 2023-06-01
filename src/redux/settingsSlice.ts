@@ -25,7 +25,7 @@ const settingsSlice = createSlice({
 
       state.decimalPlaces = action.payload;
     },
-    setCurrency: (state, action: PayloadAction<Language>) => {
+    setLanguage: (state, action: PayloadAction<Language>) => {
       if (action.payload === undefined) {
         return;
       }
@@ -45,7 +45,7 @@ const settingsSlice = createSlice({
   },
 });
 
-export const { setDecimalPlaces, setCurrency, setSavedTabHome, setSaveTab } =
+export const { setDecimalPlaces, setLanguage, setSavedTabHome, setSaveTab } =
   settingsSlice.actions;
 export const selectDecimalPlaces = (state: RootState) =>
   state.settings.decimalPlaces;

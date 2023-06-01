@@ -4,7 +4,7 @@ import { selectSavings } from 'redux/savingsSlice';
 import { useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { FinancialEntry } from 'redux/common';
-import { formatPrice } from 'utils/numberUtils';
+import { formatAmount } from 'utils/numberUtils';
 
 export const Summary = () => {
   const income = useAppSelector(selectIncome);
@@ -29,7 +29,7 @@ export const Summary = () => {
     <div>
       <h2>Summary</h2>
       <div>
-        {`Discretionary income ${formatPrice(
+        {`Discretionary income ${formatAmount(
           discretionaryIncome.toString(),
           decimalPlaces,
           language

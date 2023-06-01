@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { formatPrice } from 'utils/numberUtils';
+import { formatAmount } from 'utils/numberUtils';
 import { Expenses } from 'components/Expenses';
 import { Savings } from 'components/Savings';
 import { useAppDispatch, useAppSelector } from 'hooks';
@@ -38,7 +38,7 @@ export const Home = () => {
     <div>
       <h2>Home</h2>
       <div style={{ marginBottom: '10px' }}>
-        {`Your salary is ${formatPrice(
+        {`Your salary is ${formatAmount(
           income.toString(),
           decimalPlaces,
           language
