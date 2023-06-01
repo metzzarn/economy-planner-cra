@@ -16,12 +16,15 @@ import { selectLanguage } from 'redux/settingsSlice';
 import {
   Box,
   FormControl,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
+  TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { currencySymbol } from 'utils/numberUtils';
 
 ChartJS.register(
   CategoryScale,
@@ -38,6 +41,8 @@ export const SavingsGraphs = () => {
   const language = useAppSelector(selectLanguage);
 
   const [timeline, setTimeline] = useState(12);
+  const [interestRate, setInterestRate] = useState(8);
+  const [startAmount, setStartAmount] = useState(0);
 
   const options = {
     responsive: true,
@@ -67,10 +72,11 @@ export const SavingsGraphs = () => {
       const borderColor = 'hsl(' + number + ', 80%, 60%)';
       const backgroundColor = 'hsl(' + number + ', 80%, 35%)';
 
-      let sum = 0;
-      const accumulatedSavingsPerMonth = months.map((month, index) => {
-        sum *= 1 + 8 / 100 / 12;
-        sum += saving.value;
+      const savingValue = saving.value ? saving.value : 0;
+      let sum = startAmount;
+      const accumulatedSavingsPerMonth = months.map(() => {
+        sum *= 1 + interestRate / 100 / 12;
+        sum += savingValue;
         return sum;
       });
 
@@ -87,27 +93,67 @@ export const SavingsGraphs = () => {
     <Box sx={{ maxWidth: '700px', my: 2 }}>
       <h3>Savings Graphs</h3>
 
-      <FormControl sx={{ display: 'inline-block', my: 2 }}>
-        <div>
-          <InputLabel id="default-home-tab-label">Timeline</InputLabel>
-          <Select
-            labelId="timeline-tab-label"
-            id="timeline-tab"
-            value={timeline.toString()}
-            label="Timeline"
-            onChange={(event: SelectChangeEvent) =>
-              setTimeline(parseInt(event.target.value))
-            }
-          >
-            <MenuItem value={3}>3 månader</MenuItem>
-            <MenuItem value={6}>6 månader</MenuItem>
-            <MenuItem value={12}>1 år</MenuItem>
-            <MenuItem value={2 * 12}>2 år</MenuItem>
-            <MenuItem value={3 * 12}>3 år</MenuItem>
-            <MenuItem value={4 * 12}>4 år</MenuItem>
-            <MenuItem value={5 * 12}>5 år</MenuItem>
-          </Select>
-        </div>
+      <FormControl size={'small'}>
+        <TextField
+          sx={{ width: 120, mx: 1 }}
+          label={'Start amount'}
+          name={'start-amount'}
+          variant={'outlined'}
+          type={'number'}
+          size={'small'}
+          placeholder={'8'}
+          defaultValue={startAmount}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position={'end'}>
+                {currencySymbol(language).symbol}
+              </InputAdornment>
+            ),
+          }}
+          onChange={(event) => setStartAmount(Number(event.target.value))}
+        />
+      </FormControl>
+      <FormControl sx={{ width: 120, mx: 1 }} size={'small'}>
+        <InputLabel>Timeline</InputLabel>
+        <Select
+          labelId="timeline-label"
+          id="timeline"
+          value={timeline.toString()}
+          label="Timeline"
+          onChange={(event: SelectChangeEvent) =>
+            setTimeline(parseInt(event.target.value))
+          }
+        >
+          <MenuItem value={3}>3 månader</MenuItem>
+          <MenuItem value={6}>6 månader</MenuItem>
+          <MenuItem value={12}>1 år</MenuItem>
+          <MenuItem value={2 * 12}>2 år</MenuItem>
+          <MenuItem value={3 * 12}>3 år</MenuItem>
+          <MenuItem value={4 * 12}>4 år</MenuItem>
+          <MenuItem value={5 * 12}>5 år</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl>
+        <TextField
+          sx={{ width: 90, mx: 1 }}
+          label={'Interest'}
+          name={'interest'}
+          variant={'outlined'}
+          type={'number'}
+          size={'small'}
+          placeholder={'8'}
+          defaultValue={interestRate}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          InputProps={{
+            endAdornment: <InputAdornment position={'end'}>%</InputAdornment>,
+          }}
+          onChange={(event) => setInterestRate(Number(event.target.value))}
+        />
       </FormControl>
 
       <Line data={data} options={options} />
