@@ -2,6 +2,9 @@
 
 ## Soon
 
+- Save start amount for savings graph in redux
+- Remember last selected interest rate
+
 - Add sample data to load from settings
 
 - Toggle to replace or overwrite when loading data
