@@ -2,6 +2,9 @@
 
 ## Soon
 
+- Add tax field per income
+- Calculate employer fee
+
 - Save start amount for savings graph in redux
 - Remember last selected interest rate
 
