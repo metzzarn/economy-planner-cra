@@ -2,6 +2,8 @@
 
 ## Soon
 
+- Add savings scenarios
+
 - Add tax field per income
 - Calculate employer fee
 
