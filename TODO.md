@@ -4,6 +4,8 @@
 
 - Add savings scenarios
 
+- Set start amount per saving
+
 - Add tax field per income
 - Calculate employer fee
 
