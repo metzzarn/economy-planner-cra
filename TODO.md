@@ -14,7 +14,7 @@
 
 - Add sample data to load from settings
 
-- Toggle to replace or overwrite when loading data
+- Add toggle to settings to replace or overwrite when loading data
 
 - Add dashboard tab with summary 
 
