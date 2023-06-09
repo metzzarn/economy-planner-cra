@@ -2,6 +2,10 @@
 
 ## Soon
 
+- Add savings scenarios
+
+- Set start amount per saving
+
 - Add tax field per income
 - Calculate employer fee
 
@@ -10,7 +14,7 @@
 
 - Add sample data to load from settings
 
-- Toggle to replace or overwrite when loading data
+- Add toggle to settings to replace or overwrite when loading data
 
 - Add dashboard tab with summary 
 
