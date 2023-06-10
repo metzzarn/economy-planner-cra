@@ -45,6 +45,9 @@
 - Google Drive
 - Automatic syncing
 
+### Sync with services
+- Avanza 
+
 ### Event/future expense planning
 - Page for these events/expenses
 - Add events
