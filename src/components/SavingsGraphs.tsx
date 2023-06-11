@@ -1,7 +1,9 @@
 import { useAppDispatch, useAppSelector } from 'hooks';
 import {
+  selectInterestRate,
   selectSavings,
   selectStartAmount,
+  updateInterestRate,
   updateStartAmount,
 } from 'redux/savingsSlice';
 import { Line } from 'react-chartjs-2';
@@ -46,9 +48,9 @@ export const SavingsGraphs = () => {
   const savings = useAppSelector(selectSavings);
   const language = useAppSelector(selectLanguage);
   const startAmount = useAppSelector(selectStartAmount);
+  const interestRate = useAppSelector(selectInterestRate);
 
   const [timeline, setTimeline] = useState(12);
-  const [interestRate, setInterestRate] = useState(8);
 
   const options = {
     locale: language.locale,
@@ -163,7 +165,9 @@ export const SavingsGraphs = () => {
             InputProps={{
               endAdornment: <InputAdornment position={'end'}>%</InputAdornment>,
             }}
-            onChange={(event) => setInterestRate(Number(event.target.value))}
+            onChange={(event) =>
+              dispatch(updateInterestRate(Number(event.target.value)))
+            }
           />
         </FormControl>
       </Box>

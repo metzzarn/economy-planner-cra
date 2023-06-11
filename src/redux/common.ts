@@ -11,7 +11,10 @@ export interface SavingsState {
   title: string;
   description: string;
   savings: FinancialEntry[];
-  startAmount: number;
+  calculations: {
+    startAmount: number;
+    interestRate: number;
+  };
 }
 
 export interface IncomeState {

@@ -7,7 +7,10 @@ const initialState: SavingsState = {
   title: 'Savings',
   description: '',
   savings: [],
-  startAmount: 0,
+  calculations: {
+    startAmount: 0,
+    interestRate: 8,
+  },
 };
 
 const savingsSlice = createSlice({
@@ -72,7 +75,19 @@ const savingsSlice = createSlice({
     updateStartAmount: (state, action: PayloadAction<number>) => {
       return {
         ...state,
-        startAmount: action.payload,
+        calculations: {
+          ...state.calculations,
+          startAmount: action.payload,
+        },
+      };
+    },
+    updateInterestRate: (state, action: PayloadAction<number>) => {
+      return {
+        ...state,
+        calculations: {
+          ...state.calculations,
+          interestRate: action.payload,
+        },
       };
     },
   },
@@ -98,6 +113,7 @@ export const {
   editSavingsTitle,
   editSavingsDescription,
   updateStartAmount,
+  updateInterestRate,
 } = savingsSlice.actions;
 export const selectSavings = (state: RootState) =>
   state.savings.present.savings;
@@ -106,6 +122,8 @@ export const selectSavingsTitle = (state: RootState) =>
 export const selectSavingsDescription = (state: RootState) =>
   state.savings.present.description;
 export const selectStartAmount = (state: RootState) =>
-  state.savings.present.startAmount;
+  state.savings.present.calculations.startAmount;
+export const selectInterestRate = (state: RootState) =>
+  state.savings.present.calculations.interestRate;
 
 export default undoable(savingsSlice.reducer, UndoAction, RedoAction);

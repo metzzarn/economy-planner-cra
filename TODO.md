@@ -9,9 +9,6 @@
 - Add tax field per income
 - Calculate employer fee
 
-- Save start amount for savings graph in redux
-- Remember last selected interest rate
-
 - Add sample data to load from settings
 
 - Add toggle to settings to replace or overwrite when loading data
