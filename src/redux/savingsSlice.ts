@@ -7,6 +7,7 @@ const initialState: SavingsState = {
   title: 'Savings',
   description: '',
   savings: [],
+  startAmount: 0,
 };
 
 const savingsSlice = createSlice({
@@ -68,6 +69,12 @@ const savingsSlice = createSlice({
         description: action.payload,
       };
     },
+    updateStartAmount: (state, action: PayloadAction<number>) => {
+      return {
+        ...state,
+        startAmount: action.payload,
+      };
+    },
   },
 });
 
@@ -90,6 +97,7 @@ export const {
   removeSaving,
   editSavingsTitle,
   editSavingsDescription,
+  updateStartAmount,
 } = savingsSlice.actions;
 export const selectSavings = (state: RootState) =>
   state.savings.present.savings;
@@ -97,5 +105,7 @@ export const selectSavingsTitle = (state: RootState) =>
   state.savings.present.title;
 export const selectSavingsDescription = (state: RootState) =>
   state.savings.present.description;
+export const selectStartAmount = (state: RootState) =>
+  state.savings.present.startAmount;
 
 export default undoable(savingsSlice.reducer, UndoAction, RedoAction);

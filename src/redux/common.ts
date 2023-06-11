@@ -11,6 +11,7 @@ export interface SavingsState {
   title: string;
   description: string;
   savings: FinancialEntry[];
+  startAmount: number;
 }
 
 export interface IncomeState {

@@ -1,5 +1,9 @@
-import { useAppSelector } from 'hooks';
-import { selectSavings } from 'redux/savingsSlice';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import {
+  selectSavings,
+  selectStartAmount,
+  updateStartAmount,
+} from 'redux/savingsSlice';
 import { Line } from 'react-chartjs-2';
 import { FinancialEntry } from 'redux/common';
 import {
@@ -37,12 +41,14 @@ ChartJS.register(
 );
 
 export const SavingsGraphs = () => {
+  const dispatch = useAppDispatch();
+
   const savings = useAppSelector(selectSavings);
   const language = useAppSelector(selectLanguage);
+  const startAmount = useAppSelector(selectStartAmount);
 
   const [timeline, setTimeline] = useState(12);
   const [interestRate, setInterestRate] = useState(8);
-  const [startAmount, setStartAmount] = useState(0);
 
   const options = {
     locale: language.locale,
@@ -116,7 +122,9 @@ export const SavingsGraphs = () => {
                 </InputAdornment>
               ),
             }}
-            onChange={(event) => setStartAmount(Number(event.target.value))}
+            onChange={(event) =>
+              dispatch(updateStartAmount(Number(event.target.value)))
+            }
           />
         </FormControl>
         <FormControl sx={{ width: 120, m: 1 }} size={'small'}>
