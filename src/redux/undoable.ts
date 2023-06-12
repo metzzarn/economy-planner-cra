@@ -1,6 +1,8 @@
 import { Action } from '@reduxjs/toolkit';
 
 const undoable = (reducer: any, undoAction: Action, redoAction: Action) => {
+  const MAX_HISTORY = 20;
+
   const initialState = {
     past: [],
     present: reducer(undefined, {}),
@@ -40,8 +42,12 @@ const undoable = (reducer: any, undoAction: Action, redoAction: Action) => {
         if (present === newPresent) {
           return state;
         }
+
+        const pastWithHistoryCap =
+          past.length >= MAX_HISTORY ? past.slice(1) : past;
+
         return {
-          past: [...past, present],
+          past: [...pastWithHistoryCap, present],
           present: newPresent,
           future: [],
         };
