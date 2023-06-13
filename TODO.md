@@ -6,7 +6,6 @@
 
 - Set start amount per saving
 
-- Add tax field per income
 - Calculate employer fee
 
 - Add sample data to load from settings

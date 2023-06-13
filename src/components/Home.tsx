@@ -34,12 +34,14 @@ export const Home = () => {
     setCurrentTab(newValue);
   };
 
+  const netIncome = income ? income.value - income.tax : 0;
+
   return (
     <div>
       <h2>Home</h2>
       <div style={{ marginBottom: '10px' }}>
         {`Your salary is ${formatAmount(
-          income.toString(),
+          netIncome.toString(),
           decimalPlaces,
           language
         )}`}

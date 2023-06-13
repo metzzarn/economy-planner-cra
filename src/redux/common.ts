@@ -1,5 +1,3 @@
-import { SortOrder } from 'common/SortOrder';
-
 export interface FinancialEntry {
   index?: number;
   name?: string;
@@ -20,12 +18,12 @@ export interface SavingsState {
 export interface IncomeState {
   incomeList: IncomeEntry[];
   selectedIncome: number;
-  sortOrder: SortOrder;
 }
 
 export interface IncomeEntry {
   index?: number;
   value: number;
+  tax?: number;
 }
 
 export interface ExpensesState {

@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { SortOrder } from 'common/SortOrder';
-import { arraySortByValue } from 'utils/arraySort';
 import { IncomeEntry, IncomeState } from 'redux/common';
 
 const initialState: IncomeState = {
   incomeList: [],
-  selectedIncome: 0,
-  sortOrder: SortOrder.Descending,
+  selectedIncome: -1,
 };
 
 const incomeSlice = createSlice({
@@ -19,12 +16,12 @@ const incomeSlice = createSlice({
         return;
       }
 
-      state.selectedIncome = state.incomeList[action.payload].value;
+      state.selectedIncome = action.payload;
     },
     addIncome: (state, action: PayloadAction<IncomeEntry>) => {
       state.incomeList.push(action.payload);
-      if (state.selectedIncome === 0) {
-        state.selectedIncome = action.payload.value;
+      if (state.selectedIncome === -1) {
+        state.selectedIncome = state.incomeList.length - 1;
       }
     },
     removeIncome: (state, action: PayloadAction<number>) => {
@@ -37,11 +34,11 @@ const incomeSlice = createSlice({
 
       const nextInList = newIncomeList[action.payload];
       const newSelectedIncome = nextInList
-        ? nextInList.value
-        : newIncomeList[action.payload - 1]?.value || 0;
+        ? action.payload
+        : action.payload - 1;
 
       const shouldChangeSelectedIncome =
-        deletedIncome[0].value === state.selectedIncome;
+        deletedIncome[0].value === state.incomeList[state.selectedIncome].value;
 
       return {
         ...state,
@@ -51,27 +48,13 @@ const incomeSlice = createSlice({
           : state.selectedIncome,
       };
     },
-    sortIncomesByValue: (state, action: PayloadAction<SortOrder>) => {
-      const newArray = arraySortByValue([...state.incomeList], action.payload);
-
-      return {
-        ...state,
-        incomeList: newArray,
-        sortOrder: action.payload,
-      };
-    },
   },
 });
 
-export const {
-  setSelectedIncome,
-  addIncome,
-  removeIncome,
-  sortIncomesByValue,
-} = incomeSlice.actions;
-export const selectIncome = (state: RootState) => state.income.selectedIncome;
+export const { setSelectedIncome, addIncome, removeIncome } =
+  incomeSlice.actions;
+export const selectIncome = (state: RootState) =>
+  state.income.incomeList[state.income.selectedIncome];
 export const selectIncomeList = (state: RootState) => state.income.incomeList;
-export const selectIncomeSortOrder = (state: RootState) =>
-  state.income.sortOrder;
 
 export default incomeSlice.reducer;

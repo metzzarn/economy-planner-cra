@@ -23,7 +23,9 @@ export const Summary = () => {
       saving.value ? acc + saving.value : 0,
     0
   );
-  const discretionaryIncome = income - totalSavings - totalExpenses;
+  const tax = income && income.tax ? income.tax : 0;
+  const netIncome = income ? income.value - tax : 0;
+  const discretionaryIncome = netIncome - totalSavings - totalExpenses;
 
   return (
     <div>

@@ -138,7 +138,7 @@ export const Settings = () => {
                 label="Tab"
                 onChange={handleSavedTabChange}
               >
-                <MenuItem value={-1}>--None--</MenuItem>
+                <MenuItem value={-1}>Last selected</MenuItem>
                 <MenuItem value={0}>Income</MenuItem>
                 <MenuItem value={1}>Expenses</MenuItem>
                 <MenuItem value={2}>Savings</MenuItem>
