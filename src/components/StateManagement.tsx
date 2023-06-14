@@ -11,6 +11,7 @@ import {
   Snackbar,
 } from '@mui/material';
 import { EconomyState } from 'redux/common';
+import sampleData from 'components/data/sample_data.json';
 
 export const StateManagement = () => {
   const store = useStore<EconomyState>();
@@ -19,6 +20,7 @@ export const StateManagement = () => {
 
   const [openLoadDialog, setOpenLoadDialog] = useState(false);
   const [openClearDialog, setOpenClearDialog] = useState(false);
+  const [openSampleDialog, setOpenSampleDialog] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
@@ -46,6 +48,13 @@ export const StateManagement = () => {
     setChosenFileName('');
   };
 
+  const handleClickOpenSampleDialog = () => {
+    setOpenSampleDialog(true);
+  };
+  const handleCloseSampleDialog = () => {
+    setOpenSampleDialog(false);
+  };
+
   const handleClickOpenClearDialog = () => {
     setOpenClearDialog(true);
   };
@@ -68,6 +77,12 @@ export const StateManagement = () => {
       handleCloseLoadDialog();
       handleClickSnackbar('State loaded from file');
     }
+  };
+
+  const onLoadSampleData = () => {
+    store.dispatch({ type: 'LOAD_STATE', payload: sampleData });
+    handleCloseSampleDialog();
+    handleClickSnackbar('Sample data loaded');
   };
 
   const onClearLocalStorage = () => {
@@ -159,6 +174,33 @@ export const StateManagement = () => {
 
             <Button color={'warning'} onClick={onClearLocalStorage} autoFocus>
               Clear
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+      <div>
+        <Button variant={'outlined'} onClick={handleClickOpenSampleDialog}>
+          Load sample data
+        </Button>
+        <Dialog
+          open={openSampleDialog}
+          onClose={handleCloseSampleDialog}
+          aria-labelledby={'load-state-title'}
+          aria-describedby={'load-state-description'}
+        >
+          <DialogTitle id={'load-state-title'}>
+            {'Load sample data?'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id={'load-state-description'}>
+              Loading sample data will overwrite the current state.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseSampleDialog}>Cancel</Button>
+
+            <Button color={'warning'} onClick={onLoadSampleData}>
+              Load
             </Button>
           </DialogActions>
         </Dialog>

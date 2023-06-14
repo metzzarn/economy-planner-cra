@@ -8,8 +8,6 @@
 
 - Calculate employer fee
 
-- Add sample data to load from settings
-
 - Add toggle to settings to replace or overwrite when loading data
 
 - Add dashboard tab with summary 

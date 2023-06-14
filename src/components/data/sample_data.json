@@ -1,0 +1,97 @@
+{
+  "expenses": {
+    "past": [],
+	"present": {
+      "title": "Expenses",
+      "expenses": [
+        {
+          "name": "Hyra",
+          "value": 8714,
+          "description": "E-faktura"
+        },
+        {
+          "name": "Hemförsäkring",
+          "value": 174,
+          "description": "Autogiro - den 1a"
+        },
+        {
+          "name": "Internet",
+          "value": 379,
+          "description": "E-faktura"
+        },
+        {
+          "name": "Spotify",
+          "value": 189,
+          "description": "Kortbetalning - den 25e"
+        },
+        {
+          "name": "Elnät",
+          "value": 348,
+          "description": "E-faktura"
+        },
+        {
+          "name": "Elhandel",
+          "value": 300,
+          "description": "E-faktura"
+        },
+        {
+          "name": "Mobilabonnemang",
+          "value": 399,
+          "description": "E-faktura"
+        }
+      ],
+      "description": ""
+    },
+    "future": []
+  },
+  "income": {
+    "incomeList": [
+      {
+        "value": 42000,
+        "tax": 10127
+      }
+    ],
+    "selectedIncome": 0,
+    "sortOrder": "Descending"
+  },
+  "savings": {
+    "past": [],
+	"present": {
+      "title": "Savings",
+      "savings": [
+        {
+          "name": "Buffert",
+          "value": 3000,
+          "description": "Banköverförning - den 25e"
+        },
+        {
+          "name": "Fondrobot",
+          "value": 5000,
+          "description": "Autogiro - den 25e"
+        }
+      ],
+      "description": "Monthly savings",
+      "calculations": {
+        "startAmount": 10000,
+        "interestRate": 8
+      }
+    },
+    "future": []
+  },
+  "settings": {
+    "decimalPlaces": 0,
+    "currency": {
+      "currency": "SEK",
+      "locale": "sv-SE"
+    },
+    "saveTab": false,
+    "savedTab": {
+      "home": 0
+    },
+    "language": {
+      "currency": "SEK",
+      "locale": "sv-SE"
+    }
+  },
+  "version": "0.1"
+}
