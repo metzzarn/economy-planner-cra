@@ -14,8 +14,6 @@
 
 - Add multiple expenses tables
 
-- Improve clickability on savings graph
-
 - Show what percentage of the income that savings add up to 
 
 - Setup tests
