@@ -4,6 +4,8 @@
 
 - Add savings scenarios
 
+- Calculate arbetsgivaravgift per income
+
 - Set start amount per saving
 
 - Calculate employer fee
