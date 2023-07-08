@@ -4,11 +4,9 @@
 
 - Add savings scenarios
 
-- Calculate arbetsgivaravgift per income
+- Calculate employer fee (arbetsgivaravgift) per income
 
 - Set start amount per saving
-
-- Calculate employer fee
 
 - Add toggle to settings to replace or overwrite when loading data
 
