@@ -2,7 +2,8 @@
 
 ## Soon
 
-- Add savings scenarios
+- Add savings goals
+- Add progress tracker to savings goals
 
 - Calculate employer fee (arbetsgivaravgift) per income
 
