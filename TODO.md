@@ -5,6 +5,9 @@
 - Add savings goals
 - Add progress tracker to savings goals
 
+- Set priority to expenses (Must, need & want)
+- Add TODO list for purchases 
+
 - Calculate employer fee (arbetsgivaravgift) per income
 
 - Set start amount per saving
