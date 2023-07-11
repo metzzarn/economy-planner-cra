@@ -4,6 +4,7 @@ import expensesReducer from 'redux/expensesSlice';
 import incomeReducer from 'redux/incomeSlice';
 import savingsReducer from 'redux/savingsSlice';
 import settingsReducer from 'redux/settingsSlice';
+import eventReducer from 'redux/eventSlice';
 import { loadStateFromLocalStorage } from 'utils/stateUtils';
 import { STATE_LOCAL_STORAGE_KEY, STATE_VERSION } from 'utils/constants';
 
@@ -12,6 +13,7 @@ const combinedReducer = combineReducers({
   income: incomeReducer,
   savings: savingsReducer,
   settings: settingsReducer,
+  events: eventReducer,
 });
 
 const rootReducer = (

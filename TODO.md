@@ -44,7 +44,9 @@
 - Automatic syncing
 
 ### Sync with services
-- Avanza 
+- Avanza
+- Nordnet
+- Länsförsäkringar
 
 ### Event/future expense planning
 - Page for these events/expenses

@@ -32,6 +32,17 @@ export interface ExpensesState {
   expenses: FinancialEntry[];
 }
 
+export interface EventState {
+  title: string;
+  events: EventEntry[];
+}
+
+export interface EventEntry {
+  index?: number;
+  title: string;
+  description: string;
+}
+
 export interface SettingsState {
   decimalPlaces: number;
   language: Language;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { addIncome, removeIncome, selectIncomeList } from 'redux/incomeSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { IncomeEntryForm } from 'components/IncomeEntryForm';
-import { IncomeTable } from 'components/IncomeTable';
+import { IncomeEntryForm } from 'components/income/IncomeEntryForm';
+import { IncomeTable } from 'components/income/IncomeTable';
 
 export const IncomeList = () => {
   const dispatch = useAppDispatch();

@@ -14,11 +14,11 @@ import {
   updateExpense,
 } from 'redux/expensesSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { FinanceTable } from 'components/FinanceTable';
-import { FinancialEntryForm } from 'components/FinancialEntryForm';
+import { FinanceTable } from 'components/common/FinanceTable';
+import { FinancialEntryForm } from 'components/common/FinancialEntryForm';
 import { convertToNumber } from 'utils/numberUtils';
-import { EditableText } from 'common/EditableText';
-import { UndoRedo } from 'components/UndoRedo';
+import { EditableText } from 'components/common/EditableText';
+import { UndoRedo } from 'components/common/UndoRedo';
 import { Box, Collapse, FormControlLabel, Switch } from '@mui/material';
 
 export const Expenses = () => {

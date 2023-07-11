@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { formatAmount } from 'utils/numberUtils';
-import { Expenses } from 'components/Expenses';
-import { Savings } from 'components/Savings';
+import { Expenses } from 'components/expense/Expenses';
+import { Savings } from 'components/saving/Savings';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Summary } from 'components/Summary';
 import { selectIncome } from 'redux/incomeSlice';
-import { IncomeList } from 'components/IncomeList';
+import { IncomeList } from 'components/income/IncomeList';
 import {
   selectDecimalPlaces,
   selectLanguage,
@@ -14,7 +14,8 @@ import {
   setSavedTabHome,
 } from 'redux/settingsSlice';
 import { Box, Tab, Tabs } from '@mui/material';
-import { TabPanel } from 'common/TabPanel';
+import { TabPanel } from 'components/common/TabPanel';
+import { Events } from 'components/event/Events';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -51,6 +52,7 @@ export const Home = () => {
           <Tab label="Income" />
           <Tab label="Expenses" />
           <Tab label="Savings" />
+          <Tab label="Events" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
           <IncomeList />
@@ -60,6 +62,9 @@ export const Home = () => {
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
           <Savings />
+        </TabPanel>
+        <TabPanel value={currentTab} index={3}>
+          <Events />
         </TabPanel>
       </Box>
       <Summary />

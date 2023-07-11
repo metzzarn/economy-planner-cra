@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { Home } from 'components/Home';
-import { Settings } from 'components/Settings';
-import { StateManagement } from 'components/StateManagement';
+import { Settings } from 'components/setting/Settings';
+import { StateManagement } from 'components/setting/StateManagement';
 
 interface TabPanelProps {
   children?: React.ReactNode;
