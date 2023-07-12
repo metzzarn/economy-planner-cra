@@ -1,24 +1,24 @@
 import { EventEntryForm } from 'components/event/EventEntryForm';
-import { addIncome } from 'redux/incomeSlice';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { EditableText } from 'components/common/EditableText';
 import {
+  addEvent,
   editEventTitle,
   RedoAction,
+  removeEvent,
   selectCanRedo,
   selectCanUndo,
   selectEventDescription,
-  selectEvents,
   selectEventTitle,
   UndoAction,
 } from 'redux/eventSlice';
 import { UndoRedo } from 'components/common/UndoRedo';
+import { EventTable } from 'components/event/EventTable';
 
 export const Events = () => {
   const dispatch = useAppDispatch();
 
-  const events = useAppSelector(selectEvents);
   const title = useAppSelector(selectEventTitle) || 'Events';
   const description = useAppSelector(selectEventDescription);
   const canUndo = useAppSelector(selectCanUndo);
@@ -34,7 +34,9 @@ export const Events = () => {
       </h2>
 
       <EventEntryForm
-        action={(value, tax) => dispatch(addIncome({ value, tax }))}
+        action={(title, description) =>
+          dispatch(addEvent({ title, description }))
+        }
         titlePlaceholder={'Travel to Australia'}
         descriptionPlaceholder={'Eat at restaurants'}
         buttonText={'Add event'}
@@ -45,6 +47,7 @@ export const Events = () => {
         onUndo={() => dispatch(UndoAction)}
         onRedo={() => dispatch(RedoAction)}
       />
+      <EventTable removeRow={(index) => dispatch(removeEvent(Number(index)))} />
     </div>
   );
 };
