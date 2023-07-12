@@ -9,7 +9,6 @@ import {
   removeEvent,
   selectCanRedo,
   selectCanUndo,
-  selectEventDescription,
   selectEventTitle,
   UndoAction,
 } from 'redux/eventSlice';
@@ -20,7 +19,6 @@ export const Events = () => {
   const dispatch = useAppDispatch();
 
   const title = useAppSelector(selectEventTitle) || 'Events';
-  const description = useAppSelector(selectEventDescription);
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
 

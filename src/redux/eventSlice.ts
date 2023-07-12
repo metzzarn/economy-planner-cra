@@ -75,7 +75,5 @@ export const { addEvent, updateEvent, removeEvent, editEventTitle } =
 export const selectEvents = (state: RootState) => state.events.present.events;
 export const selectEventTitle = (state: RootState) =>
   state.events.present.title;
-export const selectEventDescription = (state: RootState) =>
-  state.events.present.description;
 
 export default undoable(eventSlice.reducer, UndoAction, RedoAction);
