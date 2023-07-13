@@ -48,9 +48,6 @@
 - Nordnet
 - Länsförsäkringar
 
-### Event/future expense planning
-- Page for these events/expenses
-- Add events
-- List available events
-- Event description
+### Event planning
 - Table of future expenses
+- Separate carried out events from future events

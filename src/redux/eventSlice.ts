@@ -17,6 +17,7 @@ const eventSlice = createSlice({
       state.events.push({
         title: action.payload.title,
         description: action.payload.description,
+        status: EventStatus.CREATED,
       });
     },
     updateEvent: (state, action: PayloadAction<EventEntry>) => {
@@ -29,6 +30,7 @@ const eventSlice = createSlice({
       newArray[action.payload.index] = {
         title: action.payload.title,
         description: action.payload.description,
+        status: action.payload.status,
       };
 
       return {

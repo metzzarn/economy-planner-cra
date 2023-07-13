@@ -2,17 +2,14 @@ import { EventEntry } from 'redux/common';
 import { Box, Tooltip } from '@mui/material';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import React from 'react';
-import { useAppSelector } from 'hooks';
-import { selectEvents } from 'redux/eventSlice';
 import { If } from 'components/common/If';
 
 interface EventTableProps {
   removeRow: (index: number) => void;
+  events: EventEntry[];
 }
 
 export const EventTable = (props: EventTableProps) => {
-  const events = useAppSelector(selectEvents);
-
   const columns: GridColDef[] = [
     {
       field: 'title',
@@ -47,7 +44,7 @@ export const EventTable = (props: EventTableProps) => {
     },
   ];
 
-  const rows = events.map((entry: EventEntry, index: number) => {
+  const rows = props.events.map((entry: EventEntry, index: number) => {
     return {
       id: index,
       title: entry.title,

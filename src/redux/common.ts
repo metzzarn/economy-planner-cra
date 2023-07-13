@@ -41,6 +41,7 @@ export interface EventEntry {
   index?: number;
   title: string;
   description: string;
+  status?: EventStatus;
 }
 
 export interface SettingsState {
