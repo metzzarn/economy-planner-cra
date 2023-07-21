@@ -9,11 +9,15 @@ import {
   removeEvent,
   selectCanRedo,
   selectCanUndo,
+  selectEvents,
   selectEventTitle,
   UndoAction,
+  updateEventStatus,
 } from 'redux/eventSlice';
 import { UndoRedo } from 'components/common/UndoRedo';
 import { EventTable } from 'components/event/EventTable';
+import { EventEntry } from 'redux/common';
+import { EventStatus } from 'components/event/EventStatus';
 
 export const Events = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +25,14 @@ export const Events = () => {
   const title = useAppSelector(selectEventTitle) || 'Events';
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
+  const events = useAppSelector(selectEvents);
+
+  const createdEvents = events.filter(
+    (event: EventEntry) => EventStatus.CREATED === event.status
+  );
+  const completedEvents = events.filter(
+    (event: EventEntry) => EventStatus.COMPLETE === event.status
+  );
 
   return (
     <div>
@@ -45,7 +57,30 @@ export const Events = () => {
         onUndo={() => dispatch(UndoAction)}
         onRedo={() => dispatch(RedoAction)}
       />
-      <EventTable removeRow={(index) => dispatch(removeEvent(Number(index)))} />
+      <EventTable
+        events={createdEvents}
+        removeRow={(index) => dispatch(removeEvent(Number(index)))}
+        updateStatus={(index) =>
+          dispatch(
+            updateEventStatus({
+              index: Number(index),
+              status: EventStatus.COMPLETE,
+            })
+          )
+        }
+      />
+      <EventTable
+        events={completedEvents}
+        removeRow={(index) => dispatch(removeEvent(Number(index)))}
+        updateStatus={(index) =>
+          dispatch(
+            updateEventStatus({
+              index: Number(index),
+              status: EventStatus.CREATED,
+            })
+          )
+        }
+      />
     </div>
   );
 };

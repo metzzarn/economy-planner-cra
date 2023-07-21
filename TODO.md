@@ -2,6 +2,8 @@
 
 ## Soon
 
+- Fix setting event status created. It uses the index from the created table
+
 - Add savings goals
 - Add progress tracker to savings goals
 
@@ -48,9 +50,5 @@
 - Nordnet
 - Länsförsäkringar
 
-### Event/future expense planning
-- Page for these events/expenses
-- Add events
-- List available events
-- Event description
+### Event planning
 - Table of future expenses

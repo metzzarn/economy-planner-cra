@@ -1,3 +1,5 @@
+import { EventStatus } from 'components/event/EventStatus';
+
 export interface FinancialEntry {
   index?: number;
   name?: string;
@@ -39,8 +41,9 @@ export interface EventState {
 
 export interface EventEntry {
   index?: number;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  status?: EventStatus;
 }
 
 export interface SettingsState {
