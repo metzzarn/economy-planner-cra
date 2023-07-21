@@ -12,10 +12,12 @@ import {
   selectEvents,
   selectEventTitle,
   UndoAction,
+  updateEventStatus,
 } from 'redux/eventSlice';
 import { UndoRedo } from 'components/common/UndoRedo';
 import { EventTable } from 'components/event/EventTable';
 import { EventEntry } from 'redux/common';
+import { EventStatus } from 'components/event/EventStatus';
 
 export const Events = () => {
   const dispatch = useAppDispatch();
@@ -58,10 +60,26 @@ export const Events = () => {
       <EventTable
         events={createdEvents}
         removeRow={(index) => dispatch(removeEvent(Number(index)))}
+        updateStatus={(index) =>
+          dispatch(
+            updateEventStatus({
+              index: Number(index),
+              status: EventStatus.COMPLETE,
+            })
+          )
+        }
       />
       <EventTable
         events={completedEvents}
         removeRow={(index) => dispatch(removeEvent(Number(index)))}
+        updateStatus={(index) =>
+          dispatch(
+            updateEventStatus({
+              index: Number(index),
+              status: EventStatus.CREATED,
+            })
+          )
+        }
       />
     </div>
   );

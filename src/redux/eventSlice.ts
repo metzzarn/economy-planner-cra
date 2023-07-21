@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { EventEntry, EventState } from 'redux/common';
 import undoable from 'redux/undoable';
+import { EventStatus } from 'components/event/EventStatus';
 
 const initialState: EventState = {
   title: 'Event',
@@ -26,10 +27,29 @@ const eventSlice = createSlice({
       }
 
       const newArray = [...state.events];
+      const currentStatus = newArray[action.payload.index].status;
 
       newArray[action.payload.index] = {
         title: action.payload.title,
         description: action.payload.description,
+        status: action.payload.status ? action.payload.status : currentStatus,
+      };
+
+      return {
+        ...state,
+        events: newArray,
+      };
+    },
+    updateEventStatus: (state, action: PayloadAction<EventEntry>) => {
+      if (action.payload.index === undefined || !action.payload.status) {
+        return;
+      }
+
+      const newArray = [...state.events];
+      const currentEvent = newArray[action.payload.index];
+
+      newArray[action.payload.index] = {
+        ...currentEvent,
         status: action.payload.status,
       };
 
@@ -72,8 +92,13 @@ export const selectCanUndo = (state: RootState) => state.events.past.length > 0;
 export const selectCanRedo = (state: RootState) =>
   state.events.future.length > 0;
 
-export const { addEvent, updateEvent, removeEvent, editEventTitle } =
-  eventSlice.actions;
+export const {
+  addEvent,
+  updateEvent,
+  updateEventStatus,
+  removeEvent,
+  editEventTitle,
+} = eventSlice.actions;
 export const selectEvents = (state: RootState) => state.events.present.events;
 export const selectEventTitle = (state: RootState) =>
   state.events.present.title;

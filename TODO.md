@@ -2,6 +2,8 @@
 
 ## Soon
 
+- Fix setting event status created. It uses the index from the created table
+
 - Add savings goals
 - Add progress tracker to savings goals
 
@@ -50,4 +52,3 @@
 
 ### Event planning
 - Table of future expenses
-- Separate carried out events from future events

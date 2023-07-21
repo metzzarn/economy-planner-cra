@@ -1,4 +1,4 @@
-enum EventStatus {
+export const enum EventStatus {
   COMPLETE = 'COMPLETE',
   CREATED = 'CREATED',
 }
