@@ -4,6 +4,8 @@
 
 - Fix setting event status created. It uses the index from the created table
 
+- Create checklists in events
+
 - Add savings goals
 - Add progress tracker to savings goals
 
