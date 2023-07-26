@@ -11,6 +11,7 @@ import { currencySymbol, formatAmount } from 'utils/numberUtils';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { selectIncome, setSelectedIncome } from 'redux/incomeSlice';
+import { If } from 'components/common/If';
 
 interface AmountTableProps {
   data: IncomeEntry[];
@@ -82,7 +83,7 @@ export const IncomeTable = (props: AmountTableProps) => {
   });
 
   const CustomFooterStatusComponent = (
-    props: NonNullable<GridSlotsComponentsProps['footer']>
+    props: NonNullable<GridSlotsComponentsProps['footer']>,
   ) => {
     return (
       <Box
@@ -99,28 +100,32 @@ export const IncomeTable = (props: AmountTableProps) => {
 
   return (
     <Box sx={{ maxWidth: '700px' }}>
-      <DataGrid
-        sx={{ mt: 1 }}
-        columns={columns}
-        rows={rows}
-        hideFooterPagination={true}
-        hideFooterSelectedRowCount={true}
-        disableColumnSelector
-        disableRowSelectionOnClick
-        onCellClick={(params: GridCellParams) => {
-          params.field === 'income' &&
-            dispatch(setSelectedIncome(Number(params.id)));
-          return (
-            params.field === 'remove' && props.removeRow(Number(params.id))
-          );
-        }}
-        slots={{
-          footer: CustomFooterStatusComponent,
-        }}
-        slotProps={{
-          footer: { selectedIncome: selectedIncome ? selectedIncome.value : 0 },
-        }}
-      />
+      <If true={rows.length > 0}>
+        <DataGrid
+          sx={{ mt: 1 }}
+          columns={columns}
+          rows={rows}
+          hideFooterPagination={true}
+          hideFooterSelectedRowCount={true}
+          disableColumnSelector
+          disableRowSelectionOnClick
+          onCellClick={(params: GridCellParams) => {
+            params.field === 'income' &&
+              dispatch(setSelectedIncome(Number(params.id)));
+            return (
+              params.field === 'remove' && props.removeRow(Number(params.id))
+            );
+          }}
+          slots={{
+            footer: CustomFooterStatusComponent,
+          }}
+          slotProps={{
+            footer: {
+              selectedIncome: selectedIncome ? selectedIncome.value : 0,
+            },
+          }}
+        />
+      </If>
     </Box>
   );
 };

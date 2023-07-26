@@ -22,6 +22,7 @@ import {
 import { currencySymbol, formatAmount } from 'utils/numberUtils';
 import { useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
+import { If } from 'components/common/If';
 
 interface AmountTableProps {
   data: FinancialEntry[];
@@ -29,7 +30,7 @@ interface AmountTableProps {
     index: number,
     name: string,
     amount: string,
-    description: string
+    description: string,
   ) => void;
   removeRow: (index: number) => void;
 }
@@ -45,7 +46,7 @@ export const FinanceTable = (props: AmountTableProps) => {
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
   const [total, setTotal] = React.useState(
-    formatAmount('0,0', decimalPlaces, language)
+    formatAmount('0,0', decimalPlaces, language),
   );
 
   useEffect(() => {
@@ -168,7 +169,7 @@ export const FinanceTable = (props: AmountTableProps) => {
   });
 
   const CustomFooterStatusComponent = (
-    props: NonNullable<GridSlotsComponentsProps['footer']>
+    props: NonNullable<GridSlotsComponentsProps['footer']>,
   ) => {
     return (
       <Box
@@ -185,34 +186,36 @@ export const FinanceTable = (props: AmountTableProps) => {
 
   return (
     <Box sx={{ maxWidth: '700px' }}>
-      <DataGrid
-        sx={{ mt: 1 }}
-        columns={columns}
-        rows={rows}
-        hideFooterPagination={true}
-        hideFooterSelectedRowCount={true}
-        disableColumnSelector
-        disableRowSelectionOnClick
-        processRowUpdate={async (newRow: GridRowModel) => {
-          props.updateRow(
-            newRow.id,
-            newRow.name,
-            newRow.amount,
-            newRow.description
-          );
-          return newRow;
-        }}
-        onProcessRowUpdateError={(error) => console.error(error)}
-        onCellClick={(params: GridCellParams) =>
-          params.field === 'remove' && props.removeRow(Number(params.id))
-        }
-        slots={{
-          footer: CustomFooterStatusComponent,
-        }}
-        slotProps={{
-          footer: { total },
-        }}
-      />
+      <If true={rows.length > 0}>
+        <DataGrid
+          sx={{ mt: 1 }}
+          columns={columns}
+          rows={rows}
+          hideFooterPagination={true}
+          hideFooterSelectedRowCount={true}
+          disableColumnSelector
+          disableRowSelectionOnClick
+          processRowUpdate={async (newRow: GridRowModel) => {
+            props.updateRow(
+              newRow.id,
+              newRow.name,
+              newRow.amount,
+              newRow.description,
+            );
+            return newRow;
+          }}
+          onProcessRowUpdateError={(error) => console.error(error)}
+          onCellClick={(params: GridCellParams) =>
+            params.field === 'remove' && props.removeRow(Number(params.id))
+          }
+          slots={{
+            footer: CustomFooterStatusComponent,
+          }}
+          slotProps={{
+            footer: { total },
+          }}
+        />
+      </If>
     </Box>
   );
 };
