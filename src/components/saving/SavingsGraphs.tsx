@@ -18,7 +18,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import { selectLanguage } from 'redux/settingsSlice';
+import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import {
   Box,
   FormControl,
@@ -30,7 +30,7 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { currencySymbol } from 'utils/numberUtils';
+import { currencySymbol, formatAmount } from 'utils/numberUtils';
 
 ChartJS.register(
   CategoryScale,
@@ -39,7 +39,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export const SavingsGraphs = () => {
@@ -47,6 +47,7 @@ export const SavingsGraphs = () => {
 
   const savings = useAppSelector(selectSavings);
   const language = useAppSelector(selectLanguage);
+  const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const startAmount = useAppSelector(selectStartAmount);
   const interestRate = useAppSelector(selectInterestRate);
 
@@ -74,29 +75,41 @@ export const SavingsGraphs = () => {
     months.push(month.charAt(0).toUpperCase() + month.slice(1));
   }
 
+  const dataset = savings.map((saving: FinancialEntry, index: number) => {
+    const random = Math.floor(Math.random() * (20 - -20 + 1)) + -20;
+    const number = Math.floor((360 / savings.length) * (index + 1) + random);
+    const borderColor = 'hsl(' + number + ', 80%, 60%)';
+    const backgroundColor = 'hsl(' + number + ', 80%, 35%)';
+
+    const savingValue = saving.value ? saving.value : 0;
+    let sum = startAmount;
+    const accumulatedSavingsPerMonth = months.map(() => {
+      sum *= 1 + interestRate / 100 / 12;
+      sum += savingValue;
+      return sum;
+    });
+
+    return {
+      label: saving.name,
+      data: accumulatedSavingsPerMonth,
+      borderColor: borderColor,
+      backgroundColor: backgroundColor,
+    };
+  });
+
+  const totalSavings = dataset.reduce(
+    (acc: number, saving: any) => acc + saving.data[timeline - 1],
+    0,
+  );
+
+  const formattedTotalSavings =
+    totalSavings &&
+    'Total savings during period ' +
+      formatAmount(totalSavings.toString(), decimalPlaces, language);
+
   const data = {
     labels: months,
-    datasets: savings.map((saving: FinancialEntry, index: number) => {
-      const random = Math.floor(Math.random() * (20 - -20 + 1)) + -20;
-      const number = Math.floor((360 / savings.length) * (index + 1) + random);
-      const borderColor = 'hsl(' + number + ', 80%, 60%)';
-      const backgroundColor = 'hsl(' + number + ', 80%, 35%)';
-
-      const savingValue = saving.value ? saving.value : 0;
-      let sum = startAmount;
-      const accumulatedSavingsPerMonth = months.map(() => {
-        sum *= 1 + interestRate / 100 / 12;
-        sum += savingValue;
-        return sum;
-      });
-
-      return {
-        label: saving.name,
-        data: accumulatedSavingsPerMonth,
-        borderColor: borderColor,
-        backgroundColor: backgroundColor,
-      };
-    }),
+    datasets: dataset,
   };
 
   return (
@@ -171,8 +184,9 @@ export const SavingsGraphs = () => {
           />
         </FormControl>
       </Box>
+      {formattedTotalSavings}
 
-      <Box sx={{ minHeight: '400px' }}>
+      <Box sx={{ my: 2, minHeight: '400px' }}>
         <Line data={data} options={options} />
       </Box>
     </Box>

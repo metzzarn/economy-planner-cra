@@ -2,7 +2,7 @@
 
 ## Soon
 
-- Create checklists in events
+- Add checklists to events
 
 - Add savings goals
 - Add progress tracker to savings goals
@@ -14,11 +14,11 @@
 
 - Set start amount per saving
 
-- Add toggle to settings to replace or overwrite when loading data
-
 - Add dashboard tab with summary 
 
 - Add multiple expenses tables
+
+- Add Dark mode
 
 - Show what percentage of the income that savings add up to 
 
