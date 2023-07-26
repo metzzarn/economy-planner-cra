@@ -40,7 +40,7 @@ export interface EventState {
 }
 
 export interface EventEntry {
-  index?: number;
+  id?: string;
   title?: string;
   description?: string;
   status?: EventStatus;

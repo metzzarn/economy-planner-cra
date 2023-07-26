@@ -28,10 +28,10 @@ export const Events = () => {
   const events = useAppSelector(selectEvents);
 
   const createdEvents = events.filter(
-    (event: EventEntry) => EventStatus.CREATED === event.status
+    (event: EventEntry) => EventStatus.CREATED === event.status,
   );
   const completedEvents = events.filter(
-    (event: EventEntry) => EventStatus.COMPLETE === event.status
+    (event: EventEntry) => EventStatus.COMPLETE === event.status,
   );
 
   return (
@@ -59,25 +59,25 @@ export const Events = () => {
       />
       <EventTable
         events={createdEvents}
-        removeRow={(index) => dispatch(removeEvent(Number(index)))}
-        updateStatus={(index) =>
+        removeRow={(id) => dispatch(removeEvent(id))}
+        updateStatus={(id) =>
           dispatch(
             updateEventStatus({
-              index: Number(index),
+              id: id,
               status: EventStatus.COMPLETE,
-            })
+            }),
           )
         }
       />
       <EventTable
         events={completedEvents}
-        removeRow={(index) => dispatch(removeEvent(Number(index)))}
-        updateStatus={(index) =>
+        removeRow={(id) => dispatch(removeEvent(id))}
+        updateStatus={(id) =>
           dispatch(
             updateEventStatus({
-              index: Number(index),
+              id: id,
               status: EventStatus.CREATED,
-            })
+            }),
           )
         }
       />

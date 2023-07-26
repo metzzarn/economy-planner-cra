@@ -3,6 +3,7 @@ import { RootState } from './store';
 import { EventEntry, EventState } from 'redux/common';
 import undoable from 'redux/undoable';
 import { EventStatus } from 'components/event/EventStatus';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState: EventState = {
   title: 'Event',
@@ -14,25 +15,33 @@ const eventSlice = createSlice({
   initialState,
   reducers: {
     addEvent: (state, action: PayloadAction<EventEntry>) => {
-      action.payload.index = state.events.length;
       state.events.push({
+        id: uuidv4(),
         title: action.payload.title,
         description: action.payload.description,
         status: EventStatus.CREATED,
       });
     },
     updateEvent: (state, action: PayloadAction<EventEntry>) => {
-      if (action.payload.index === undefined || !action.payload.title) {
+      if (action.payload.id === undefined || !action.payload.title) {
         return;
       }
 
       const newArray = [...state.events];
-      const currentStatus = newArray[action.payload.index].status;
+      const currentEvent = newArray.filter(
+        (event) => event.id === action.payload.id,
+      )[0];
 
-      newArray[action.payload.index] = {
+      const eventIndex = state.events.findIndex(
+        (event) => event.id === action.payload.id,
+      );
+      newArray[eventIndex] = {
+        ...currentEvent,
         title: action.payload.title,
         description: action.payload.description,
-        status: action.payload.status ? action.payload.status : currentStatus,
+        status: action.payload.status
+          ? action.payload.status
+          : currentEvent.status,
       };
 
       return {
@@ -41,14 +50,18 @@ const eventSlice = createSlice({
       };
     },
     updateEventStatus: (state, action: PayloadAction<EventEntry>) => {
-      if (action.payload.index === undefined || !action.payload.status) {
+      if (action.payload.id === undefined || !action.payload.status) {
         return;
       }
 
       const newArray = [...state.events];
-      const currentEvent = newArray[action.payload.index];
-
-      newArray[action.payload.index] = {
+      const currentEvent = newArray.filter(
+        (event) => event.id === action.payload.id,
+      )[0];
+      const eventIndex = state.events.findIndex(
+        (event) => event.id === action.payload.id,
+      );
+      newArray[eventIndex] = {
         ...currentEvent,
         status: action.payload.status,
       };
@@ -58,18 +71,19 @@ const eventSlice = createSlice({
         events: newArray,
       };
     },
-    removeEvent: (state, action: PayloadAction<number>) => {
+    removeEvent: (state, action: PayloadAction<string>) => {
       if (action.payload === undefined) {
         return;
       }
 
       const newArray = [...state.events];
-
-      newArray.splice(action.payload, 1);
+      const filteredArray = newArray.filter(
+        (event) => event.id !== action.payload,
+      );
 
       return {
         ...state,
-        events: newArray,
+        events: filteredArray,
       };
     },
     editEventTitle: (state, action: PayloadAction<string>) => {

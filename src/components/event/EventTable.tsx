@@ -5,13 +5,18 @@ import React from 'react';
 import { If } from 'components/common/If';
 
 interface EventTableProps {
-  removeRow: (index: number) => void;
-  updateStatus: (index: number) => void;
+  removeRow: (id: string) => void;
+  updateStatus: (id: string) => void;
   events: EventEntry[];
 }
 
 export const EventTable = (props: EventTableProps) => {
   const columns: GridColDef[] = [
+    {
+      field: 'id',
+      headerName: 'Id',
+      editable: false,
+    },
     {
       field: 'title',
       headerName: 'Title',
@@ -66,9 +71,9 @@ export const EventTable = (props: EventTableProps) => {
     },
   ];
 
-  const rows = props.events.map((entry: EventEntry, index: number) => {
+  const rows = props.events.map((entry: EventEntry) => {
     return {
-      id: index,
+      id: entry.id,
       title: entry.title,
       description: entry.description,
       status: entry.status,
@@ -79,6 +84,13 @@ export const EventTable = (props: EventTableProps) => {
     <Box sx={{ maxWidth: '700px' }}>
       <If true={rows.length > 0}>
         <DataGrid
+          initialState={{
+            columns: {
+              columnVisibilityModel: {
+                id: false,
+              },
+            },
+          }}
           sx={{ mt: 1 }}
           columns={columns}
           rows={rows}
@@ -89,10 +101,8 @@ export const EventTable = (props: EventTableProps) => {
           hideFooter
           onCellClick={(params: GridCellParams) => {
             return (
-              (params.field === 'remove' &&
-                props.removeRow(Number(params.id))) ||
-              (params.field === 'complete' &&
-                props.updateStatus(Number(params.id)))
+              (params.field === 'remove' && props.removeRow(params.row.id)) ||
+              (params.field === 'complete' && props.updateStatus(params.row.id))
             );
           }}
         />
