@@ -21,28 +21,20 @@ export const EventTable = (props: EventTableProps) => {
       field: 'title',
       headerName: 'Title',
       flex: 2,
-      minWidth: 120,
-      maxWidth: 249,
+      minWidth: 170,
+      maxWidth: 299,
       editable: false,
     },
     {
       field: 'description',
       headerName: 'Description',
       flex: 5,
-      minWidth: 120,
-      maxWidth: 249,
+      minWidth: 170,
+      maxWidth: 299,
       editable: false,
     },
     {
-      field: 'status',
-      headerName: 'Status',
-      flex: 5,
-      minWidth: 100,
-      maxWidth: 100,
-      editable: false,
-    },
-    {
-      field: 'complete',
+      field: 'update-status',
       headerName: '',
       width: 50,
       editable: false,
@@ -102,7 +94,8 @@ export const EventTable = (props: EventTableProps) => {
           onCellClick={(params: GridCellParams) => {
             return (
               (params.field === 'remove' && props.removeRow(params.row.id)) ||
-              (params.field === 'complete' && props.updateStatus(params.row.id))
+              (params.field === 'update-status' &&
+                props.updateStatus(params.row.id))
             );
           }}
         />

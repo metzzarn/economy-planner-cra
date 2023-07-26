@@ -57,6 +57,7 @@ export const Events = () => {
         onUndo={() => dispatch(UndoAction)}
         onRedo={() => dispatch(RedoAction)}
       />
+      <h3>Created</h3>
       <EventTable
         events={createdEvents}
         removeRow={(id) => dispatch(removeEvent(id))}
@@ -69,6 +70,7 @@ export const Events = () => {
           )
         }
       />
+      <h3>Completed</h3>
       <EventTable
         events={completedEvents}
         removeRow={(id) => dispatch(removeEvent(id))}
