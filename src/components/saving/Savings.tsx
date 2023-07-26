@@ -29,10 +29,14 @@ export const Savings = () => {
   const description = useAppSelector(selectSavingsDescription);
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
-  const [checked, setChecked] = React.useState(false);
+  const [showAddForm, setShowAddForm] = React.useState(false);
+  const [showGraph, setShowGraph] = React.useState(false);
 
-  const handleChange = () => {
-    setChecked((prev) => !prev);
+  const handleShowForm = () => {
+    setShowAddForm((prev) => !prev);
+  };
+  const handleShowGraph = () => {
+    setShowGraph((prev) => !prev);
   };
 
   return (
@@ -51,13 +55,19 @@ export const Savings = () => {
         fontSize={'1rem'}
         fontWeight={400}
       />
-      <SavingsGraphs />
       <FormControlLabel
-        control={<Switch checked={checked} onChange={handleChange} />}
+        control={<Switch checked={showGraph} onChange={handleShowGraph} />}
+        label={'Show graph'}
+      />
+      <Collapse in={showGraph}>
+        <SavingsGraphs />
+      </Collapse>
+      <FormControlLabel
+        control={<Switch checked={showAddForm} onChange={handleShowForm} />}
         label={'Add savings'}
       />
       <Box sx={{ display: 'flex' }}>
-        <Collapse in={checked}>
+        <Collapse in={showAddForm}>
           <div>
             <FinancialEntryForm
               action={(name, value, description) =>
@@ -86,7 +96,7 @@ export const Savings = () => {
               name: name,
               value: convertToNumber(amount),
               description: description,
-            })
+            }),
           );
         }}
         removeRow={(index) => dispatch(removeSaving(Number(index)))}

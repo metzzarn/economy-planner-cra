@@ -12,9 +12,6 @@ export default defineConfig({
     svgrPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true,
-      },
     }),
   ],
   base: '/economy-planner',
