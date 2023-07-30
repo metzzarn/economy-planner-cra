@@ -2,6 +2,8 @@
 
 ## Soon
 
+- Examine if TODO list for purchases and events can be combined. 
+
 - Add checklists to events
 
 - Add savings goals
