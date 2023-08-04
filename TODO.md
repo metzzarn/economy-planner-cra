@@ -28,8 +28,6 @@
 
 - Translation (Swedish)
 
-- Add interest over time to savings graph
-
 - Use Skatteverkets API for tax
 
 
