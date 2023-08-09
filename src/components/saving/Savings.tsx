@@ -14,13 +14,13 @@ import {
   updateSaving,
 } from 'redux/savingsSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { FinanceTable } from 'components/common/FinanceTable';
-import { FinancialEntryForm } from 'components/common/FinancialEntryForm';
+import { SavingsTable } from 'components/saving/SavingsTable';
 import { convertToNumber } from 'utils/numberUtils';
 import { EditableText } from 'components/common/EditableText';
 import { UndoRedo } from 'components/common/UndoRedo';
 import { Box, Collapse, FormControlLabel, Switch } from '@mui/material';
 import { SavingsGraphs } from 'components/saving/SavingsGraphs';
+import { SavingEntryForm } from 'components/saving/SavingEntryForm';
 
 export const Savings = () => {
   const dispatch = useAppDispatch();
@@ -55,6 +55,7 @@ export const Savings = () => {
         fontSize={'1rem'}
         fontWeight={400}
       />
+
       <FormControlLabel
         control={<Switch checked={showGraph} onChange={handleShowGraph} />}
         label={'Show graph'}
@@ -62,6 +63,7 @@ export const Savings = () => {
       <Collapse in={showGraph}>
         <SavingsGraphs />
       </Collapse>
+
       <FormControlLabel
         control={<Switch checked={showAddForm} onChange={handleShowForm} />}
         label={'Add savings'}
@@ -69,7 +71,7 @@ export const Savings = () => {
       <Box sx={{ display: 'flex' }}>
         <Collapse in={showAddForm}>
           <div>
-            <FinancialEntryForm
+            <SavingEntryForm
               action={(name, value, description) =>
                 dispatch(addSaving({ name, value, description }))
               }
@@ -87,7 +89,7 @@ export const Savings = () => {
         onUndo={() => dispatch(UndoAction)}
         onRedo={() => dispatch(RedoAction)}
       />
-      <FinanceTable
+      <SavingsTable
         data={savings}
         updateRow={(id, name, amount, description) => {
           dispatch(

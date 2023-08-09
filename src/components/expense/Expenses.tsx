@@ -14,12 +14,12 @@ import {
   updateExpense,
 } from 'redux/expensesSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { FinanceTable } from 'components/common/FinanceTable';
-import { FinancialEntryForm } from 'components/common/FinancialEntryForm';
+import { ExpenseEntryForm } from 'components/expense/ExpenseEntryForm';
 import { convertToNumber } from 'utils/numberUtils';
 import { EditableText } from 'components/common/EditableText';
 import { UndoRedo } from 'components/common/UndoRedo';
 import { Box, Collapse, FormControlLabel, Switch } from '@mui/material';
+import { ExpenseTable } from 'components/expense/ExpenseTable';
 
 export const Expenses = () => {
   const dispatch = useAppDispatch();
@@ -57,9 +57,9 @@ export const Expenses = () => {
       <Box sx={{ display: 'flex' }}>
         <Collapse in={checked}>
           <div>
-            <FinancialEntryForm
-              action={(name, value, description) =>
-                dispatch(addExpense({ name, value, description }))
+            <ExpenseEntryForm
+              action={(name, value, description, priority) =>
+                dispatch(addExpense({ name, value, description, priority }))
               }
               namePlaceholder={'Rent'}
               descriptionPlaceholder={'E-faktura'}
@@ -74,16 +74,17 @@ export const Expenses = () => {
         onUndo={() => dispatch(UndoAction)}
         onRedo={() => dispatch(RedoAction)}
       />
-      <FinanceTable
+      <ExpenseTable
         data={expenses}
-        updateRow={(id, name, amount, description) => {
+        updateRow={(id, name, amount, description, priority) => {
           dispatch(
             updateExpense({
               index: id,
               name: name,
               value: convertToNumber(amount),
               description: description,
-            })
+              priority: priority,
+            }),
           );
         }}
         removeRow={(index) => dispatch(removeExpense(Number(index)))}

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { FinancialEntry } from 'redux/common';
+import { ExpenseEntry } from 'redux/common';
 import {
   DataGrid,
   GridCellParams,
   GridColDef,
   GridEditInputCell,
+  GridEditSingleSelectCell,
   GridPreProcessEditCellProps,
   GridRenderEditCellParams,
   GridRowModel,
@@ -24,13 +25,14 @@ import { useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { If } from 'components/common/If';
 
-interface AmountTableProps {
-  data: FinancialEntry[];
+interface ExpenseTableProps {
+  data: ExpenseEntry[];
   updateRow: (
     index: number,
     name: string,
     amount: string,
     description: string,
+    priority: string,
   ) => void;
   removeRow: (index: number) => void;
 }
@@ -41,7 +43,7 @@ declare module '@mui/x-data-grid' {
   }
 }
 
-export const FinanceTable = (props: AmountTableProps) => {
+export const ExpenseTable = (props: ExpenseTableProps) => {
   const language = useAppSelector(selectLanguage);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
 
@@ -75,6 +77,15 @@ export const FinanceTable = (props: AmountTableProps) => {
         <StyledTooltip open={!!error} title={error || ''}>
           <div></div>
         </StyledTooltip>
+      </div>
+    );
+  };
+
+  const renderPriorityEdit = (params: GridRenderEditCellParams) => {
+    const { error } = params;
+    return (
+      <div>
+        <GridEditSingleSelectCell {...params} error={!!error} />
       </div>
     );
   };
@@ -141,6 +152,19 @@ export const FinanceTable = (props: AmountTableProps) => {
       renderEditCell: renderEdit,
     },
     {
+      field: 'priority',
+      type: 'singleSelect',
+      headerName: 'Priority',
+      flex: 5,
+      minWidth: 85,
+      maxWidth: 100,
+      editable: true,
+      valueOptions: ({ row }) => {
+        return ['Must', 'Need', 'Want'];
+      },
+      renderEditCell: renderPriorityEdit,
+    },
+    {
       field: 'remove',
       headerName: '',
       minWidth: 50,
@@ -157,7 +181,7 @@ export const FinanceTable = (props: AmountTableProps) => {
     },
   ];
 
-  const rows = props.data.map((entry: FinancialEntry, index) => {
+  const rows = props.data.map((entry: ExpenseEntry, index) => {
     return {
       id: index,
       name: entry.name,
@@ -165,6 +189,7 @@ export const FinanceTable = (props: AmountTableProps) => {
         ?.toString()
         .replace('.', currencySymbol(language).decimal),
       description: entry.description,
+      priority: entry.priority,
     };
   });
 
@@ -201,6 +226,7 @@ export const FinanceTable = (props: AmountTableProps) => {
               newRow.name,
               newRow.amount,
               newRow.description,
+              newRow.priority,
             );
             return newRow;
           }}

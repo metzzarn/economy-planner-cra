@@ -1,16 +1,23 @@
 import { EventStatus } from 'components/event/EventStatus';
 
-export interface FinancialEntry {
+export interface SavingEntry {
   index?: number;
   name?: string;
   value?: number;
   description?: string;
 }
+export interface ExpenseEntry {
+  index?: number;
+  name?: string;
+  value?: number;
+  description?: string;
+  priority?: string;
+}
 
 export interface SavingsState {
   title: string;
   description: string;
-  savings: FinancialEntry[];
+  savings: SavingEntry[];
   calculations: {
     startAmount: number;
     interestRate: number;
@@ -31,7 +38,7 @@ export interface IncomeEntry {
 export interface ExpensesState {
   title: string;
   description: string;
-  expenses: FinancialEntry[];
+  expenses: ExpenseEntry[];
 }
 
 export interface EventState {

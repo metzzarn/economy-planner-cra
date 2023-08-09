@@ -6,24 +6,45 @@ import {
   requiredMaxLength,
   validNumberPattern,
 } from 'utils/validation';
-import { Box, Button, InputAdornment, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Tooltip,
+} from '@mui/material';
 import { useAppSelector } from 'hooks';
 import { selectLanguage } from 'redux/settingsSlice';
 
 interface Props {
-  action: (name: string, value: number, description: string) => void;
+  action: (
+    name: string,
+    value: number,
+    description: string,
+    priority: string,
+  ) => void;
   namePlaceholder: string;
   descriptionPlaceholder?: string;
   buttonText?: string;
 }
 
-export const FinancialEntryForm = (props: Props) => {
+export const ExpenseEntryForm = (props: Props) => {
+  const priorities = ['Must', 'Need', 'Want'];
+
   const [nameErrorText, setNameErrorText] = useState<string>('');
   const [amountErrorText, setAmountErrorText] = useState<string>('');
   const [descriptionErrorText, setDescriptionErrorText] = useState<string>('');
+  const [priority, setPriority] = useState<string>(priorities[0]);
   const nameRef = useRef<HTMLInputElement>();
 
   const language = useAppSelector(selectLanguage);
+
+  const handlePriorityChange = (event: any) => {
+    setPriority(event.target.value);
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,7 +60,7 @@ export const FinancialEntryForm = (props: Props) => {
 
     nameRef?.current?.focus();
     nameRef?.current?.select();
-    props.action(name, convertToNumber(value), description);
+    props.action(name, convertToNumber(value), description, priority);
   };
 
   return (
@@ -98,6 +119,25 @@ export const FinancialEntryForm = (props: Props) => {
         }
         helperText={descriptionErrorText}
       />
+      <Tooltip title={'Set priority of the expense'} enterDelay={700}>
+        <div>
+          <InputLabel id="priority-label">Priority</InputLabel>
+          <Select
+            labelId="priority-label"
+            id="priority"
+            defaultValue={priorities[0]}
+            label={'Priority'}
+            name={'priority'}
+            onChange={handlePriorityChange}
+          >
+            {priorities.map((priority) => (
+              <MenuItem key={priority} value={priority}>
+                {priority}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+      </Tooltip>
       <Button sx={{ m: 1 }} variant="contained" type={'submit'}>
         Add
       </Button>

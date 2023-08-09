@@ -7,7 +7,7 @@ import {
   updateStartAmount,
 } from 'redux/savingsSlice';
 import { Line } from 'react-chartjs-2';
-import { FinancialEntry } from 'redux/common';
+import { SavingEntry } from 'redux/common';
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -75,7 +75,7 @@ export const SavingsGraphs = () => {
     months.push(month.charAt(0).toUpperCase() + month.slice(1));
   }
 
-  const dataset = savings.map((saving: FinancialEntry, index: number) => {
+  const dataset = savings.map((saving: SavingEntry, index: number) => {
     const random = Math.floor(Math.random() * (20 - -20 + 1)) + -20;
     const number = Math.floor((360 / savings.length) * (index + 1) + random);
     const borderColor = 'hsl(' + number + ', 80%, 60%)';

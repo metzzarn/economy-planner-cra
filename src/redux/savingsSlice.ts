@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { FinancialEntry, SavingsState } from 'redux/common';
+import { SavingEntry, SavingsState } from 'redux/common';
 import undoable from 'redux/undoable';
 
 const initialState: SavingsState = {
@@ -17,14 +17,14 @@ const savingsSlice = createSlice({
   name: 'savings',
   initialState,
   reducers: {
-    addSaving: (state, action: PayloadAction<FinancialEntry>) => {
+    addSaving: (state, action: PayloadAction<SavingEntry>) => {
       state.savings.push({
         name: action.payload.name,
         value: action.payload.value,
         description: action.payload.description,
       });
     },
-    updateSaving: (state, action: PayloadAction<FinancialEntry>) => {
+    updateSaving: (state, action: PayloadAction<SavingEntry>) => {
       if (
         action.payload.index === undefined ||
         !action.payload.value ||

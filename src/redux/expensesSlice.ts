@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { ExpensesState, FinancialEntry } from 'redux/common';
+import { ExpenseEntry, ExpensesState } from 'redux/common';
 import undoable from 'redux/undoable';
 
 const initialState: ExpensesState = {
@@ -13,15 +13,16 @@ const expensesSlice = createSlice({
   name: 'expenses',
   initialState,
   reducers: {
-    addExpense: (state, action: PayloadAction<FinancialEntry>) => {
+    addExpense: (state, action: PayloadAction<ExpenseEntry>) => {
       action.payload.index = state.expenses.length;
       state.expenses.push({
         name: action.payload.name,
         value: action.payload.value,
         description: action.payload.description,
+        priority: action.payload.priority,
       });
     },
-    updateExpense: (state, action: PayloadAction<FinancialEntry>) => {
+    updateExpense: (state, action: PayloadAction<ExpenseEntry>) => {
       if (
         action.payload.index === undefined ||
         !action.payload.value ||
@@ -36,6 +37,7 @@ const expensesSlice = createSlice({
         name: action.payload.name,
         value: +action.payload.value,
         description: action.payload.description,
+        priority: action.payload.priority,
       };
 
       return {
