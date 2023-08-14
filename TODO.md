@@ -27,8 +27,6 @@
 
 - Translation (Swedish)
 
-- Use Skatteverkets API for tax
-
 
 ## Future
 
