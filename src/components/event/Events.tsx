@@ -18,6 +18,7 @@ import { UndoRedo } from 'components/common/UndoRedo';
 import { EventTable } from 'components/event/EventTable';
 import { EventEntry } from 'redux/common';
 import { EventStatus } from 'components/event/EventStatus';
+import { Box } from '@mui/material';
 
 export const Events = () => {
   const dispatch = useAppDispatch();
@@ -43,14 +44,16 @@ export const Events = () => {
         />
       </h2>
 
-      <EventEntryForm
-        action={(title, description) =>
-          dispatch(addEvent({ title, description }))
-        }
-        titlePlaceholder={'Travel to Australia'}
-        descriptionPlaceholder={'Eat at restaurants'}
-        buttonText={'Add event'}
-      />
+      <Box sx={{ display: 'flex' }}>
+        <EventEntryForm
+          action={(title, description) =>
+            dispatch(addEvent({ title, description }))
+          }
+          titlePlaceholder={'Travel to Australia'}
+          descriptionPlaceholder={'Eat at restaurants'}
+          buttonText={'Add event'}
+        />
+      </Box>
       <UndoRedo
         canUndo={canUndo}
         canRedo={canRedo}

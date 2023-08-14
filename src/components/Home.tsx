@@ -5,7 +5,7 @@ import { Savings } from 'components/saving/Savings';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Summary } from 'components/Summary';
 import { selectIncome } from 'redux/incomeSlice';
-import { IncomeList } from 'components/income/IncomeList';
+import { Incomes } from 'components/income/Incomes';
 import {
   selectDecimalPlaces,
   selectLanguage,
@@ -44,7 +44,7 @@ export const Home = () => {
         {`Your salary is ${formatAmount(
           netIncome.toString(),
           decimalPlaces,
-          language
+          language,
         )}`}
       </div>
       <Box>
@@ -55,7 +55,7 @@ export const Home = () => {
           <Tab label="Events" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <IncomeList />
+          <Incomes />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
           <Expenses />

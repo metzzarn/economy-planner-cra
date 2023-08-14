@@ -1,9 +1,19 @@
 import { convertToNumber, currencySymbol } from 'utils/numberUtils';
 import React, { FormEvent, useState } from 'react';
 import { isValidNumber, validNumberPattern } from 'utils/validation';
-import { Box, Button, InputAdornment, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Collapse,
+  FormControlLabel,
+  FormGroup,
+  InputAdornment,
+  TextField,
+} from '@mui/material';
 import { useAppSelector } from 'hooks';
 import { selectLanguage } from 'redux/settingsSlice';
+import { getTax } from 'utils/skatteverket';
 
 interface Props {
   action: (value: number, tax: number) => void;
@@ -15,21 +25,43 @@ interface Props {
 export const IncomeEntryForm = (props: Props) => {
   const [taxErrorText, setTaxErrorText] = useState<string>('');
   const [incomeErrorText, setIncomeErrorText] = useState<string>('');
+  const [column, setColumn] = useState<number>(1);
+  const [tableNumber, setTableNumber] = useState<number>(32);
+  const [taxYear, setTaxYear] = useState<number>(new Date().getFullYear());
+  const [useSkatteverket, setUseSkatteverket] = useState<boolean>(true);
 
   const language = useAppSelector(selectLanguage);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSkatteverketToggle = () => {
+    setUseSkatteverket(!useSkatteverket);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     const income = formData.get('value') as string;
-    const tax = formData.get('tax') as string;
+    const userDefinedTax = formData.get('tax') as string;
 
-    if (!isValidNumber(income) || (tax !== '' && !isValidNumber(tax))) {
+    if (
+      !isValidNumber(income) ||
+      (!useSkatteverket &&
+        (userDefinedTax === '' || !isValidNumber(userDefinedTax)))
+    ) {
+      setTaxErrorText('Must be set if not using Skatteverket');
       return;
     }
 
-    props.action(convertToNumber(income), convertToNumber(tax));
+    await getTax(
+      income,
+      userDefinedTax,
+      tableNumber,
+      column,
+      taxYear,
+      useSkatteverket,
+    ).then((tax) =>
+      props.action(convertToNumber(income), convertToNumber(tax)),
+    );
   };
 
   return (
@@ -85,6 +117,45 @@ export const IncomeEntryForm = (props: Props) => {
         }
         helperText={taxErrorText}
       />
+      <FormGroup sx={{ m: 1 }}>
+        <FormControlLabel
+          control={
+            <Checkbox onChange={handleSkatteverketToggle} defaultChecked />
+          }
+          label="Get tax from Skattverket"
+        />
+      </FormGroup>
+      <Collapse in={useSkatteverket}>
+        <Box sx={{ display: 'flex' }}>
+          <TextField
+            sx={{ m: 1 }}
+            label={'Table number'}
+            name={'table-number'}
+            variant={'outlined'}
+            size={'small'}
+            placeholder={'32'}
+            onChange={(event) => setTableNumber(Number(event.target.value))}
+          />
+          <TextField
+            sx={{ m: 1 }}
+            label={'Column'}
+            name={'column'}
+            variant={'outlined'}
+            size={'small'}
+            placeholder={'1'}
+            onChange={(event) => setColumn(Number(event.target.value))}
+          />
+          <TextField
+            sx={{ m: 1 }}
+            label={'Year'}
+            name={'year'}
+            variant={'outlined'}
+            size={'small'}
+            placeholder={'2023'}
+            onChange={(event) => setTaxYear(Number(event.target.value))}
+          />
+        </Box>
+      </Collapse>
       <Button sx={{ m: 1 }} variant="contained" type={'submit'}>
         Add income
       </Button>
