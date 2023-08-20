@@ -2,7 +2,9 @@
 
 ## Soon
 
-- Examine if TODO list for purchases and events can be combined. 
+- Examine if TODO list for purchases and events can be combined.
+
+- Style page, use templates
 
 - Add check-/TODO lists to events
 
