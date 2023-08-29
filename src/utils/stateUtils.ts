@@ -4,13 +4,22 @@ import {
   STATE_VERSION,
 } from 'utils/constants';
 import { EconomyState } from 'redux/common';
+import CryptoJS from 'crypto-js';
 
-export const saveStateToFile = (state: EconomyState) => {
+export const saveStateToFile = async (
+  state: EconomyState,
+  password: string,
+) => {
   // Add version to the state before saving
   state.version = STATE_VERSION;
-  const blob = new Blob([JSON.stringify(state, null, 2)], {
+
+  const stateAsJson = JSON.stringify(state, null, 2);
+  const ciphertext = CryptoJS.AES.encrypt(stateAsJson, password).toString();
+
+  const blob = new Blob([password.length > 0 ? ciphertext : stateAsJson], {
     type: 'application/json',
   });
+
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
