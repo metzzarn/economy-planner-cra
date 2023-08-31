@@ -8,10 +8,16 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Snackbar,
 } from '@mui/material';
 import { EconomyState } from 'redux/common';
 import sampleData from 'components/data/sample_data.json';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const StateManagement = () => {
   const store = useStore<EconomyState>();
@@ -23,6 +29,15 @@ export const StateManagement = () => {
   const [openSampleDialog, setOpenSampleDialog] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState('');
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+  };
 
   const handleClickSnackbar = (message: string) => {
     setOpenSnackbar(true);
@@ -31,7 +46,7 @@ export const StateManagement = () => {
 
   const handleCloseSnackbar = (
     event: React.SyntheticEvent | Event,
-    reason?: string
+    reason?: string,
   ) => {
     if (reason === 'clickaway') {
       return;
@@ -68,7 +83,7 @@ export const StateManagement = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
-          const state = JSON.parse(e.target.result.toString());
+          const state = decryptJsonString(e.target.result.toString());
           fillObject(store.getState(), state);
           store.dispatch({ type: 'LOAD_STATE', payload: state });
         }
@@ -76,7 +91,18 @@ export const StateManagement = () => {
       reader.readAsText(file);
       handleCloseLoadDialog();
       handleClickSnackbar('State loaded from file');
+      setPassword('');
     }
+  };
+
+  const decryptJsonString = (str: string): string => {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      const bytes = CryptoJS.AES.decrypt(str, password);
+      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
+    return JSON.parse(str);
   };
 
   const onLoadSampleData = () => {
@@ -92,12 +118,39 @@ export const StateManagement = () => {
     handleClickSnackbar('Local storage cleared');
   };
 
+  const handleSaveStateToFile = () => {
+    saveStateToFile(store.getState(), password);
+    setPassword('');
+  };
+
   return (
     <div>
       <div>
-        <Button onClick={() => saveStateToFile(store.getState())}>
-          Save state to file
-        </Button>
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password" size={'small'}>
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            size={'small'}
+            onChange={(event) => setPassword(event.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+          <Button onClick={handleSaveStateToFile}>Save state to file</Button>
+        </FormControl>
       </div>
 
       <div>
@@ -119,8 +172,33 @@ export const StateManagement = () => {
                 ? 'Loading state from file will overwrite the current state.'
                 : 'Please choose a file to load.'}
             </DialogContentText>
+            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password" size={'small'}>
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                size={'small'}
+                onChange={(event) => setPassword(event.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
 
             <Button
+              sx={{ m: 1 }}
               variant="outlined"
               onClick={() => inputFile?.current?.click()}
             >
