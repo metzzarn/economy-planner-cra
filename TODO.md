@@ -23,8 +23,6 @@
 
 - Add multiple expenses tables
 
-- Add Dark mode
-
 - Show what percentage of the income that savings add up to 
 
 - Setup tests

@@ -2,10 +2,52 @@ import React from 'react';
 import './App.css';
 import { Link, Outlet, Route, Routes } from 'react-router-dom';
 import { Menu } from 'components/NavigationMeny';
+import {
+  createTheme,
+  ThemeProvider,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 
-export default function App() {
+export const ColorModeContext = React.createContext({
+  toggleColorMode: () => {},
+});
+
+export default () => {
+  const [mode, setMode] = React.useState<'light' | 'dark'>();
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: mode !== undefined ? mode : prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [mode, prefersDarkMode],
+  );
+
   return (
-    <div className="App">
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
+
+const App = () => {
+  const theme = useTheme();
+  return (
+    <div className={`App ${theme.palette.mode}`}>
       <Routes>
         <Route path={'/'} element={<Layout />}>
           {/*<Route index element={<Home />} />*/}
@@ -20,7 +62,7 @@ export default function App() {
       </Routes>
     </div>
   );
-}
+};
 
 const Layout = () => {
   return (

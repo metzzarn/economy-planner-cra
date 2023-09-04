@@ -1,8 +1,11 @@
 import React from 'react';
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, IconButton, Tab, Tabs, useTheme } from '@mui/material';
 import { Home } from 'components/Home';
 import { Settings } from 'components/setting/Settings';
 import { StateManagement } from 'components/setting/StateManagement';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import { ColorModeContext } from 'App';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -11,7 +14,9 @@ interface TabPanelProps {
 }
 
 export const Menu = () => {
+  const colorMode = React.useContext(ColorModeContext);
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -30,11 +35,20 @@ export const Menu = () => {
   return (
     <nav>
       <Box>
-        <Tabs value={value} onChange={handleChange}>
-          <Tab label="Home" />
-          <Tab label="Settings" />
-          <Tab label="Save/Load" />
-        </Tabs>
+        <Box sx={{ display: 'flex' }}>
+          <Tabs value={value} onChange={handleChange}>
+            <Tab label="Home" />
+            <Tab label="Settings" />
+            <Tab label="Save/Load" />
+          </Tabs>
+          <IconButton onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === 'dark' ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
+        </Box>
         <TabPanel value={value} index={0}>
           <Home />
         </TabPanel>
