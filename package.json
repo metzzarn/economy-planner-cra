@@ -32,7 +32,7 @@
     "@types/crypto-js": "^4.1.1",
     "@vitejs/plugin-react": "^4.0.3",
     "gh-pages": "^6.0.0",
-    "prettier": "3.0.0",
+    "prettier": "3.0.3",
     "vite": "^4.4.9",
     "vite-plugin-pwa": "^0.16.4",
     "vite-plugin-svgr": "^3.2.0",
