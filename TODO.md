@@ -2,6 +2,10 @@
 
 ## Soon
 
+- Google Drive integration
+- Automatic syncing
+- Save new file with date and time (is this possible with the current scopes?)
+
 - Examine if TODO list for purchases and events can be combined.
 
 - Style page, use templates
@@ -31,10 +35,6 @@
 
 
 ## Future
-
-### Save to cloud
-- Google Drive
-- Automatic syncing
 
 ### Sync with services
 - Avanza
