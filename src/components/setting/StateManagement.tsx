@@ -123,6 +123,11 @@ export const StateManagement = () => {
     setPassword('');
   };
 
+  // const handleSaveStateToGoogleDrive = () => {
+  //   saveStateToGoogleDrive(store.getState(), password);
+  //   setPassword('');
+  // };
+
   return (
     <div>
       <div>
@@ -150,6 +155,9 @@ export const StateManagement = () => {
             label="Password"
           />
           <Button onClick={handleSaveStateToFile}>Save state to file</Button>
+          {/*<Button onClick={handleSaveStateToGoogleDrive}>*/}
+          {/*  Save state to Google Drive*/}
+          {/*</Button>*/}
         </FormControl>
       </div>
 
