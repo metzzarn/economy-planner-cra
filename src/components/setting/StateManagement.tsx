@@ -18,6 +18,8 @@ import {
 import { EconomyState } from 'redux/common';
 import sampleData from 'components/data/sample_data.json';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { GoogleAuthentication } from 'components/common/GoogleAuthentication';
+import { AuthProvider } from 'components/common/AuthProvider';
 
 export const StateManagement = () => {
   const store = useStore<EconomyState>();
@@ -155,6 +157,10 @@ export const StateManagement = () => {
             label="Password"
           />
           <Button onClick={handleSaveStateToFile}>Save state to file</Button>
+
+          <AuthProvider>
+            <GoogleAuthentication />
+          </AuthProvider>
           {/*<Button onClick={handleSaveStateToGoogleDrive}>*/}
           {/*  Save state to Google Drive*/}
           {/*</Button>*/}

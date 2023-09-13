@@ -6,7 +6,6 @@ import {
 } from 'utils/constants';
 import { EconomyState } from 'redux/common';
 import CryptoJS from 'crypto-js';
-import { google } from 'googleapis';
 
 export const saveStateToFile = async (
   state: EconomyState,
@@ -24,9 +23,10 @@ export const saveStateToGoogleDrive = async (
   state: EconomyState,
   password: string,
 ) => {
-  const GOOGLE_DRIVE_CLIENT_ID = process.env
+  const GOOGLE_DRIVE_CLIENT_ID = import.meta.env
     .VITE_GOOGLE_DRIVE_CLIENT_ID as string;
-  const GOOGLE_DRIVE_API_KEY = process.env.VITE_GOOGLE_DRIVE_API_KEY as string;
+  const GOOGLE_DRIVE_API_KEY = import.meta.env
+    .VITE_GOOGLE_DRIVE_API_KEY as string;
   const SCOPES = [
     'https://www.googleapis.com/auth/drive.file',
     'https://www.googleapis.com/auth/drive.resource',
@@ -34,64 +34,8 @@ export const saveStateToGoogleDrive = async (
   const DISCOVERY_DOC =
     'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
 
-  gapi.load('client', initializeGapiClient);
-
-  function gisLoaded() {
-    tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: GOOGLE_DRIVE_CLIENT_ID,
-      scope: SCOPES,
-      callback: '', // defined later
-    });
-    gisInited = true;
-    maybeEnableButtons();
-  }
-
   const blob = createStateJsonBlob(state, password);
 };
-
-// export const saveStateToGoogleDrive = async (
-//   state: EconomyState,
-//   password: string,
-// ) => {
-//   const GOOGLE_DRIVE_CLIENT_ID = process.env
-//     .VITE_GOOGLE_DRIVE_CLIENT_ID as string;
-//   const GOOGLE_DRIVE_CLIENT_SECRET = process.env
-//     .VITE_GOOGLE_DRIVE_CLIENT_SECRET as string;
-//   const SCOPES = [
-//     'https://www.googleapis.com/auth/drive.file',
-//     'https://www.googleapis.com/auth/drive.resource',
-//   ];
-//   // const DISCOVERY_DOC =
-//   //   'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
-//
-//   const auth = new GoogleAuth({
-//     scopes: SCOPES,
-//   });
-//   const authClient = await auth.getClient();
-//   const client = drive({ version: 'v3', auth });
-//   const blob = createStateJsonBlob(state, password);
-//
-//   const requestBody = {
-//     name: STATE_FILE_NAME + STATE_FILE_ENDING,
-//     // fields: 'id',
-//     fields: 'economy-planner-state-id',
-//   };
-//   const media = {
-//     mimeType: 'application/json',
-//     body: blob,
-//   };
-//   try {
-//     const file = await client.files.create({
-//       requestBody,
-//       media: media,
-//     });
-//     console.log('File Id:', file.data.id);
-//     return file.data.id;
-//   } catch (err) {
-//     // TODO(developer) - Handle error
-//     throw err;
-//   }
-// };
 
 const createStateJsonBlob = (state: EconomyState, password: string) => {
   // Add version to the state before saving
