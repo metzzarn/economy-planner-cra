@@ -4,8 +4,6 @@
 
 - Examine if TODO list for purchases and events can be combined.
 
-- Style page, use templates
-
 - Create groups of events
 
 - Add check-/TODO lists to events
