@@ -17,5 +17,6 @@ export default defineConfig({
   base: '/economy-planner',
   server: {
     open: '/economy-planner',
+    cors: true,
   },
 });
