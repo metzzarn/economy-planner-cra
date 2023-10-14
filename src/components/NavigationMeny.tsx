@@ -6,6 +6,7 @@ import { StateManagement } from 'components/setting/StateManagement';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { ColorModeContext } from 'App';
+import { useTranslation } from 'react-i18next';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -14,6 +15,7 @@ interface TabPanelProps {
 }
 
 export const Menu = () => {
+  const { t } = useTranslation();
   const colorMode = React.useContext(ColorModeContext);
   const [value, setValue] = React.useState(0);
   const theme = useTheme();
@@ -37,9 +39,9 @@ export const Menu = () => {
       <Box>
         <Box sx={{ display: 'flex' }}>
           <Tabs value={value} onChange={handleChange}>
-            <Tab label="Home" />
-            <Tab label="Settings" />
-            <Tab label="Save/Load" />
+            <Tab label={t('home')} />
+            <Tab label={t('settings')} />
+            <Tab label={t('saveLoad')} />
           </Tabs>
           <IconButton onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? (

@@ -16,8 +16,10 @@ import {
 import { Box, Tab, Tabs } from '@mui/material';
 import { TabPanel } from 'components/common/TabPanel';
 import { Events } from 'components/event/Events';
+import { useTranslation } from 'react-i18next';
 
 export const Home = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const income = useAppSelector(selectIncome);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
@@ -25,6 +27,10 @@ export const Home = () => {
   const savedTabHome = useAppSelector(selectSavedTabHome);
   const saveTab = useAppSelector(selectSaveTab);
   const [currentTab, setCurrentTab] = useState<number>(0);
+
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+  };
 
   useEffect(() => {
     setCurrentTab(savedTabHome);
@@ -47,6 +53,8 @@ export const Home = () => {
           language,
         )}`}
       </div>
+      <button onClick={() => i18n.changeLanguage('se')}>se</button>
+      <button onClick={() => i18n.changeLanguage('en')}>en</button>
       <Box>
         <Tabs value={currentTab} onChange={handleChange}>
           <Tab label="Income" />
