@@ -5,6 +5,7 @@ import { Language, SettingsState } from 'redux/common';
 const initialState: SettingsState = {
   decimalPlaces: 2,
   language: {
+    language: 'sv',
     currency: 'SEK',
     locale: 'sv-SE',
   },

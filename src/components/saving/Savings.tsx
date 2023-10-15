@@ -21,6 +21,7 @@ import { UndoRedo } from 'components/common/UndoRedo';
 import { Box, Collapse, FormControlLabel, Switch } from '@mui/material';
 import { SavingsGraphs } from 'components/saving/SavingsGraphs';
 import { SavingEntryForm } from 'components/saving/SavingEntryForm';
+import { useTranslation } from 'react-i18next';
 
 export const Savings = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ export const Savings = () => {
   const canRedo = useAppSelector(selectCanRedo);
   const [showAddForm, setShowAddForm] = React.useState(false);
   const [showGraph, setShowGraph] = React.useState(false);
+  const { t } = useTranslation();
 
   const handleShowForm = () => {
     setShowAddForm((prev) => !prev);
@@ -51,14 +53,14 @@ export const Savings = () => {
         text={description}
         action={(value) => dispatch(editSavingsDescription(value))}
         multiline={true}
-        placeholder={'Description'}
+        placeholder={t('Description')}
         fontSize={'1rem'}
         fontWeight={400}
       />
 
       <FormControlLabel
         control={<Switch checked={showGraph} onChange={handleShowGraph} />}
-        label={'Show graph'}
+        label={t('Show graph')}
       />
       <Collapse in={showGraph}>
         <SavingsGraphs />
@@ -66,7 +68,7 @@ export const Savings = () => {
 
       <FormControlLabel
         control={<Switch checked={showAddForm} onChange={handleShowForm} />}
-        label={'Add savings'}
+        label={t('Add savings')}
       />
       <Box sx={{ display: 'flex' }}>
         <Collapse in={showAddForm}>
@@ -75,9 +77,6 @@ export const Savings = () => {
               action={(name, value, description) =>
                 dispatch(addSaving({ name, value, description }))
               }
-              namePlaceholder={'Car'}
-              descriptionPlaceholder={'Autogiro - den 25e'}
-              buttonText={'Add saving'}
             />
           </div>
         </Collapse>

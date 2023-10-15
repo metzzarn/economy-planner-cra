@@ -31,6 +31,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { currencySymbol, formatAmount } from 'utils/numberUtils';
+import { useTranslation } from 'react-i18next';
 
 ChartJS.register(
   CategoryScale,
@@ -44,6 +45,7 @@ ChartJS.register(
 
 export const SavingsGraphs = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const savings = useAppSelector(selectSavings);
   const language = useAppSelector(selectLanguage);
@@ -104,8 +106,9 @@ export const SavingsGraphs = () => {
 
   const formattedTotalSavings =
     totalSavings &&
-    'Total savings during period ' +
-      formatAmount(totalSavings.toString(), decimalPlaces, language);
+    t('Total savings during period', {
+      amount: formatAmount(totalSavings.toString(), decimalPlaces, language),
+    });
 
   const data = {
     labels: months,
@@ -114,13 +117,13 @@ export const SavingsGraphs = () => {
 
   return (
     <Box sx={{ maxWidth: '700px', my: 2 }}>
-      <h3>Savings Graphs</h3>
+      <h3>{t('Savings Graphs')}</h3>
 
       <Box sx={{ my: 2 }}>
         <FormControl size={'small'}>
           <TextField
             sx={{ width: 120, m: 1 }}
-            label={'Start amount'}
+            label={t('Start amount')}
             name={'start-amount'}
             variant={'outlined'}
             type={'number'}
@@ -143,29 +146,29 @@ export const SavingsGraphs = () => {
           />
         </FormControl>
         <FormControl sx={{ width: 120, m: 1 }} size={'small'}>
-          <InputLabel>Timeline</InputLabel>
+          <InputLabel>{t('Timeline')}</InputLabel>
           <Select
             labelId="timeline-label"
             id="timeline"
             value={timeline.toString()}
-            label="Timeline"
+            label={t('Timeline')}
             onChange={(event: SelectChangeEvent) =>
               setTimeline(parseInt(event.target.value))
             }
           >
-            <MenuItem value={3}>3 månader</MenuItem>
-            <MenuItem value={6}>6 månader</MenuItem>
-            <MenuItem value={12}>1 år</MenuItem>
-            <MenuItem value={2 * 12}>2 år</MenuItem>
-            <MenuItem value={3 * 12}>3 år</MenuItem>
-            <MenuItem value={4 * 12}>4 år</MenuItem>
-            <MenuItem value={5 * 12}>5 år</MenuItem>
+            <MenuItem value={3}>3 {t('months')}</MenuItem>
+            <MenuItem value={6}>6 {t('months')}</MenuItem>
+            <MenuItem value={12}>1 {t('years')}</MenuItem>
+            <MenuItem value={2 * 12}>2 {t('years')}</MenuItem>
+            <MenuItem value={3 * 12}>3 {t('years')}</MenuItem>
+            <MenuItem value={4 * 12}>4 {t('years')}</MenuItem>
+            <MenuItem value={5 * 12}>5 {t('years')}</MenuItem>
           </Select>
         </FormControl>
         <FormControl>
           <TextField
             sx={{ width: 90, m: 1 }}
-            label={'Interest'}
+            label={t('Interest')}
             name={'interest'}
             variant={'outlined'}
             type={'number'}

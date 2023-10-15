@@ -39,9 +39,9 @@ export const Menu = () => {
       <Box>
         <Box sx={{ display: 'flex' }}>
           <Tabs value={value} onChange={handleChange}>
-            <Tab label={t('home')} />
-            <Tab label={t('settings')} />
-            <Tab label={t('saveLoad')} />
+            <Tab label={t('Home')} />
+            <Tab label={t('Settings')} />
+            <Tab label={t('Save/Load')} />
           </Tabs>
           <IconButton onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? (

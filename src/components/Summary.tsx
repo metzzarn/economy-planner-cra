@@ -5,6 +5,7 @@ import { useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { ExpenseEntry, SavingEntry } from 'redux/common';
 import { formatAmount } from 'utils/numberUtils';
+import { useTranslation } from 'react-i18next';
 
 export const Summary = () => {
   const income = useAppSelector(selectIncome);
@@ -12,6 +13,7 @@ export const Summary = () => {
   const savings = useAppSelector(selectSavings);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const language = useAppSelector(selectLanguage);
+  const { t } = useTranslation();
 
   const totalExpenses = expenses.reduce(
     (acc: number, expense: ExpenseEntry) =>
@@ -29,13 +31,15 @@ export const Summary = () => {
 
   return (
     <div>
-      <h2>Summary</h2>
+      <h2>{t('Summary')}</h2>
       <div>
-        {`Discretionary income ${formatAmount(
-          discretionaryIncome.toString(),
-          decimalPlaces,
-          language,
-        )}`}
+        {t('Discretionary income', {
+          amount: formatAmount(
+            discretionaryIncome.toString(),
+            decimalPlaces,
+            language,
+          ),
+        })}
       </div>
     </div>
   );

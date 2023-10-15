@@ -19,6 +19,7 @@ import { EventTable } from 'components/event/EventTable';
 import { EventEntry } from 'redux/common';
 import { EventStatus } from 'components/event/EventStatus';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export const Events = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ export const Events = () => {
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
   const events = useAppSelector(selectEvents);
+  const { t } = useTranslation();
 
   const createdEvents = events.filter(
     (event: EventEntry) => EventStatus.CREATED === event.status,
@@ -49,9 +51,6 @@ export const Events = () => {
           action={(title, description) =>
             dispatch(addEvent({ title, description }))
           }
-          titlePlaceholder={'Travel to Australia'}
-          descriptionPlaceholder={'Eat at restaurants'}
-          buttonText={'Add event'}
         />
       </Box>
       <UndoRedo
@@ -60,7 +59,7 @@ export const Events = () => {
         onUndo={() => dispatch(UndoAction)}
         onRedo={() => dispatch(RedoAction)}
       />
-      <h3>Created</h3>
+      <h3>{t('Created')}</h3>
       <EventTable
         events={createdEvents}
         removeRow={(id) => dispatch(removeEvent(id))}
@@ -73,7 +72,7 @@ export const Events = () => {
           )
         }
       />
-      <h3>Completed</h3>
+      <h3>{t('Completed')}</h3>
       <EventTable
         events={completedEvents}
         removeRow={(id) => dispatch(removeEvent(id))}

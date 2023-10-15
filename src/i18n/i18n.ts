@@ -1,27 +1,19 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
+import swedish from './locales/swedish.json';
+import english from './locales/english.json';
+
+const resources = {
+  sv: { translations: swedish },
+  en: { translations: english },
+};
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: {
-        translations: {
-          home: 'Home',
-          settings: 'Settings',
-          saveLoad: 'Save/Load',
-        },
-      },
-      se: {
-        translations: {
-          home: 'Hem',
-          settings: 'Inställningar',
-          saveLoad: 'Spara/Ladda',
-        },
-      },
-    },
+    resources,
     fallbackLng: 'en',
     debug: true,
 
@@ -35,5 +27,3 @@ i18n
       escapeValue: false,
     },
   });
-
-export default i18n;

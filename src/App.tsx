@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Link, Outlet, Route, Routes } from 'react-router-dom';
 import { Menu } from 'components/NavigationMeny';
@@ -8,6 +8,10 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'hooks';
+import { selectLanguage } from 'redux/settingsSlice';
+import { TFunction } from 'i18next';
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
@@ -35,16 +39,27 @@ export default () => {
     [mode, prefersDarkMode],
   );
 
+  const language = useAppSelector(selectLanguage);
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(language.language);
+  }, [language]);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <App />
+        <App t={t} />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
 };
 
-const App = () => {
+interface Props {
+  t: TFunction;
+}
+
+const App = (props: Props) => {
   const theme = useTheme();
   return (
     <div className={`App ${theme.palette.mode}`}>
@@ -58,7 +73,7 @@ const App = () => {
                     acts like a catch-all for URLs that we don't have explicit
                     routes for. */}
         </Route>
-        <Route path="*" element={<NoMatch />} />
+        <Route path="*" element={<NoMatch t={props.t} />} />
       </Routes>
     </div>
   );
@@ -76,12 +91,12 @@ const Layout = () => {
   );
 };
 
-const NoMatch = () => {
+const NoMatch = (props: Props) => {
   return (
     <div>
-      <h2>Nothing to see here!</h2>
+      <h2>{props.t('Nothing to see here!')}</h2>
       <p>
-        <Link to="/economy-planner">Go to the home page</Link>
+        <Link to="/economy-planner">{props.t('Go to the home page')}</Link>
       </p>
     </div>
   );

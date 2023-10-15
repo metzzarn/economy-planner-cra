@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   canUndo: boolean;
@@ -8,13 +9,15 @@ interface Props {
 }
 
 export const UndoRedo = (props: Props) => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Button onClick={props.onUndo} disabled={!props.canUndo}>
-        Undo
+        {t('Undo')}
       </Button>
       <Button onClick={props.onRedo} disabled={!props.canRedo}>
-        Redo
+        {t('Redo')}
       </Button>
     </div>
   );

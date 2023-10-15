@@ -1,14 +1,14 @@
 import { Box, Button, TextField } from '@mui/material';
 import React, { FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   action: (title: string, description: string) => void;
-  titlePlaceholder: string;
-  descriptionPlaceholder?: string;
-  buttonText?: string;
 }
 
 export const EventEntryForm = (props: Props) => {
+  const { t } = useTranslation();
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -24,24 +24,24 @@ export const EventEntryForm = (props: Props) => {
       <TextField
         sx={{ m: 1 }}
         required
-        label={'Title'}
+        label={t('Title')}
         name={'title'}
         variant={'outlined'}
         size={'small'}
-        placeholder={props.titlePlaceholder}
+        placeholder={t('Travel to Australia')}
       />
       <TextField
         sx={{ m: 1 }}
-        label={'Description'}
+        label={t('Description')}
         name={'description'}
         variant={'outlined'}
         size={'small'}
-        placeholder={props.descriptionPlaceholder}
+        placeholder={t('Eat at restaurants')}
         multiline
         minRows={3}
       />
       <Button sx={{ m: 1 }} variant="contained" type={'submit'}>
-        {props.buttonText || 'Add'}
+        {t('Add event')}
       </Button>
     </Box>
   );

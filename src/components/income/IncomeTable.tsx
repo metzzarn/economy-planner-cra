@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { selectIncome, setSelectedIncome } from 'redux/incomeSlice';
 import { If } from 'components/common/If';
+import { useTranslation } from 'react-i18next';
 
 interface AmountTableProps {
   data: IncomeEntry[];
@@ -29,11 +30,12 @@ export const IncomeTable = (props: AmountTableProps) => {
   const language = useAppSelector(selectLanguage);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
   const selectedIncome = useAppSelector(selectIncome);
+  const { t } = useTranslation();
 
   const columns: GridColDef[] = [
     {
       field: 'income',
-      headerName: 'Income',
+      headerName: t('Income'),
       flex: 2,
       minWidth: 290,
       maxWidth: 320,
@@ -44,7 +46,7 @@ export const IncomeTable = (props: AmountTableProps) => {
     },
     {
       field: 'tax',
-      headerName: 'Tax',
+      headerName: t('Tax'),
       flex: 5,
       minWidth: 290,
       maxWidth: 320,
@@ -65,7 +67,7 @@ export const IncomeTable = (props: AmountTableProps) => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: () => (
-        <Tooltip title={'Remove'} enterDelay={700}>
+        <Tooltip title={t('Remove')} enterDelay={700}>
           <div style={{ cursor: 'pointer' }}>X</div>
         </Tooltip>
       ),
@@ -92,7 +94,9 @@ export const IncomeTable = (props: AmountTableProps) => {
         }}
       >
         <Typography sx={{ width: '100%', p: 1 }} align={'right'}>
-          Selected income {props.selectedIncome}
+          {t('Selected income', {
+            income: props.selectedIncome,
+          })}
         </Typography>
       </Box>
     );

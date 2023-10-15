@@ -2,6 +2,12 @@
 
 ## Soon
 
+- Change tooltip of 'complete' in events
+
+- Verify that the language detector works as expected
+
+- Format numbers using i18n
+
 - Examine if TODO list for purchases and events can be combined.
 
 - Create groups of events
@@ -24,8 +30,6 @@
 - Show what percentage of the income that savings add up to 
 
 - Setup tests
-
-- Translation (Swedish)
 
 
 ## Future

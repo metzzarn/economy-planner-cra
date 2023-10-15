@@ -14,9 +14,6 @@ export const Incomes = () => {
       <Box sx={{ display: 'flex' }}>
         <IncomeEntryForm
           action={(value, tax) => dispatch(addIncome({ value, tax }))}
-          namePlaceholder={'Car'}
-          descriptionPlaceholder={'Autogiro - den 25e'}
-          buttonText={'Add saving'}
         />
       </Box>
       <IncomeTable

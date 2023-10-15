@@ -20,6 +20,7 @@ import { EditableText } from 'components/common/EditableText';
 import { UndoRedo } from 'components/common/UndoRedo';
 import { Box, Collapse, FormControlLabel, Switch } from '@mui/material';
 import { ExpenseTable } from 'components/expense/ExpenseTable';
+import { useTranslation } from 'react-i18next';
 
 export const Expenses = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ export const Expenses = () => {
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
   const [checked, setChecked] = React.useState(false);
+  const { t } = useTranslation();
 
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -46,13 +48,13 @@ export const Expenses = () => {
         text={description}
         action={(value) => dispatch(editExpensesDescription(value))}
         multiline={true}
-        placeholder={'Description'}
+        placeholder={t('Description')}
         fontSize={'1rem'}
         fontWeight={400}
       />
       <FormControlLabel
         control={<Switch checked={checked} onChange={handleChange} />}
-        label={'Add expenses'}
+        label={t('Add expenses')}
       />
       <Box sx={{ display: 'flex' }}>
         <Collapse in={checked}>
@@ -61,9 +63,6 @@ export const Expenses = () => {
               action={(name, value, description, priority) =>
                 dispatch(addExpense({ name, value, description, priority }))
               }
-              namePlaceholder={'Rent'}
-              descriptionPlaceholder={'E-faktura'}
-              buttonText={'Add expense'}
             />
           </div>
         </Collapse>

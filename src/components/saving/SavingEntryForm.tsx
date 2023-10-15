@@ -9,12 +9,10 @@ import {
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 import { useAppSelector } from 'hooks';
 import { selectLanguage } from 'redux/settingsSlice';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   action: (name: string, value: number, description: string) => void;
-  namePlaceholder: string;
-  descriptionPlaceholder?: string;
-  buttonText?: string;
 }
 
 export const SavingEntryForm = (props: Props) => {
@@ -22,6 +20,7 @@ export const SavingEntryForm = (props: Props) => {
   const [amountErrorText, setAmountErrorText] = useState<string>('');
   const [descriptionErrorText, setDescriptionErrorText] = useState<string>('');
   const nameRef = useRef<HTMLInputElement>();
+  const { t } = useTranslation();
 
   const language = useAppSelector(selectLanguage);
 
@@ -47,13 +46,13 @@ export const SavingEntryForm = (props: Props) => {
       <TextField
         sx={{ m: 1 }}
         required
-        label={'Name'}
+        label={t('Name')}
         name={'name'}
         variant={'outlined'}
         size={'small'}
-        placeholder={props.namePlaceholder}
+        placeholder={t('Car')}
         onChange={(event) =>
-          setNameErrorText(requiredMaxLength(event.target.value))
+          setNameErrorText(requiredMaxLength(t, event.target.value))
         }
         inputRef={nameRef}
         helperText={nameErrorText}
@@ -61,7 +60,7 @@ export const SavingEntryForm = (props: Props) => {
       <TextField
         sx={{ m: 1 }}
         required
-        label={'Amount'}
+        label={t('Amount')}
         name={'value'}
         variant={'outlined'}
         size={'small'}
@@ -80,26 +79,24 @@ export const SavingEntryForm = (props: Props) => {
         onChange={(event) =>
           isValidNumber(event.target.value)
             ? setAmountErrorText(' ')
-            : setAmountErrorText('Must be a valid number')
+            : setAmountErrorText(t('Must be a valid number'))
         }
         helperText={amountErrorText}
       />
       <TextField
         sx={{ m: 1 }}
-        label={'Description'}
+        label={t('Description')}
         name={'description'}
         variant={'outlined'}
         size={'small'}
-        placeholder={
-          props.descriptionPlaceholder ? props.descriptionPlaceholder : ''
-        }
+        placeholder={t('Autogiro - den 25e')}
         onChange={(event) =>
           setDescriptionErrorText(maxLength(event.target.value))
         }
         helperText={descriptionErrorText}
       />
       <Button sx={{ m: 1 }} variant="contained" type={'submit'}>
-        Add
+        {t('Add saving')}
       </Button>
     </Box>
   );

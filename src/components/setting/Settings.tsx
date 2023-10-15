@@ -22,6 +22,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const Settings = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ export const Settings = () => {
   const language = useAppSelector(selectLanguage);
   const savedTabHome = useAppSelector(selectSavedTabHome);
   const saveTab = useAppSelector(selectSaveTab);
+  const { t, i18n } = useTranslation();
 
   const [savedTabHomeState, setSavedTabHomeState] = useState('-1');
 
@@ -41,11 +43,15 @@ export const Settings = () => {
   };
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const language =
-      event.target.value === 'SEK'
-        ? { currency: 'SEK', locale: 'sv-SE' }
-        : { currency: 'USD', locale: 'en-US' };
-    dispatch(setLanguage(language));
+    if (event.target.value === 'sv') {
+      dispatch(
+        setLanguage({ language: 'sv', currency: 'SEK', locale: 'sv-SE' }),
+      );
+    } else if (event.target.value === 'en') {
+      dispatch(
+        setLanguage({ language: 'en', currency: 'USD', locale: 'en-US' }),
+      );
+    }
   };
 
   const handleSavedTabChange = (event: SelectChangeEvent) => {
@@ -62,11 +68,11 @@ export const Settings = () => {
 
   return (
     <div>
-      <h2>Settings</h2>
+      <h2>{t('Settings')}</h2>
       <div>
         <FormControl sx={{ display: 'inline-block', my: 2 }}>
           <FormLabel id={'decimal-places-radio-group'}>
-            Decimal Places
+            {t('Decimal Places')}
           </FormLabel>
           <RadioGroup
             row
@@ -99,23 +105,23 @@ export const Settings = () => {
 
       <div>
         <FormControl sx={{ display: 'inline-block', my: 2 }}>
-          <FormLabel id={'language-radio-group'}>Language</FormLabel>
+          <FormLabel id={'language-radio-group'}>{t('Language')}</FormLabel>
           <RadioGroup
             row
             aria-labelledby={'language-radio-group'}
             name={'language-radio-group'}
-            value={language.currency}
+            value={language.language}
             onChange={handleLanguageChange}
           >
             <FormControlLabel
               labelPlacement={'top'}
-              value={'SEK'}
+              value={'sv'}
               control={<Radio />}
               label={'Svenska'}
             />
             <FormControlLabel
               labelPlacement={'top'}
-              value={'USD'}
+              value={'en'}
               control={<Radio />}
               label={'English'}
             />
@@ -130,18 +136,18 @@ export const Settings = () => {
             enterDelay={700}
           >
             <div>
-              <InputLabel id="default-home-tab-label">Tab</InputLabel>
+              <InputLabel id="default-home-tab-label">{t('Tab')}</InputLabel>
               <Select
                 labelId="default-home-tab-label"
                 id="default-home-tab"
                 value={savedTabHomeState}
-                label="Tab"
+                label={t('Tab')}
                 onChange={handleSavedTabChange}
               >
-                <MenuItem value={-1}>Last selected</MenuItem>
-                <MenuItem value={0}>Income</MenuItem>
-                <MenuItem value={1}>Expenses</MenuItem>
-                <MenuItem value={2}>Savings</MenuItem>
+                <MenuItem value={-1}>{t('Last selected')}</MenuItem>
+                <MenuItem value={0}>{t('Income')}</MenuItem>
+                <MenuItem value={1}>{t('Expenses')}</MenuItem>
+                <MenuItem value={2}>{t('Savings')}</MenuItem>
               </Select>
             </div>
           </Tooltip>

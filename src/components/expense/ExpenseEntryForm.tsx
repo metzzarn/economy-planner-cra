@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'hooks';
 import { selectLanguage } from 'redux/settingsSlice';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   action: (
@@ -26,9 +27,6 @@ interface Props {
     description: string,
     priority: string,
   ) => void;
-  namePlaceholder: string;
-  descriptionPlaceholder?: string;
-  buttonText?: string;
 }
 
 export const ExpenseEntryForm = (props: Props) => {
@@ -39,6 +37,7 @@ export const ExpenseEntryForm = (props: Props) => {
   const [descriptionErrorText, setDescriptionErrorText] = useState<string>('');
   const [priority, setPriority] = useState<string>(priorities[0]);
   const nameRef = useRef<HTMLInputElement>();
+  const { t } = useTranslation();
 
   const language = useAppSelector(selectLanguage);
 
@@ -68,13 +67,13 @@ export const ExpenseEntryForm = (props: Props) => {
       <TextField
         sx={{ m: 1 }}
         required
-        label={'Name'}
+        label={t('Name')}
         name={'name'}
         variant={'outlined'}
         size={'small'}
-        placeholder={props.namePlaceholder}
+        placeholder={t('Rent')}
         onChange={(event) =>
-          setNameErrorText(requiredMaxLength(event.target.value))
+          setNameErrorText(requiredMaxLength(t, event.target.value))
         }
         inputRef={nameRef}
         helperText={nameErrorText}
@@ -82,7 +81,7 @@ export const ExpenseEntryForm = (props: Props) => {
       <TextField
         sx={{ m: 1 }}
         required
-        label={'Amount'}
+        label={t('Amount')}
         name={'value'}
         variant={'outlined'}
         size={'small'}
@@ -101,45 +100,42 @@ export const ExpenseEntryForm = (props: Props) => {
         onChange={(event) =>
           isValidNumber(event.target.value)
             ? setAmountErrorText(' ')
-            : setAmountErrorText('Must be a valid number')
+            : setAmountErrorText(t('Must be a valid number'))
         }
         helperText={amountErrorText}
       />
       <TextField
         sx={{ m: 1 }}
-        label={'Description'}
+        label={t('Description')}
         name={'description'}
         variant={'outlined'}
         size={'small'}
-        placeholder={
-          props.descriptionPlaceholder ? props.descriptionPlaceholder : ''
-        }
+        placeholder={t('E-faktura')}
         onChange={(event) =>
           setDescriptionErrorText(maxLength(event.target.value))
         }
         helperText={descriptionErrorText}
       />
-      <Tooltip title={'Set priority of the expense'} enterDelay={700}>
+      <Tooltip title={t('Set priority of the expense')} enterDelay={700}>
         <div>
-          <InputLabel id="priority-label">Priority</InputLabel>
+          <InputLabel id="priority-label">{t('Priority')}</InputLabel>
           <Select
             labelId="priority-label"
             id="priority"
             defaultValue={priorities[0]}
-            label={'Priority'}
             name={'priority'}
             onChange={handlePriorityChange}
           >
             {priorities.map((priority) => (
               <MenuItem key={priority} value={priority}>
-                {priority}
+                {t(priority)}
               </MenuItem>
             ))}
           </Select>
         </div>
       </Tooltip>
       <Button sx={{ m: 1 }} variant="contained" type={'submit'}>
-        Add
+        {t('Add expense')}
       </Button>
     </Box>
   );

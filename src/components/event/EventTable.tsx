@@ -3,6 +3,7 @@ import { Box, Tooltip } from '@mui/material';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import React from 'react';
 import { If } from 'components/common/If';
+import { useTranslation } from 'react-i18next';
 
 interface EventTableProps {
   removeRow: (id: string) => void;
@@ -11,15 +12,17 @@ interface EventTableProps {
 }
 
 export const EventTable = (props: EventTableProps) => {
+  const { t } = useTranslation();
+
   const columns: GridColDef[] = [
     {
       field: 'id',
-      headerName: 'Id',
+      headerName: t('Id'),
       editable: false,
     },
     {
       field: 'title',
-      headerName: 'Title',
+      headerName: t('Title'),
       flex: 2,
       minWidth: 170,
       maxWidth: 299,
@@ -27,7 +30,7 @@ export const EventTable = (props: EventTableProps) => {
     },
     {
       field: 'description',
-      headerName: 'Description',
+      headerName: t('Description'),
       flex: 5,
       minWidth: 170,
       maxWidth: 299,
@@ -42,7 +45,7 @@ export const EventTable = (props: EventTableProps) => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: () => (
-        <Tooltip title={'Complete'} enterDelay={700}>
+        <Tooltip title={t('Complete')} enterDelay={700}>
           <div style={{ cursor: 'pointer' }}>O</div>
         </Tooltip>
       ),
@@ -56,7 +59,7 @@ export const EventTable = (props: EventTableProps) => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: () => (
-        <Tooltip title={'Remove'} enterDelay={700}>
+        <Tooltip title={t('Remove')} enterDelay={700}>
           <div style={{ cursor: 'pointer' }}>X</div>
         </Tooltip>
       ),

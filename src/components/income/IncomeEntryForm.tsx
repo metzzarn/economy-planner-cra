@@ -14,12 +14,10 @@ import {
 import { useAppSelector } from 'hooks';
 import { selectLanguage } from 'redux/settingsSlice';
 import { getTax } from 'utils/skatteverket';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   action: (value: number, tax: number) => void;
-  namePlaceholder: string;
-  descriptionPlaceholder?: string;
-  buttonText?: string;
 }
 
 export const IncomeEntryForm = (props: Props) => {
@@ -29,6 +27,7 @@ export const IncomeEntryForm = (props: Props) => {
   const [tableNumber, setTableNumber] = useState<number>(32);
   const [taxYear, setTaxYear] = useState<number>(new Date().getFullYear());
   const [useSkatteverket, setUseSkatteverket] = useState<boolean>(true);
+  const { t } = useTranslation();
 
   const language = useAppSelector(selectLanguage);
 
@@ -69,7 +68,7 @@ export const IncomeEntryForm = (props: Props) => {
       <TextField
         sx={{ m: 1 }}
         required
-        label={'Gross income'}
+        label={t('Gross income')}
         name={'value'}
         variant={'outlined'}
         size={'small'}
@@ -94,7 +93,7 @@ export const IncomeEntryForm = (props: Props) => {
       />
       <TextField
         sx={{ m: 1 }}
-        label={'Tax'}
+        label={t('Tax')}
         name={'tax'}
         variant={'outlined'}
         size={'small'}
@@ -122,14 +121,14 @@ export const IncomeEntryForm = (props: Props) => {
           control={
             <Checkbox onChange={handleSkatteverketToggle} defaultChecked />
           }
-          label="Get tax from Skattverket"
+          label={t('Get tax from Skattverket')}
         />
       </FormGroup>
       <Collapse in={useSkatteverket}>
         <Box sx={{ display: 'flex' }}>
           <TextField
             sx={{ m: 1 }}
-            label={'Table number'}
+            label={t('Table number')}
             name={'table-number'}
             variant={'outlined'}
             size={'small'}
@@ -138,7 +137,7 @@ export const IncomeEntryForm = (props: Props) => {
           />
           <TextField
             sx={{ m: 1 }}
-            label={'Column'}
+            label={t('Column')}
             name={'column'}
             variant={'outlined'}
             size={'small'}
@@ -147,7 +146,7 @@ export const IncomeEntryForm = (props: Props) => {
           />
           <TextField
             sx={{ m: 1 }}
-            label={'Year'}
+            label={t('Year')}
             name={'year'}
             variant={'outlined'}
             size={'small'}
@@ -157,7 +156,7 @@ export const IncomeEntryForm = (props: Props) => {
         </Box>
       </Collapse>
       <Button sx={{ m: 1 }} variant="contained" type={'submit'}>
-        Add income
+        {t('Add income')}
       </Button>
     </Box>
   );

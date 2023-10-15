@@ -10,6 +10,7 @@ import {
   GridRenderEditCellParams,
   GridRowModel,
   GridSlotsComponentsProps,
+  GridValueFormatterParams,
 } from '@mui/x-data-grid';
 import { isValidNumber, maxLength, requiredMaxLength } from 'utils/validation';
 import {
@@ -24,6 +25,7 @@ import { currencySymbol, formatAmount } from 'utils/numberUtils';
 import { useAppSelector } from 'hooks';
 import { selectDecimalPlaces, selectLanguage } from 'redux/settingsSlice';
 import { If } from 'components/common/If';
+import { useTranslation } from 'react-i18next';
 
 interface ExpenseTableProps {
   data: ExpenseEntry[];
@@ -46,6 +48,7 @@ declare module '@mui/x-data-grid' {
 export const ExpenseTable = (props: ExpenseTableProps) => {
   const language = useAppSelector(selectLanguage);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
+  const { t } = useTranslation();
 
   const [total, setTotal] = React.useState(
     formatAmount('0,0', decimalPlaces, language),
@@ -85,28 +88,34 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
     const { error } = params;
     return (
       <div>
-        <GridEditSingleSelectCell {...params} error={!!error} />
+        <GridEditSingleSelectCell
+          getOptionLabel={(value) => t(value)}
+          {...params}
+          error={!!error}
+        />
       </div>
     );
   };
 
+  const editTooltip = t('Double-click to edit');
+
   const columns: GridColDef[] = [
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: t('Name'),
       flex: 5,
       minWidth: 200,
       maxWidth: 250,
       editable: true,
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
-        const errorMessage = requiredMaxLength(params.props.value);
+        const errorMessage = requiredMaxLength(t, params.props.value);
         const error = errorMessage.length > 0 ? errorMessage : null;
         return { ...params.props, error: error };
       },
       renderEditCell: renderEdit,
       renderCell: (params: GridCellParams) => {
         return (
-          <Tooltip title={'Double-click to edit'} enterDelay={700}>
+          <Tooltip title={editTooltip} enterDelay={700}>
             <span>{params.value as string}</span>
           </Tooltip>
         );
@@ -114,7 +123,7 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
     },
     {
       field: 'amount',
-      headerName: 'Amount',
+      headerName: t('Amount'),
       flex: 2,
       minWidth: 80,
       maxWidth: 140,
@@ -123,13 +132,13 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
         const errorMessage = isValidNumber(params.props.value)
           ? null
-          : 'Must be a valid number';
+          : t('Must be a valid number');
         return { ...params.props, error: errorMessage };
       },
       renderEditCell: renderEdit,
       renderCell: (params: GridCellParams) => {
         return (
-          <Tooltip title={'Double-click to edit'} enterDelay={700}>
+          <Tooltip title={editTooltip} enterDelay={700}>
             <span>
               {formatAmount(params.value as string, decimalPlaces, language)}
             </span>
@@ -139,7 +148,7 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
     },
     {
       field: 'description',
-      headerName: 'Description',
+      headerName: t('Description'),
       flex: 5,
       minWidth: 200,
       maxWidth: 250,
@@ -154,14 +163,16 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
     {
       field: 'priority',
       type: 'singleSelect',
-      headerName: 'Priority',
+      headerName: t('Priority'),
       flex: 5,
       minWidth: 85,
       maxWidth: 100,
       editable: true,
-      valueOptions: ({ row }) => {
+      valueOptions: () => {
         return ['Must', 'Need', 'Want'];
       },
+      valueFormatter: (params: GridValueFormatterParams<number>) =>
+        t(params.value.toLocaleString()),
       renderEditCell: renderPriorityEdit,
     },
     {
@@ -174,7 +185,7 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: () => (
-        <Tooltip title={'Remove'} enterDelay={700}>
+        <Tooltip title={t('Remove')} enterDelay={700}>
           <div style={{ cursor: 'pointer' }}>X</div>
         </Tooltip>
       ),
@@ -203,7 +214,7 @@ export const ExpenseTable = (props: ExpenseTableProps) => {
         }}
       >
         <Typography sx={{ width: '100%', p: 1 }} align={'right'}>
-          Total {props.total}
+          {t('Total', { total: props.total })}
         </Typography>
       </Box>
     );
