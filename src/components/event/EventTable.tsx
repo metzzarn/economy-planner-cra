@@ -4,8 +4,10 @@ import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import React from 'react';
 import { If } from 'components/common/If';
 import { useTranslation } from 'react-i18next';
+import { EventStatus } from 'components/event/EventStatus';
 
 interface EventTableProps {
+  eventStatus: EventStatus;
   removeRow: (id: string) => void;
   updateStatus: (id: string) => void;
   events: EventEntry[];
@@ -13,6 +15,10 @@ interface EventTableProps {
 
 export const EventTable = (props: EventTableProps) => {
   const { t } = useTranslation();
+  const moveTo =
+    props.eventStatus === EventStatus.CREATED
+      ? t('Move to complete')
+      : t('Move to incomplete');
 
   const columns: GridColDef[] = [
     {
@@ -45,7 +51,7 @@ export const EventTable = (props: EventTableProps) => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: () => (
-        <Tooltip title={t('Complete')} enterDelay={700}>
+        <Tooltip title={moveTo} enterDelay={700}>
           <div style={{ cursor: 'pointer' }}>O</div>
         </Tooltip>
       ),

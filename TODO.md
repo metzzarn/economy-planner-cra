@@ -2,7 +2,7 @@
 
 ## Soon
 
-- Change tooltip of 'complete' in events
+- Organize translations
 
 - Verify that the language detector works as expected
 

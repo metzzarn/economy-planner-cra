@@ -22,13 +22,13 @@ import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export const Events = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const title = useAppSelector(selectEventTitle) || 'Events';
+  const title = useAppSelector(selectEventTitle) || t('Events');
   const canUndo = useAppSelector(selectCanUndo);
   const canRedo = useAppSelector(selectCanRedo);
   const events = useAppSelector(selectEvents);
-  const { t } = useTranslation();
 
   const createdEvents = events.filter(
     (event: EventEntry) => EventStatus.CREATED === event.status,
@@ -61,6 +61,7 @@ export const Events = () => {
       />
       <h3>{t('Created')}</h3>
       <EventTable
+        eventStatus={EventStatus.CREATED}
         events={createdEvents}
         removeRow={(id) => dispatch(removeEvent(id))}
         updateStatus={(id) =>
@@ -74,6 +75,7 @@ export const Events = () => {
       />
       <h3>{t('Completed')}</h3>
       <EventTable
+        eventStatus={EventStatus.COMPLETE}
         events={completedEvents}
         removeRow={(id) => dispatch(removeEvent(id))}
         updateStatus={(id) =>
