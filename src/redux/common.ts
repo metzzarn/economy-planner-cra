@@ -63,7 +63,7 @@ export interface SettingsState {
 }
 
 export interface Language {
-  language: string;
+  language?: string;
   currency: string;
   locale: string;
 }

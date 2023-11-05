@@ -44,7 +44,7 @@ export default () => {
 
   useEffect(() => {
     i18n.changeLanguage(language.language);
-  }, [language]);
+  }, [language.language]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>

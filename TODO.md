@@ -4,8 +4,6 @@
 
 - Organize translations
 
-- Verify that the language detector works as expected
-
 - Format numbers using i18n
 
 - Examine if TODO list for purchases and events can be combined.

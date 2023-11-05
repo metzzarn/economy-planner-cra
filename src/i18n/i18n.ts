@@ -5,8 +5,8 @@ import swedish from './locales/swedish.json';
 import english from './locales/english.json';
 
 const resources = {
-  sv: { translations: swedish },
-  en: { translations: english },
+  'sv-SE': { translations: swedish },
+  'en-US': { translations: english },
 };
 
 i18n
@@ -14,7 +14,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'en-US',
     debug: true,
 
     // have a common namespace used around the full app
