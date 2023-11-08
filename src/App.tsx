@@ -43,8 +43,8 @@ export default () => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    i18n.changeLanguage(language.language);
-  }, [language.language]);
+    i18n.changeLanguage(language.locale);
+  }, [language.locale]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>

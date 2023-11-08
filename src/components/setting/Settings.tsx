@@ -44,13 +44,9 @@ export const Settings = () => {
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value === 'sv-SE') {
-      dispatch(
-        setLanguage({ language: 'sv-SE', currency: 'SEK', locale: 'sv-SE' }),
-      );
+      dispatch(setLanguage({ currency: 'SEK', locale: 'sv-SE' }));
     } else if (event.target.value === 'en-US') {
-      dispatch(
-        setLanguage({ language: 'en-US', currency: 'USD', locale: 'en-US' }),
-      );
+      dispatch(setLanguage({ currency: 'USD', locale: 'en-US' }));
     }
   };
 
@@ -110,9 +106,7 @@ export const Settings = () => {
             row
             aria-labelledby={'language-radio-group'}
             name={'language-radio-group'}
-            value={
-              language.language ? language.language : i18n.resolvedLanguage
-            }
+            value={language.locale ? language.locale : i18n.resolvedLanguage}
             onChange={handleLanguageChange}
           >
             <FormControlLabel
