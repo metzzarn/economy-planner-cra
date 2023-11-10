@@ -2,8 +2,6 @@
 
 ## Soon
 
-- Organize translations
-
 - Format numbers using i18n
 
 - Examine if TODO list for purchases and events can be combined.
