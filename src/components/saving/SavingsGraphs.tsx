@@ -2,9 +2,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import {
   selectInterestRate,
   selectSavings,
-  selectStartAmount,
   updateInterestRate,
-  updateStartAmount,
 } from 'redux/savingsSlice';
 import { Line } from 'react-chartjs-2';
 import { SavingEntry } from 'redux/common';
@@ -30,8 +28,9 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { currencySymbol, formatAmount } from 'utils/numberUtils';
+import { formatAmount } from 'utils/numberUtils';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 
 ChartJS.register(
   CategoryScale,
@@ -50,7 +49,6 @@ export const SavingsGraphs = () => {
   const savings = useAppSelector(selectSavings);
   const language = useAppSelector(selectLanguage);
   const decimalPlaces = useAppSelector(selectDecimalPlaces);
-  const startAmount = useAppSelector(selectStartAmount);
   const interestRate = useAppSelector(selectInterestRate);
 
   const [timeline, setTimeline] = useState(12);
@@ -68,7 +66,7 @@ export const SavingsGraphs = () => {
 
   const date = new Date();
   const months: string[] = [];
-  for (let i = 0; i < timeline; i++) {
+  for (let i = 0; i < timeline + 1; i++) {
     const firstDateOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     firstDateOfMonth.setMonth(firstDateOfMonth.getMonth() + i);
     const month = firstDateOfMonth.toLocaleString(language.locale, {
@@ -84,10 +82,18 @@ export const SavingsGraphs = () => {
     const backgroundColor = 'hsl(' + number + ', 80%, 35%)';
 
     const savingValue = saving.value ? saving.value : 0;
-    let sum = startAmount;
-    const accumulatedSavingsPerMonth = months.map(() => {
-      sum *= 1 + interestRate / 100 / 12;
-      sum += savingValue;
+    const savedMonths = dayjs().diff(
+      dayjs(saving.totalSavingsAmountDate),
+      'month',
+    );
+    let sum = saving.totalSavingsAmount
+      ? saving.totalSavingsAmount + savedMonths * savingValue
+      : 0;
+    const accumulatedSavingsPerMonth = months.map((month, index) => {
+      if (index > 0) {
+        sum *= 1 + interestRate / 100 / 12;
+        sum += savingValue;
+      }
       return sum;
     });
 
@@ -120,31 +126,6 @@ export const SavingsGraphs = () => {
       <h3>{t('Savings Graphs')}</h3>
 
       <Box sx={{ my: 2 }}>
-        <FormControl size={'small'}>
-          <TextField
-            sx={{ width: 120, m: 1 }}
-            label={t('Start amount')}
-            name={'start-amount'}
-            variant={'outlined'}
-            type={'number'}
-            size={'small'}
-            placeholder={'8'}
-            defaultValue={startAmount}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position={'end'}>
-                  {currencySymbol(language).symbol}
-                </InputAdornment>
-              ),
-            }}
-            onChange={(event) =>
-              dispatch(updateStartAmount(Number(event.target.value)))
-            }
-          />
-        </FormControl>
         <FormControl sx={{ width: 120, m: 1 }} size={'small'}>
           <InputLabel>{t('Timeline')}</InputLabel>
           <Select

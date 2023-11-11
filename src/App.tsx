@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'hooks';
 import { selectLanguage } from 'redux/settingsSlice';
 import { TFunction } from 'i18next';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
@@ -49,7 +51,9 @@ export default () => {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <App t={t} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <App t={t} />
+        </LocalizationProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

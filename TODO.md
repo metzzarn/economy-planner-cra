@@ -2,7 +2,7 @@
 
 ## Soon
 
-- Format numbers using i18n
+- Set date format using chosen language
 
 - Examine if TODO list for purchases and events can be combined.
 
@@ -16,8 +16,6 @@
 - Add TODO list for purchases 
 
 - Calculate employer fee (arbetsgivaravgift) per income
-
-- Set total saved amount per saving
 
 - Add dashboard tab with summary 
 

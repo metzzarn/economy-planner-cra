@@ -72,7 +72,6 @@
       ],
       "description": "Monthly savings",
       "calculations": {
-        "startAmount": 10000,
         "interestRate": 8
       }
     },

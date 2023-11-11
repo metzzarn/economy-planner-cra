@@ -74,8 +74,22 @@ export const Savings = () => {
         <Collapse in={showAddForm}>
           <div>
             <SavingEntryForm
-              action={(name, value, description) =>
-                dispatch(addSaving({ name, value, description }))
+              action={(
+                name,
+                value,
+                totalSavingsAmount,
+                totalSavingsAmountDate,
+                description,
+              ) =>
+                dispatch(
+                  addSaving({
+                    name,
+                    value,
+                    totalSavingsAmount,
+                    totalSavingsAmountDate,
+                    description,
+                  }),
+                )
               }
             />
           </div>
@@ -90,12 +104,21 @@ export const Savings = () => {
       />
       <SavingsTable
         data={savings}
-        updateRow={(id, name, amount, description) => {
+        updateRow={(
+          id,
+          name,
+          amount,
+          totalSavingsAmount,
+          totalSavingsAmountDate,
+          description,
+        ) => {
           dispatch(
             updateSaving({
               index: id,
               name: name,
               value: convertToNumber(amount),
+              totalSavingsAmount: convertToNumber(totalSavingsAmount),
+              totalSavingsAmountDate: totalSavingsAmountDate,
               description: description,
             }),
           );

@@ -31,6 +31,8 @@ interface SavingsTableProps {
     index: number,
     name: string,
     amount: string,
+    totalSavingsAmount: string,
+    totalSavingsAmountDate: string,
     description: string,
   ) => void;
   removeRow: (index: number) => void;
@@ -108,9 +110,9 @@ export const SavingsTable = (props: SavingsTableProps) => {
     {
       field: 'amount',
       headerName: t('Amount'),
-      flex: 2,
-      minWidth: 80,
-      maxWidth: 140,
+      flex: 1,
+      minWidth: 70,
+      maxWidth: 100,
       editable: true,
 
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
@@ -131,11 +133,46 @@ export const SavingsTable = (props: SavingsTableProps) => {
       },
     },
     {
+      field: 'totalSavingsAmount',
+      headerName: t('Start amount'),
+      flex: 2,
+      minWidth: 70,
+      maxWidth: 100,
+      editable: true,
+
+      preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        const errorMessage =
+          isValidNumber(params.props.value) || params.props.value === ''
+            ? null
+            : t('Must be a valid number');
+        return { ...params.props, error: errorMessage };
+      },
+      renderEditCell: renderEdit,
+      renderCell: (params: GridCellParams) => {
+        return (
+          <Tooltip title={editTooltip} enterDelay={700}>
+            <span>
+              {formatAmount(params.value as string, decimalPlaces, language)}
+            </span>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: 'totalSavingsAmountDate',
+      headerName: t('Start date'),
+      flex: 2,
+      minWidth: 70,
+      maxWidth: 100,
+
+      renderEditCell: renderEdit,
+    },
+    {
       field: 'description',
       headerName: t('Description'),
       flex: 5,
       minWidth: 200,
-      maxWidth: 250,
+      maxWidth: 300,
       editable: true,
       preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
         const errorMessage = maxLength(params.props.value);
@@ -168,6 +205,10 @@ export const SavingsTable = (props: SavingsTableProps) => {
       amount: entry.value
         ?.toString()
         .replace('.', currencySymbol(language).decimal),
+      totalSavingsAmount: entry.totalSavingsAmount
+        ?.toString()
+        .replace('.', currencySymbol(language).decimal),
+      totalSavingsAmountDate: entry.totalSavingsAmountDate,
       description: entry.description,
     };
   });
@@ -189,7 +230,7 @@ export const SavingsTable = (props: SavingsTableProps) => {
   };
 
   return (
-    <Box sx={{ maxWidth: '700px' }}>
+    <Box sx={{ maxWidth: '900px' }}>
       <If true={rows.length > 0}>
         <DataGrid
           sx={{ mt: 1 }}
@@ -204,6 +245,8 @@ export const SavingsTable = (props: SavingsTableProps) => {
               newRow.id,
               newRow.name,
               newRow.amount,
+              newRow.totalSavingsAmount,
+              newRow.totalSavingsAmountDate,
               newRow.description,
             );
             return newRow;

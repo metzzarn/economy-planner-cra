@@ -4,6 +4,8 @@ export interface SavingEntry {
   index?: number;
   name?: string;
   value?: number;
+  totalSavingsAmount?: number;
+  totalSavingsAmountDate?: string;
   description?: string;
 }
 export interface ExpenseEntry {
@@ -19,7 +21,6 @@ export interface SavingsState {
   description: string;
   savings: SavingEntry[];
   calculations: {
-    startAmount: number;
     interestRate: number;
   };
 }

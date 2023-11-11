@@ -8,7 +8,6 @@ const initialState: SavingsState = {
   description: '',
   savings: [],
   calculations: {
-    startAmount: 0,
     interestRate: 8,
   },
 };
@@ -21,6 +20,8 @@ const savingsSlice = createSlice({
       state.savings.push({
         name: action.payload.name,
         value: action.payload.value,
+        totalSavingsAmount: action.payload.totalSavingsAmount,
+        totalSavingsAmountDate: action.payload.totalSavingsAmountDate,
         description: action.payload.description,
       });
     },
@@ -35,9 +36,16 @@ const savingsSlice = createSlice({
 
       const newArray = [...state.savings];
 
+      const totalSavingsAmount =
+        action.payload.totalSavingsAmount !== 0
+          ? action.payload.totalSavingsAmount
+          : undefined;
+
       newArray[action.payload.index] = {
         name: action.payload.name,
         value: +action.payload.value,
+        totalSavingsAmount: totalSavingsAmount,
+        totalSavingsAmountDate: action.payload.totalSavingsAmountDate,
         description: action.payload.description,
       };
 
@@ -72,15 +80,6 @@ const savingsSlice = createSlice({
         description: action.payload,
       };
     },
-    updateStartAmount: (state, action: PayloadAction<number>) => {
-      return {
-        ...state,
-        calculations: {
-          ...state.calculations,
-          startAmount: action.payload,
-        },
-      };
-    },
     updateInterestRate: (state, action: PayloadAction<number>) => {
       return {
         ...state,
@@ -112,7 +111,6 @@ export const {
   removeSaving,
   editSavingsTitle,
   editSavingsDescription,
-  updateStartAmount,
   updateInterestRate,
 } = savingsSlice.actions;
 export const selectSavings = (state: RootState) =>
@@ -121,8 +119,6 @@ export const selectSavingsTitle = (state: RootState) =>
   state.savings.present.title;
 export const selectSavingsDescription = (state: RootState) =>
   state.savings.present.description;
-export const selectStartAmount = (state: RootState) =>
-  state.savings.present.calculations.startAmount;
 export const selectInterestRate = (state: RootState) =>
   state.savings.present.calculations.interestRate;
 
