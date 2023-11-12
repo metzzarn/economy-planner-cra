@@ -2,8 +2,6 @@
 
 ## Soon
 
-- Set date format using chosen language
-
 - Examine if TODO list for purchases and events can be combined.
 
 - Create groups of events
