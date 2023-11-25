@@ -43,6 +43,7 @@
   "Required when setting a date": "Krävs när ett datum anges",
   "Required when setting saved amount": "Krävs när ett sparat belopp anges",
   "Save/Load": "Spara/Ladda",
+  "Saving {{savingsPercentage}}% of income": "Sparar {{savingsPercentage}}% av inkomsten",
   "Savings Graphs": "Grafer över sparande",
   "Savings": "Sparande",
   "Selected income": "Vald inkomst {{income}}",

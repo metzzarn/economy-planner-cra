@@ -43,6 +43,7 @@
   "Required when setting a date": "Required when setting a date",
   "Required when setting saved amount": "Required when setting saved amount",
   "Save/Load": "Save/Load",
+  "Saving {{savingsPercentage}}% of income": "Saving {{savingsPercentage}}% of income",
   "Savings Graphs": "Savings Graphs",
   "Savings": "Savings",
   "Selected income": "Selected income {{income}}",

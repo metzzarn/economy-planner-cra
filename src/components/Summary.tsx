@@ -33,13 +33,22 @@ export const Summary = () => {
     <div>
       <h2>{t('Summary')}</h2>
       <div>
-        {t('Discretionary income', {
-          amount: formatAmount(
-            discretionaryIncome.toString(),
-            decimalPlaces,
-            language,
-          ),
-        })}
+        <p>
+          {t('Discretionary income', {
+            amount: formatAmount(
+              discretionaryIncome.toString(),
+              decimalPlaces,
+              language,
+            ),
+          })}
+        </p>
+        <p>
+          {t('Saving {{savingsPercentage}}% of income', {
+            savingsPercentage: income
+              ? ((totalSavings / income.value) * 100).toFixed(0).toString()
+              : formatAmount('0', decimalPlaces, language),
+          })}
+        </p>
       </div>
     </div>
   );
